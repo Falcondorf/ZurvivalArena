@@ -2,7 +2,10 @@
 //
 
 #include "stdafx.h"
+#include <iostream>
 #include "DEVIR5-ATLC-ZurvivalArena.h"
+#include "Character.h"
+#include "Position.h"
 
 #define MAX_LOADSTRING 100
 

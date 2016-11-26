@@ -145,7 +145,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Arena.h" />
+    <ClInclude Include="Character.h" />
     <ClInclude Include="DEVIR5-ATLC-ZurvivalArena.h" />
+    <ClInclude Include="Heroes.h" />
+    <ClInclude Include="HitBox.h" />
+    <ClInclude Include="Position.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
