@@ -4,17 +4,18 @@
 #include "HitBox.h"
 class Character
 {
-private:
+protected:
 	unsigned pv_;
 	HitBox hbChar_;
+	Direction::dir direction_;
 
 public:
 
 	inline   Character();
 	inline Character(unsigned pv, HitBox hbChar);
-
+	
 	inline unsigned getPv() const;
-	//inline const HitBox &getHitBoxChar() const;
+	
 	inline void move(Direction::dir direction);
 	inline unsigned getXDL() const;
 	inline unsigned getXHR() const;
@@ -23,7 +24,7 @@ public:
 
 };
 
-Character::Character(unsigned pv, HitBox hbChar) :pv_(pv), hbChar_(hbChar) {
+Character::Character(unsigned pv, HitBox hbChar) :pv_(pv), hbChar_(hbChar),direction_(Direction::dir::up) {
 
 }
 
@@ -47,9 +48,7 @@ unsigned Character::getPv() const {
 	return pv_;
 }
 
-//const HitBox & Character::getHitBoxChar() const {
-//	return hbChar_;
-//}
+
 
 
 
@@ -57,5 +56,8 @@ Character::Character() {
 
 }
 void Character::move(Direction::dir direction) {
+	direction_ = direction;
 	hbChar_.move(direction);
+	
+
 }

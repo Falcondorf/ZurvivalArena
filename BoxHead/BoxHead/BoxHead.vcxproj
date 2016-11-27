@@ -148,6 +148,7 @@
     <ClInclude Include="Arena.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Direction.h" />
+    <ClInclude Include="enemy.h" />
     <ClInclude Include="Heroes.h" />
     <ClInclude Include="HitBox.h" />
     <ClInclude Include="Position.h" />
@@ -156,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoxHead.cpp" />
+    <ClCompile Include="Heroes.cpp" />
     <ClCompile Include="HitBox.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

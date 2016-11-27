@@ -11,7 +11,7 @@ private:
 	
 public:
 	inline HitBox();
-	inline HitBox(Position heightLeft,Position downRight);
+	inline HitBox(Position downLeft,Position heightRight);
 	
 	bool overlaps(HitBox hb);
 	inline  Position getHR() const;
