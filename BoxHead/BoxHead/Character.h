@@ -21,6 +21,10 @@ public:
 	inline unsigned getXHR() const;
 	inline unsigned getYDL() const;
 	inline unsigned getYHR() const;
+	inline void setDirection(Direction::dir direction);
+	inline HitBox getHitBox();
+	inline void removeLife();
+	inline unsigned getLife();
 
 };
 
@@ -49,8 +53,12 @@ unsigned Character::getPv() const {
 }
 
 
-
-
+void Character::setDirection(Direction::dir direction) {
+	direction_ = direction;
+ }
+inline HitBox Character::getHitBox() {
+	return hbChar_;
+}
 
 Character::Character() {
 
@@ -60,4 +68,12 @@ void Character::move(Direction::dir direction) {
 	hbChar_.move(direction);
 	
 
+}
+
+void Character::removeLife() {
+	pv_ = pv_ - 1;
+ }
+
+unsigned Character::getLife() {
+	return pv_;
 }

@@ -10,7 +10,8 @@ public:
 	inline  Heroes(std::string name,unsigned pv,HitBox hb);
 
 	inline std::string getName() const;
-	 HitBox hitPerimeter();
+	 HitBox   hitPerimeter();
+	 
 private:
 
 	std::string name_;
@@ -31,3 +32,4 @@ std::string Heroes::getName() const {
 
 	return name_;
 }
+
