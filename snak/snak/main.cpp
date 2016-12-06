@@ -1,4 +1,5 @@
 #include <SFML\Graphics.hpp>
+#include "Character.h"
 
 using namespace sf;
 
@@ -62,14 +63,14 @@ int main()
 	bottom.setOutlineColor(Color::Blue);
 	bottom.setOutlineThickness(3);
 
-	RectangleShape ball;
-	ball.setPosition(width / 4, height / 4);
-	ball.setSize(Vector2f(20, 20));
-	ball.setFillColor(Color::Red);
-	ball.setOutlineColor(Color::Yellow);
-	ball.setOutlineThickness(1);
+	Character player;
+	player.setPosition(width / 4, height / 4);
+	player.setSize(20, 20);
+	player.setFillColor(Color::Red);
+	player.setOutlineColor(Color::Yellow);
+	player.setOutlineThickness(1);
 
-	//Vector2f ballSpeed(11, 11);
+
 
 	while (window.isOpen())
 	{
@@ -78,7 +79,7 @@ int main()
 		window.draw(bottom);
 		window.draw(left);
 		window.draw(right);
-		window.draw(ball);
+		window.draw(player.getHitbox());
 		window.draw(obstacle);
 		window.display();
 
@@ -90,89 +91,6 @@ int main()
 				window.close();
 
 		}
-
-		/*	if (intersects(ball, top) || intersects(ball, bottom))
-			{
-				ballSpeed.y = -ballSpeed.y;
-			}
-			if (intersects(ball, left) || intersects(ball, right))
-			{
-				ballSpeed.x = -ballSpeed.x;
-			}*/
-
-			/*if (event.type == Event::KeyPressed)
-			{
-				switch (event.key.code)
-				{
-				case Keyboard::Up:
-
-
-					if (!intersects(ball, top) ){
-						ball.move(0, -0.1);
-					}
-					break;
-				case Keyboard::Down:
-					if (!intersects(ball, bottom)) {
-						ball.move(-0.1, -0.1);
-
-					}
-					break;
-				case Keyboard::Left:
-					if (!intersects(ball, left)) {
-						ball.move(-0.1, 0);
-					}
-					break;
-				case Keyboard::Right:
-					if(!intersects(ball, right)) {
-						ball.move(0.1, 0);
-					}
-
-
-					break;
-
-				}*/
-		/*if (event.type == Event::KeyPressed)
-		{
-
-			if (Keyboard::isKeyPressed(Keyboard::Up) && Keyboard::isKeyPressed(Keyboard::Left)) {
-				if (!intersects(ball, top) && !intersects(ball, left) && !intersects(ball, obstacle)) {
-					ball.move(-0.01, -0.01);
-				}
-			}
-			else if (Keyboard::isKeyPressed(Keyboard::Up) && Keyboard::isKeyPressed(Keyboard::Right)) {
-				if (!intersects(ball, top) && !intersects(ball, right) && !intersects(ball, obstacle)) {
-					ball.move(0.01, -0.01);
-				}
-			}
-			else if (Keyboard::isKeyPressed(Keyboard::Down) && Keyboard::isKeyPressed(Keyboard::Left)) {
-				if (!intersects(ball, bottom) && !intersects(ball, left) && !intersects(ball, obstacle)) {
-					ball.move(-0.01, 0.01);
-				}
-			}if (Keyboard::isKeyPressed(Keyboard::Down) && Keyboard::isKeyPressed(Keyboard::Right)) {
-				if (!intersects(ball, bottom) && !intersects(ball, right) && !intersects(ball, obstacle)) {
-					ball.move(0.01, 0.01);
-				}
-			}if (Keyboard::isKeyPressed(Keyboard::Down)) {
-				if (!intersects(ball, bottom) && !intersects(ball, obstacle)) {
-					ball.move(0, 0.1);
-				}
-			}if (Keyboard::isKeyPressed(Keyboard::Up)) {
-				if (!intersects(ball, top) && !intersects(ball, obstacle) && !intersects(ball, obstacle)) {
-					ball.move(0, -0.1);
-				}				
-			}if (Keyboard::isKeyPressed(Keyboard::Right)) {
-				if (!intersects(ball, right) && !intersects(ball, obstacle)) {
-					ball.move(0.1, 0);
-				}
-			}
-			if (Keyboard::isKeyPressed(Keyboard::Left)) {
-				if (!intersects(ball, left) && !intersects(ball, obstacle)) {
-					ball.move(-0.1, 0);
-				}
-		
-
-			}
-		}*/
 
 
 		if (event.type == Event::KeyPressed){
@@ -190,10 +108,10 @@ int main()
 				xMov += 0.1;
 			}
 
-			if (!intersects(ball,obstacle)) {
-				ball.move(xMov, yMov);
+			if (!intersects(player.getHitbox(),obstacle)) {
+				player.move(xMov, yMov);
 			}else {
-				ball.setPosition(ball.getPosition().x -xMov*10, ball.getPosition().y - yMov*10);
+				player.setPosition(player.getHitbox().getPosition().x -xMov*10, player.getHitbox().getPosition().y - yMov*10);
 			}
 			
 		}

@@ -7,6 +7,8 @@
 #include "Character.h"
 #include "Heroes.h"
 #include "enemy.h"
+#include "Element.h"
+
 
 int main()
 {
@@ -120,6 +122,13 @@ int main()
 
 	heroes.setDirection(Direction::dir::right);
 	std::cout << "TEST RIGHT 001->1" << " " << heroes.hitPerimeter().overlaps(hbRight2) << std::endl;
+
+	// Creation floor 
+
+	Position posFloor(0, 0);
+	Position posFloor2(2, 2);
+	Element floor(posFloor, posFloor2, "floor");
+	//std::cout << floor.getIsReachable();
 
 }
 

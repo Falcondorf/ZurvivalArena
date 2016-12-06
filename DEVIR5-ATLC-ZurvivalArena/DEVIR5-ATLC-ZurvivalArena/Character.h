@@ -1,8 +1,11 @@
 #pragma once
 
+#include "SFML/Graphics.hpp"
 #include "Position.h"
 
-class Character
+using namespace sf;
+
+class Character : RectangleShape
 {
 private:
 	unsigned pv_;

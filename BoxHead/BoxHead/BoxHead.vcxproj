@@ -149,6 +149,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="Element.h" />
     <ClInclude Include="Heroes.h" />
     <ClInclude Include="HitBox.h" />
     <ClInclude Include="Position.h" />
