@@ -1,5 +1,7 @@
 #include "Character.h"
 
+using namespace sf;
+
 void Character::move(float f1, float f2) {
 	hitbox_.move(f1, f2);
 }

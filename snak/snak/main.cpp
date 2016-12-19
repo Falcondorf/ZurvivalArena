@@ -1,14 +1,18 @@
 #include <SFML\Graphics.hpp>
+
 #include "Character.h"
+#include "Arena.h"
 
 using namespace sf;
 
-bool intersects(const RectangleShape & rect1, const RectangleShape & rect2)
-{
-	FloatRect r1 = rect1.getGlobalBounds();
-	FloatRect r2 = rect2.getGlobalBounds();
-	return r1.intersects(r2);
-}
+//bool intersects(const RectangleShape & rect1, const RectangleShape & rect2)
+//{
+//	FloatRect r1 = rect1.getGlobalBounds();
+//	FloatRect r2 = rect2.getGlobalBounds();
+//	return r1.intersects(r2);
+//}
+
+
 
 
 int main()
@@ -64,6 +68,8 @@ int main()
 	bottom.setOutlineColor(Color::Blue);
 	bottom.setOutlineThickness(3);
 
+	Arena myArena(400, 400);
+
 	Character player;
 	player.setPosition(width / 4, height / 4);
 	player.setSize(20, 20);
@@ -83,17 +89,17 @@ int main()
 	while (window.isOpen())
 	{
 		window.clear(Color::White);
-		window.draw(top);
-		window.draw(bottom);
-		window.draw(left);
-		window.draw(right);
 		window.draw(player.getHitbox());
 		window.draw(player2.getHitbox());
-		window.draw(obstacle);
+		for (int i = 0; i < myArena.getObstacles().size(); i++) {
+			window.draw(myArena.getObstacles()[i]);
+		}
+
 		window.display();
 
 		Event event;
-		Event event2;
+
+		
 		while (window.pollEvent(event))
 		{
 			if ((event.type == Event::Closed) ||
@@ -101,8 +107,8 @@ int main()
 				window.close();
 
 		}
-
-
+		
+		
 		if (event.type == Event::KeyPressed){
 			float xMov = 0, yMov = 0, xMov2 = 0, yMov2 = 0;
 			if (Keyboard::isKeyPressed(Keyboard::Up)) {
@@ -117,32 +123,37 @@ int main()
 			if (Keyboard::isKeyPressed(Keyboard::Right)) {
 				xMov += 0.1;
 			}
-			if (Keyboard::isKeyPressed(Keyboard::Z)) {
+			if (Keyboard::isKeyPressed(Keyboard::F1)) {
 				yMov2 -= 0.1;
 			}
-			if (Keyboard::isKeyPressed(Keyboard::S)) {
+			if (Keyboard::isKeyPressed(Keyboard::F2)) {
 				yMov2 += 0.1;
 			}
-			if (Keyboard::isKeyPressed(Keyboard::Q)) {
+			if (Keyboard::isKeyPressed(Keyboard::F3)) {
 				xMov2 -= 0.1;
 			}
-			if (Keyboard::isKeyPressed(Keyboard::D)) {
+			if (Keyboard::isKeyPressed(Keyboard::F4)) {
 				xMov2 += 0.1;
 			}
 
-			if (!intersects(player.getHitbox(), obstacle)) {
+			if (!intersects(player2.getHitbox(), obstacle) && !intersects(player2.getHitbox(),top) && !intersects(player2.getHitbox(), bottom) && !intersects(player2.getHitbox(), left) && !intersects(player2.getHitbox(), right)) {
+				player2.move(xMov2, yMov2);
+			}
+		
+			else if (intersects(player2.getHitbox(), obstacle)|| intersects(player2.getHitbox(), top) || intersects(player2.getHitbox(), bottom) || intersects(player2.getHitbox(), right) || intersects(player2.getHitbox(), left) ) {
+				player2.setPosition(player2.getHitbox().getPosition().x - xMov2 * 10, player2.getHitbox().getPosition().y - yMov2 * 10);
+			}
+			
+
+			if (!intersects(player.getHitbox(), obstacle) && !intersects(player.getHitbox(), top) && !intersects(player.getHitbox(), bottom) && !intersects(player.getHitbox(), left) && !intersects(player.getHitbox(), right)) {
 				player.move(xMov, yMov);
-			}else {
+			}else if(intersects(player.getHitbox(), obstacle) || intersects(player.getHitbox(), top) || intersects(player.getHitbox(), bottom) || intersects(player.getHitbox(), right) || intersects(player.getHitbox(), left)){
 				player.setPosition(player.getHitbox().getPosition().x -xMov*10, player.getHitbox().getPosition().y - yMov*10);
 				
 			}
-			if (!intersects(player2.getHitbox(), obstacle)) {
-				player2.move(xMov2, yMov2);
-			}
-			else {
-				player2.setPosition(player2.getHitbox().getPosition().x - xMov2 * 10, player2.getHitbox().getPosition().y - yMov2 * 10);
-			}
 		}
+
+		
 
 
 
