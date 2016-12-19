@@ -10,6 +10,7 @@ bool intersects(const RectangleShape & rect1, const RectangleShape & rect2)
 	return r1.intersects(r2);
 }
 
+
 int main()
 {
 	const int width = 640;
@@ -70,6 +71,13 @@ int main()
 	player.setOutlineColor(Color::Yellow);
 	player.setOutlineThickness(1);
 
+	Character player2;
+	player2.setPosition(width / 6, height / 6);
+	player2.setSize(20, 20);
+	player2.setFillColor(Color::Blue);
+	player2.setOutlineColor(Color::Yellow);
+	player2.setOutlineThickness(1);
+
 
 
 	while (window.isOpen())
@@ -80,10 +88,12 @@ int main()
 		window.draw(left);
 		window.draw(right);
 		window.draw(player.getHitbox());
+		window.draw(player2.getHitbox());
 		window.draw(obstacle);
 		window.display();
 
 		Event event;
+		Event event2;
 		while (window.pollEvent(event))
 		{
 			if ((event.type == Event::Closed) ||
@@ -94,7 +104,7 @@ int main()
 
 
 		if (event.type == Event::KeyPressed){
-			float xMov = 0, yMov = 0;
+			float xMov = 0, yMov = 0, xMov2 = 0, yMov2 = 0;
 			if (Keyboard::isKeyPressed(Keyboard::Up)) {
 				yMov -= 0.1;
 			}
@@ -107,13 +117,31 @@ int main()
 			if (Keyboard::isKeyPressed(Keyboard::Right)) {
 				xMov += 0.1;
 			}
+			if (Keyboard::isKeyPressed(Keyboard::Z)) {
+				yMov2 -= 0.1;
+			}
+			if (Keyboard::isKeyPressed(Keyboard::S)) {
+				yMov2 += 0.1;
+			}
+			if (Keyboard::isKeyPressed(Keyboard::Q)) {
+				xMov2 -= 0.1;
+			}
+			if (Keyboard::isKeyPressed(Keyboard::D)) {
+				xMov2 += 0.1;
+			}
 
-			if (!intersects(player.getHitbox(),obstacle)) {
+			if (!intersects(player.getHitbox(), obstacle)) {
 				player.move(xMov, yMov);
 			}else {
 				player.setPosition(player.getHitbox().getPosition().x -xMov*10, player.getHitbox().getPosition().y - yMov*10);
+				
 			}
-			
+			if (!intersects(player2.getHitbox(), obstacle)) {
+				player2.move(xMov2, yMov2);
+			}
+			else {
+				player2.setPosition(player2.getHitbox().getPosition().x - xMov2 * 10, player2.getHitbox().getPosition().y - yMov2 * 10);
+			}
 		}
 
 
