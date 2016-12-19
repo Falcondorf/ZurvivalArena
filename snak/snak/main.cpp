@@ -2,7 +2,7 @@
 
 #include "Character.h"
 #include "Arena.h"
-
+#include "Game.h"
 using namespace sf;
 
 //bool intersects(const RectangleShape & rect1, const RectangleShape & rect2)
@@ -19,6 +19,14 @@ int main()
 {
 	const int width = 640;
 	const int height = 480;
+	
+	Character player2(Position(250, 250), 3);
+	Character player(Position(10,10), 3);
+	std::vector<Character> players;
+	players.push_back(player);
+	players.push_back(player2);
+
+	Game game = Game(width, height,players);
 	const int borderSize = 30;
 
 	VideoMode videoMode(width, height);
@@ -40,51 +48,10 @@ int main()
 
 
 
-	top.setPosition(borderSize, 0);
-	top.setSize(Vector2f(width - 2 * borderSize, borderSize));
 
-	left.setPosition(0, 0);
-	left.setSize(Vector2f(borderSize, height));
+	Arena myArena(620, 460);
 
-	right.setPosition(width - borderSize, 0);
-	right.setSize(Vector2f(borderSize, height));
-
-	bottom.setPosition(borderSize, height - borderSize);
-	bottom.setSize(Vector2f(width - 2 * borderSize, borderSize));
-
-	top.setFillColor(Color(100, 100, 100));
-	top.setOutlineColor(Color::Blue);
-	top.setOutlineThickness(3);
-
-	left.setFillColor(Color(100, 100, 100));
-	left.setOutlineColor(Color::Blue);
-	left.setOutlineThickness(3);
-
-	right.setFillColor(Color(100, 100, 100));
-	right.setOutlineColor(Color::Blue);
-	right.setOutlineThickness(3);
-
-	bottom.setFillColor(Color(100, 100, 100));
-	bottom.setOutlineColor(Color::Blue);
-	bottom.setOutlineThickness(3);
-
-	Arena myArena(400, 400);
-
-	Character player;
-	player.setPosition(width / 4, height / 4);
-	player.setSize(20, 20);
-	player.setFillColor(Color::Red);
-	player.setOutlineColor(Color::Yellow);
-	player.setOutlineThickness(1);
-
-	Character player2;
-	player2.setPosition(width / 6, height / 6);
-	player2.setSize(20, 20);
-	player2.setFillColor(Color::Blue);
-	player2.setOutlineColor(Color::Yellow);
-	player2.setOutlineThickness(1);
-
-
+	
 
 	while (window.isOpen())
 	{
@@ -136,21 +103,28 @@ int main()
 				xMov2 += 0.1;
 			}
 
-			if (!intersects(player2.getHitbox(), obstacle) && !intersects(player2.getHitbox(),top) && !intersects(player2.getHitbox(), bottom) && !intersects(player2.getHitbox(), left) && !intersects(player2.getHitbox(), right)) {
+			if (!game.hasCollision(0, xMov, yMov)) {
+				player.move(xMov, yMov);
+			}
+			if (!game.hasCollision(1, xMov, yMov)) {
 				player2.move(xMov2, yMov2);
 			}
-		
-			else if (intersects(player2.getHitbox(), obstacle)|| intersects(player2.getHitbox(), top) || intersects(player2.getHitbox(), bottom) || intersects(player2.getHitbox(), right) || intersects(player2.getHitbox(), left) ) {
-				player2.setPosition(player2.getHitbox().getPosition().x - xMov2 * 10, player2.getHitbox().getPosition().y - yMov2 * 10);
-			}
-			
 
-			if (!intersects(player.getHitbox(), obstacle) && !intersects(player.getHitbox(), top) && !intersects(player.getHitbox(), bottom) && !intersects(player.getHitbox(), left) && !intersects(player.getHitbox(), right)) {
-				player.move(xMov, yMov);
-			}else if(intersects(player.getHitbox(), obstacle) || intersects(player.getHitbox(), top) || intersects(player.getHitbox(), bottom) || intersects(player.getHitbox(), right) || intersects(player.getHitbox(), left)){
-				player.setPosition(player.getHitbox().getPosition().x -xMov*10, player.getHitbox().getPosition().y - yMov*10);
-				
-			}
+			//if (!intersects(player2.getHitbox(), obstacle) && !intersects(player2.getHitbox(),top) && !intersects(player2.getHitbox(), bottom) && !intersects(player2.getHitbox(), left) && !intersects(player2.getHitbox(), right)) {
+			//	player2.move(xMov2, yMov2);
+			//}
+		
+			//else if (intersects(player2.getHitbox(), obstacle)|| intersects(player2.getHitbox(), top) || intersects(player2.getHitbox(), bottom) || intersects(player2.getHitbox(), right) || intersects(player2.getHitbox(), left) ) {
+			//	player2.setPosition(player2.getHitbox().getPosition().x - xMov2 * 10, player2.getHitbox().getPosition().y - yMov2 * 10);
+			//}
+			//
+
+			//if (!intersects(player.getHitbox(), obstacle) && !intersects(player.getHitbox(), top) && !intersects(player.getHitbox(), bottom) && !intersects(player.getHitbox(), left) && !intersects(player.getHitbox(), right)) {
+			//	player.move(xMov, yMov);
+			//}else if(intersects(player.getHitbox(), obstacle) || intersects(player.getHitbox(), top) || intersects(player.getHitbox(), bottom) || intersects(player.getHitbox(), right) || intersects(player.getHitbox(), left)){
+			//	player.setPosition(player.getHitbox().getPosition().x -xMov*10, player.getHitbox().getPosition().y - yMov*10);
+			//	
+			//}
 		}
 
 		

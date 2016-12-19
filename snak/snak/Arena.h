@@ -12,6 +12,7 @@ private:
 	std::vector<sf::RectangleShape> obstacles;
 
 public:
+	Arena()=default;
 	Arena(unsigned width,unsigned height);
 	inline const std::vector<sf::RectangleShape> & getObstacles() const;
 

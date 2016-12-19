@@ -21,6 +21,7 @@ public:
 	void setOutlineThickness(int i);
 	void setSize(float f1, float f2);
 	inline Character();
+	inline Character(Position position,int pv);
 	inline unsigned getPv() const;
 	inline const sf::RectangleShape &getHitbox() const;
 	inline const Position &getPosition() const;
@@ -40,5 +41,14 @@ const Position & Character::getPosition() const {
 }
 
 Character::Character() {
+
+
+}
+Character::Character(Position position, int pv):position_(position),pv_(pv){
+	hitbox_.setPosition(position.getX(),position.getY());
+	hitbox_.setSize(sf::Vector2f(20,20));
+	hitbox_.setFillColor(sf::Color::Red);
+	hitbox_.setOutlineColor(sf::Color::Yellow);
+	hitbox_.setOutlineThickness(1);
 
 }
