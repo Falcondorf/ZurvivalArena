@@ -5,16 +5,6 @@
 #include "Game.h"
 using namespace sf;
 
-//bool intersects(const RectangleShape & rect1, const RectangleShape & rect2)
-//{
-//	FloatRect r1 = rect1.getGlobalBounds();
-//	FloatRect r2 = rect2.getGlobalBounds();
-//	return r1.intersects(r2);
-//}
-
-
-
-
 int main()
 {
 	const int width = 640;
@@ -27,6 +17,7 @@ int main()
 	players.push_back(player2);
 
 	Game game = Game(width, height,players);
+
 	const int borderSize = 30;
 
 	VideoMode videoMode(width, height);
@@ -49,15 +40,18 @@ int main()
 
 
 
-	Arena myArena(620, 460);
+	Arena myArena(640, 480);
 
 	
 
 	while (window.isOpen())
 	{
 		window.clear(Color::White);
-		window.draw(player.getHitbox());
-		window.draw(player2.getHitbox());
+		
+		for (int i = 0; i < game.getPlayers().size(); i++) {
+			window.draw(game.getPlayers().at(i).getHitbox());
+		}
+		
 		for (int i = 0; i < myArena.getObstacles().size(); i++) {
 			window.draw(myArena.getObstacles()[i]);
 		}
@@ -80,6 +74,7 @@ int main()
 			float xMov = 0, yMov = 0, xMov2 = 0, yMov2 = 0;
 			if (Keyboard::isKeyPressed(Keyboard::Up)) {
 				yMov -= 0.1;
+				
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Down)) {
 				yMov += 0.1;
@@ -104,37 +99,22 @@ int main()
 			}
 
 			if (!game.hasCollision(0, xMov, yMov)) {
-				player.move(xMov, yMov);
+				game.move(0, xMov, yMov);
 			}
-			if (!game.hasCollision(1, xMov, yMov)) {
-				player2.move(xMov2, yMov2);
+			if (!game.hasCollision(1, xMov2, yMov2)) {
+				game.move(1, xMov2, yMov2);
 			}
 
-			//if (!intersects(player2.getHitbox(), obstacle) && !intersects(player2.getHitbox(),top) && !intersects(player2.getHitbox(), bottom) && !intersects(player2.getHitbox(), left) && !intersects(player2.getHitbox(), right)) {
-			//	player2.move(xMov2, yMov2);
-			//}
-		
-			//else if (intersects(player2.getHitbox(), obstacle)|| intersects(player2.getHitbox(), top) || intersects(player2.getHitbox(), bottom) || intersects(player2.getHitbox(), right) || intersects(player2.getHitbox(), left) ) {
-			//	player2.setPosition(player2.getHitbox().getPosition().x - xMov2 * 10, player2.getHitbox().getPosition().y - yMov2 * 10);
-			//}
-			//
-
-			//if (!intersects(player.getHitbox(), obstacle) && !intersects(player.getHitbox(), top) && !intersects(player.getHitbox(), bottom) && !intersects(player.getHitbox(), left) && !intersects(player.getHitbox(), right)) {
-			//	player.move(xMov, yMov);
-			//}else if(intersects(player.getHitbox(), obstacle) || intersects(player.getHitbox(), top) || intersects(player.getHitbox(), bottom) || intersects(player.getHitbox(), right) || intersects(player.getHitbox(), left)){
-			//	player.setPosition(player.getHitbox().getPosition().x -xMov*10, player.getHitbox().getPosition().y - yMov*10);
-			//	
-			//}
+			
 		}
 
 		
 
 
 
-		//}
+		
 
-
-	//	ball.move(ballSpeed.x, ballSpeed.y);
+	
 
 	}
 	return EXIT_SUCCESS;

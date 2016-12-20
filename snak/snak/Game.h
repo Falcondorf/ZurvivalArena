@@ -15,6 +15,9 @@ public:
 	inline Game(unsigned width, unsigned height,std::vector<Character> listPlayers);
 	bool hasCollision(int idPlayer,float movex,float movey);
 	bool intersects(const RectangleShape & rect1, const RectangleShape & rect2);
+	void move(int idplayer, float xMove, float yMove);
+	inline const std::vector<Character> &  getPlayers() const;
+
 
 };
 
@@ -23,3 +26,8 @@ Game::Game(unsigned width, unsigned height,std::vector<Character> listPlayers):p
 
 }
 
+
+const std::vector<Character> &  Game::getPlayers() const {
+
+	return players_;
+}
