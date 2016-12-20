@@ -7,7 +7,7 @@ class Heroes : public Character
 
 public:
 	inline Heroes();
-	inline  Heroes(std::string name);
+	inline Heroes(std::string name);
 
 	inline std::string getName() const;
 private:
@@ -17,6 +17,11 @@ private:
 };
 
 Heroes::Heroes() {
+
+}
+
+inline Heroes::Heroes(std::string name)
+{
 
 }
 
