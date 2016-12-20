@@ -8,16 +8,14 @@ bool Game::hasCollision(int idPlayer,float movex, float movey) {
 	if (idPlayer < 0 || idPlayer>1) {
 		//throw invalid_argument();
 	}
-	bool ok = false;
+	RectangleShape futurePosition = players_.at(idPlayer).getHitbox();
+	futurePosition.move(movex, movey);
 	for (int i = 0; i< getNbObstacles(); i++) {
-		if (intersects( getObstacle(i), players_.at(idPlayer).getHitbox())) {
-			std::cout << "collision" << std::endl;
-			
-			players_.at(idPlayer).setPosition(players_.at(idPlayer).getHitbox().getPosition().x - movex * 30, players_.at(idPlayer).getHitbox().getPosition().y - movey * 30);
-			ok = true;
+		if (intersects( getObstacle(i), futurePosition)) {
+			return true;
 		}
 	}
-	return ok;
+	return false;
 }
 
 bool Game::intersects(const RectangleShape & rect1, const RectangleShape & rect2)
@@ -28,7 +26,6 @@ bool Game::intersects(const RectangleShape & rect1, const RectangleShape & rect2
 }
 
 void Game::move(int idplayer, float xMove, float yMove) {
-
 	players_.at(idplayer).move(xMove, yMove);
 }
 
