@@ -1,48 +1,21 @@
 #include <SFML\Graphics.hpp>
-
-#include "Character.h"
-#include "Arena.h"
 #include "Game.h"
+#include <iostream>
+
 using namespace sf;
 
 int main()
 {
 	const int width = 640;
 	const int height = 480;
-	
-	Character player2(Position(250, 250), 3);
-	Character player(Position(10,10), 3);
-	std::vector<Character> players;
-	players.push_back(player);
-	players.push_back(player2);
 
-	Game game = Game(width, height,players);
+	Game game = Game(width, height);
 
-	const int borderSize = 30;
+	game.addPlayer(10, 10);
+	game.addPlayer(250, 250);
 
 	VideoMode videoMode(width, height);
-	RenderWindow window(videoMode, "Rectangle Collision");
-
-	RectangleShape top;
-	RectangleShape left;
-	RectangleShape right;
-	RectangleShape bottom;
-	
-	
-	
-	RectangleShape obstacle;
-	obstacle.setPosition(width / 3, height / 2);
-	obstacle.setSize(Vector2f(200, 20));
-	obstacle.setFillColor(Color::Red);
-	obstacle.setOutlineColor(Color::Yellow);
-	obstacle.setOutlineThickness(1);
-
-
-
-
-	Arena myArena(640, 480);
-
-	
+	RenderWindow window(videoMode, "Rectangle Collision");	
 
 	while (window.isOpen())
 	{
@@ -52,14 +25,13 @@ int main()
 			window.draw(game.getPlayers().at(i).getHitbox());
 		}
 		
-		for (int i = 0; i < myArena.getObstacles().size(); i++) {
-			window.draw(myArena.getObstacles()[i]);
+		for (int i = 0; i < game.getNbObstacles(); i++) {
+			window.draw(game.getObstacle(i));
 		}
 
 		window.display();
 
 		Event event;
-
 		
 		while (window.pollEvent(event))
 		{
@@ -67,8 +39,7 @@ int main()
 				((event.type == Event::KeyPressed) && (event.key.code == Keyboard::Escape)))
 				window.close();
 
-		}
-		
+		}	
 		
 		if (event.type == Event::KeyPressed){
 			float xMov = 0, yMov = 0, xMov2 = 0, yMov2 = 0;
@@ -107,10 +78,6 @@ int main()
 
 			
 		}
-
-		
-
-
 
 		
 

@@ -10,19 +10,27 @@ private:
 	unsigned width_;
 	unsigned height_;
 	std::vector<sf::RectangleShape> obstacles;
+	inline const std::vector<sf::RectangleShape> & getObstacles() const;
 
 public:
 	Arena()=default;
-	Arena(unsigned width,unsigned height);
-	inline const std::vector<sf::RectangleShape> & getObstacles() const;
+	Arena(unsigned width,unsigned height);	
+	inline unsigned getNbObstacles();
+	inline sf::RectangleShape getObstacle(unsigned index);
 
-	//taille de l'arène
-	//liste des items Rect
-	//liste d'enemis
-	//liste de joueur
 };
 
 
 const std::vector<sf::RectangleShape> & Arena::getObstacles() const {
 	return obstacles;
+}
+
+unsigned Arena::getNbObstacles()
+{
+	return obstacles.size();
+}
+
+inline sf::RectangleShape Arena::getObstacle(unsigned index)
+{
+	return obstacles[index];
 }

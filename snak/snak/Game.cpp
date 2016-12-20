@@ -9,11 +9,11 @@ bool Game::hasCollision(int idPlayer,float movex, float movey) {
 		//throw invalid_argument();
 	}
 	bool ok = false;
-	for (int i = 0; i< arena_.getObstacles().size(); i++) {
-		if (intersects( arena_.getObstacles()[i], players_.at(idPlayer).getHitbox())) {
+	for (int i = 0; i< getNbObstacles(); i++) {
+		if (intersects( getObstacle(i), players_.at(idPlayer).getHitbox())) {
 			std::cout << "collision" << std::endl;
 			
-			players_.at(idPlayer).setPosition(players_.at(idPlayer).getHitbox().getPosition().x - movex * 10, players_.at(idPlayer).getHitbox().getPosition().y - movey * 10);
+			players_.at(idPlayer).setPosition(players_.at(idPlayer).getHitbox().getPosition().x - movex * 30, players_.at(idPlayer).getHitbox().getPosition().y - movey * 30);
 			ok = true;
 		}
 	}

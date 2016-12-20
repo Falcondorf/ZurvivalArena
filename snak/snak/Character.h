@@ -10,6 +10,7 @@ private:
 	unsigned pv_;
 	Position position_;
 	sf::RectangleShape hitbox_;
+	//list direction interdites
 
 public:
 
