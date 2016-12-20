@@ -21,11 +21,11 @@ int main()
 	{
 		window.clear(Color::White);
 		
-		for (int i = 0; i < game.getPlayers().size(); i++) {
-			window.draw(game.getPlayers().at(i).getHitbox());
+		for (unsigned i = 0; i < game.getNbPlayers(); i++) {
+			window.draw(game.getHitBoxChar(i));
 		}
 		
-		for (int i = 0; i < game.getNbObstacles(); i++) {
+		for (unsigned i = 0; i < game.getNbObstacles(); i++) {
 			window.draw(game.getObstacle(i));
 		}
 

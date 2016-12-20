@@ -31,3 +31,13 @@ void Game::move(int idplayer, float xMove, float yMove) {
 
 	players_.at(idplayer).move(xMove, yMove);
 }
+
+unsigned Game::getNbPlayers() const
+{
+	return players_.size();
+}
+
+RectangleShape Game::getHitBoxChar(int i)
+{
+	return players_.at(i).getHitbox();
+}

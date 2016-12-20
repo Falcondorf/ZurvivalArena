@@ -7,13 +7,13 @@
 class Character 
 {
 private:
+	unsigned num_;
 	unsigned pv_;
 	Position position_;
 	sf::RectangleShape hitbox_;
 	//list direction interdites
 
 public:
-
 
 	void move(float f1, float f2);
 	void setPosition(float f1, float f2);
@@ -22,7 +22,7 @@ public:
 	void setOutlineThickness(int i);
 	void setSize(float f1, float f2);
 	inline Character();
-	inline Character(Position position,int pv);
+	inline Character(Position position,int pv, unsigned num);
 	inline unsigned getPv() const;
 	inline const sf::RectangleShape &getHitbox() const;
 	inline const Position &getPosition() const;
@@ -45,11 +45,21 @@ Character::Character() {
 
 
 }
-Character::Character(Position position, int pv):position_(position),pv_(pv){
+Character::Character(Position position, int pv, unsigned num):position_(position),pv_(pv), num_(num){
 	hitbox_.setPosition(position.getX(),position.getY());
 	hitbox_.setSize(sf::Vector2f(20,20));
-	hitbox_.setFillColor(sf::Color::Red);
-	hitbox_.setOutlineColor(sf::Color::Yellow);
+	switch (num) {
+	case 0:
+		hitbox_.setFillColor(sf::Color::Red);
+		hitbox_.setOutlineColor(sf::Color::Yellow);
+		break;
+	case 1:
+		hitbox_.setFillColor(sf::Color::Blue);
+		hitbox_.setOutlineColor(sf::Color::Green);
+		break;
+	}
+		
+
 	hitbox_.setOutlineThickness(1);
 
 }

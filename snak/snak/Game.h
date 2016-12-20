@@ -7,16 +7,17 @@ using namespace sf;
 class Game {
 private:
 	Arena arena_;
-	unsigned nbPlayer_;
 	std::vector<Character> players_;
 	std::vector<Enemy> enemies_;
+	inline const std::vector<Character> &  getPlayers() const;
 
 public:
 	inline Game(unsigned width, unsigned height);
 	bool hasCollision(int idPlayer,float movex,float movey);
 	bool intersects(const RectangleShape & rect1, const RectangleShape & rect2);
 	void move(int idplayer, float xMove, float yMove);
-	inline const std::vector<Character> &  getPlayers() const;
+	unsigned getNbPlayers()const;
+	RectangleShape getHitBoxChar(int i);
 	inline void addPlayer(float posX, float posY, int pv=3);
 	inline unsigned getNbObstacles();
 	inline RectangleShape getObstacle(unsigned i);
@@ -35,7 +36,7 @@ const std::vector<Character> &  Game::getPlayers() const {
 
 inline void Game::addPlayer(float posX, float posY, int pv)
 {
-	players_.push_back(Character(Position(posX, posY), pv));
+	players_.push_back(Character(Position(posX, posY), pv, players_.size()));
 }
 
 inline unsigned Game::getNbObstacles()
