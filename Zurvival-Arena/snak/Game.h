@@ -34,17 +34,17 @@ const std::vector<Character> &  Game::getPlayers() const {
 	return players_;
 }
 
-inline void Game::addPlayer(float posX, float posY, int pv)
+void Game::addPlayer(float posX, float posY, int pv)
 {
 	players_.push_back(Character(Position(posX, posY), pv, players_.size()));
 }
 
-inline unsigned Game::getNbObstacles()
+unsigned Game::getNbObstacles()
 {
 	return arena_.getNbObstacles();
 }
 
-inline RectangleShape Game::getObstacle(unsigned i)
+RectangleShape Game::getObstacle(unsigned i)
 {
 	return arena_.getObstacle(i);
 }

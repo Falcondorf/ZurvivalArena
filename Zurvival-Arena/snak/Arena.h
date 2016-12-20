@@ -30,7 +30,7 @@ unsigned Arena::getNbObstacles()
 	return obstacles.size();
 }
 
-inline sf::RectangleShape Arena::getObstacle(unsigned index)
+sf::RectangleShape Arena::getObstacle(unsigned index)
 {
 	return obstacles[index];
 }
