@@ -51,7 +51,7 @@ Character::Character(Position position, int pv, unsigned num):position_(position
 	setSize(30,30);
 	switch (num) {
 	case 0:
-		if (!perso_.loadFromFile("player.png")) {
+		if (!perso_.loadFromFile("jake2.png")) {
 			std::cout << "error loading image" << std::endl;
 		}
 		setFillColor(sf::Color::Transparent);

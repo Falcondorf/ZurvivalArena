@@ -4,8 +4,31 @@
 
 using namespace sf;
 
+#pragma region variables
+enum State {Idle,Moving};
+enum Direction{Up,Left,Right,Down};
+sf::Vector2i anim{ 1,Up };
+bool updateFps = true;
+#pragma endregion variables
 
 
+void spriteManager(State state, float fpsCount, float fpsSpeed,float switchFps, Sprite sprit,sf::Texture tex, sf::Clock time) {
+	if (state == State::Moving) {
+		if (updateFps) {
+			fpsCount += fpsSpeed *time.restart().asSeconds();
+		}
+		else {
+			fpsCount = 0;
+		}
+		if (fpsCount >= switchFps) {
+			anim.x++;
+			if (anim.x * 56 >= tex.getSize().x) {
+				anim.x = 0;
+			}
+		}
+		sprit.setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
+	}
+}
 
 int main()
 {
@@ -27,22 +50,32 @@ int main()
 	
 	sf::Texture tex = game.getPlayers().at(0).getTextureChar();
 	sf::Sprite sprit;
-	sprit.setScale(sf::Vector2f(0.6, 0.6));
+//	sprit.setScale(sf::Vector2f(0.6, 0.6));
 	sprit.setTexture(tex);
 
 	sf::Texture tex2 = game.getPlayers().at(1).getTextureChar();
 	sf::Sprite sprit2;
-	sprit2.setScale(sf::Vector2f(0.6, 0.6));
-	sprit2.setTexture(tex2);
+//	sprit2.setScale(sf::Vector2f(0.6, 0.6));
+	//sprit2.setTexture(tex2);
+
+	sf::Clock time;
+
+	float fpsCount = 0, switchFps =0,fpsSpeed = 500;
+
+	State state;
 
 
 	while (window.isOpen())
 	{
 		window.clear(Color::White);
 		//window.draw(rtexture);
+		state = State::Idle;
 
 		
+		sprit.setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
+		
 		window.draw(sprit);
+
 		window.draw(sprit2);
 		/*RectangleShape texture2 = game.getHitBoxChar(1);
 		texture2.setTexture(&perso);
@@ -77,17 +110,25 @@ int main()
 		if (event.type == Event::KeyPressed){
 			float xMov = 0, yMov = 0, xMov2 = 0, yMov2 = 0;
 			if (Keyboard::isKeyPressed(Keyboard::Up)) {
+				state = State::Moving;
 				yMov -= 0.1;
+				anim.y = Up;
 				
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Down)) {
+				state = State::Moving;
 				yMov += 0.1;
+				anim.y = Down;
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Left)) {
+				state = State::Moving;
 				xMov -= 0.1;
+				anim.y = Left;
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Right)) {
+				state = State::Moving;
 				xMov += 0.1;
+				anim.y = Right;
 			}
 			if (Keyboard::isKeyPressed(Keyboard::F1)) {
 				yMov2 -= 0.1;
@@ -112,6 +153,21 @@ int main()
 			}
 
 			
+		}
+		if (state == State::Moving) {
+			if (updateFps) {
+				fpsCount += fpsSpeed *time.restart().asSeconds();
+			}
+			else {
+				fpsCount = 0;
+			}
+			if (fpsCount >= switchFps) {
+				anim.x++;
+				if (anim.x * 56 >= tex.getSize().x) {
+					anim.x = 0;
+				}
+			}
+			sprit.setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
 		}
 
 		
