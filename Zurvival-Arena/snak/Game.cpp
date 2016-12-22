@@ -34,7 +34,7 @@ unsigned Game::getNbPlayers() const
 	return players_.size();
 }
 
-RectangleShape Game::getHitBoxChar(int i)
+const RectangleShape & Game::getHitBoxChar(int i)const
 {
 	return players_.at(i).getHitbox();
 }

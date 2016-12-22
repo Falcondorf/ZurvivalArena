@@ -4,6 +4,9 @@
 
 using namespace sf;
 
+
+
+
 int main()
 {
 	const int width = 640;
@@ -17,12 +20,42 @@ int main()
 	VideoMode videoMode(width, height);
 	RenderWindow window(videoMode, "Rectangle Collision");	
 
+	sf::Texture perso;
+	if (!perso.loadFromFile("player.png")) {
+		std::cout << "error loading image" << std::endl;
+	}
+	
+	sf::Texture tex = game.getPlayers().at(0).getTextureChar();
+	sf::Sprite sprit;
+	sprit.setScale(sf::Vector2f(0.6, 0.6));
+	sprit.setTexture(tex);
+
+	sf::Texture tex2 = game.getPlayers().at(1).getTextureChar();
+	sf::Sprite sprit2;
+	sprit2.setScale(sf::Vector2f(0.6, 0.6));
+	sprit2.setTexture(tex2);
+
+
 	while (window.isOpen())
 	{
 		window.clear(Color::White);
+		//window.draw(rtexture);
+
 		
+		window.draw(sprit);
+		window.draw(sprit2);
+		/*RectangleShape texture2 = game.getHitBoxChar(1);
+		texture2.setTexture(&perso);
+		sf::Texture tex2 = game.getPlayers().at(1).getTextureChar();
+		sf::Sprite sprit2;
+		sprit.setTexture(tex2);
+		window.draw(sprit2);		*/
 		for (unsigned i = 0; i < game.getNbPlayers(); i++) {
-			window.draw(game.getHitBoxChar(i));
+			//RectangleShape texture1 = game.getHitBoxChar(i);
+			////texture1.setSize(sf::Vector2f(40, 40));
+			//texture1.setTexture(&perso);
+			//window.draw(texture1);
+			
 		}
 		
 		for (unsigned i = 0; i < game.getNbObstacles(); i++) {
@@ -71,9 +104,11 @@ int main()
 
 			if (!game.hasCollision(0, xMov, yMov)) {
 				game.move(0, xMov, yMov);
+				sprit.setPosition(game.getHitBoxChar(0).getPosition());
 			}
 			if (!game.hasCollision(1, xMov2, yMov2)) {
 				game.move(1, xMov2, yMov2);
+				sprit2.setPosition(game.getHitBoxChar(1).getPosition());
 			}
 
 			

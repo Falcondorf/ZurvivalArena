@@ -9,15 +9,16 @@ private:
 	Arena arena_;
 	std::vector<Character> players_;
 	std::vector<Enemy> enemies_;
-	inline const std::vector<Character> &  getPlayers() const;
+	
 
 public:
+	inline const std::vector<Character> &  getPlayers() const;
 	inline Game(unsigned width, unsigned height);
 	bool hasCollision(int idPlayer,float movex,float movey);
 	bool intersects(const RectangleShape & rect1, const RectangleShape & rect2);
 	void move(int idplayer, float xMove, float yMove);
 	unsigned getNbPlayers()const;
-	RectangleShape getHitBoxChar(int i);
+	const RectangleShape &getHitBoxChar(int i)const ;
 	inline void addPlayer(float posX, float posY, int pv=3);
 	inline unsigned getNbObstacles();
 	inline RectangleShape getObstacle(unsigned i);

@@ -2,6 +2,7 @@
 
 #include "SFML/Graphics.hpp"
 #include "Position.h"
+#include <iostream>
 
 
 class Character 
@@ -11,6 +12,7 @@ private:
 	unsigned pv_;
 	Position position_;
 	sf::RectangleShape hitbox_;
+	sf::Texture perso_;
 
 	void setPosition(float f1, float f2);
 	void setFillColor(sf::Color c);
@@ -25,6 +27,7 @@ public:
 	inline unsigned getPv() const;
 	inline const sf::RectangleShape &getHitbox() const;
 	inline const Position &getPosition() const;
+	inline sf::Texture getTextureChar() const;
 };
 
 unsigned Character::getPv() const {
@@ -43,18 +46,35 @@ const Position & Character::getPosition() const {
 Character::Character() {}
 
 Character::Character(Position position, int pv, unsigned num):position_(position),pv_(pv), num_(num){
+
 	setPosition(position.getX(), position.getY());
-	setSize(20,20);
+	setSize(30,30);
 	switch (num) {
 	case 0:
-		setFillColor(sf::Color::Red);
+		if (!perso_.loadFromFile("player.png")) {
+			std::cout << "error loading image" << std::endl;
+		}
+		setFillColor(sf::Color::Transparent);
 		setOutlineColor(sf::Color::Yellow);
 		break;
 	case 1:
-		setFillColor(sf::Color::Blue);
+		if (!perso_.loadFromFile("player2.png")) {
+			std::cout << "error loading image" << std::endl;
+		}
+		setFillColor(sf::Color::Transparent);
 		setOutlineColor(sf::Color::Green);
 		break;
 	}		
 	setOutlineThickness(1);
 
+	
+	hitbox_.setTexture(&perso_);
+
+
+
+
+}
+
+sf::Texture  Character::getTextureChar() const {
+	return perso_;
 }
