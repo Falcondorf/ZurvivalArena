@@ -56,7 +56,7 @@ int main()
 	sf::Texture tex2 = game.getPlayers().at(1).getTextureChar();
 	sf::Sprite sprit2;
 //	sprit2.setScale(sf::Vector2f(0.6, 0.6));
-	//sprit2.setTexture(tex2);
+//	sprit2.setTexture(tex2);
 
 	sf::Clock time;
 
@@ -68,26 +68,11 @@ int main()
 	while (window.isOpen())
 	{
 		window.clear(Color::White);
-		//window.draw(rtexture);
 		state = State::Idle;
-
-		
 		sprit.setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
-		
 		window.draw(sprit);
-
 		window.draw(sprit2);
-		/*RectangleShape texture2 = game.getHitBoxChar(1);
-		texture2.setTexture(&perso);
-		sf::Texture tex2 = game.getPlayers().at(1).getTextureChar();
-		sf::Sprite sprit2;
-		sprit.setTexture(tex2);
-		window.draw(sprit2);		*/
 		for (unsigned i = 0; i < game.getNbPlayers(); i++) {
-			//RectangleShape texture1 = game.getHitBoxChar(i);
-			////texture1.setSize(sf::Vector2f(40, 40));
-			//texture1.setTexture(&perso);
-			//window.draw(texture1);
 			
 		}
 		
