@@ -90,12 +90,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Error\Desktop\ZurvivalArena\snak\snak\SFML-2.4.1\include;D:\Esi\C++\boxhead\snak\snak\SFML-2.4.1\include;D:\Documents\git\visual\ZurvivalArena\snak\sfml\include;C:\Users\yassine\Documents\VB\Zurvival-Arena\sfml\include;D:\ESI\C++\Zurvival\Zurvival-Arena\sfml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Error\Desktop\ZurvivalArena\snak\snak\SFML-2.4.1\include;D:\Esi\C++\boxhead\snak\snak\SFML-2.4.1\include;D:\Documents\git\visual\ZurvivalArena\Zurvival-Arena\sfml\include;C:\Users\yassine\Documents\VB\Zurvival-Arena\sfml\include;D:\ESI\C++\Zurvival\Zurvival-Arena\sfml\include;%(AdditionalIncludeDirectories);C:\Users\Home\Source\Repos\ZurvivalArena\Zurvival-Arena\sfml\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Error\Desktop\ZurvivalArena\snak\snak\SFML-2.4.1\lib;D:\Esi\C++\boxhead\snak\snak\SFML-2.4.1\lib;D:\Documents\git\visual\ZurvivalArena\snak\sfml\lib;C:\Users\yassine\Documents\VB\Zurvival-Arena\sfml\lib;D:\ESI\C++\Zurvival\Zurvival-Arena\sfml\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Error\Desktop\ZurvivalArena\snak\snak\SFML-2.4.1\lib;D:\Esi\C++\boxhead\snak\snak\SFML-2.4.1\lib;D:\Documents\git\visual\ZurvivalArena\Zurvival-Arena\sfml\lib;C:\Users\yassine\Documents\VB\Zurvival-Arena\sfml\lib;D:\ESI\C++\Zurvival\Zurvival-Arena\sfml\lib;C:\Users\Home\Source\Repos\ZurvivalArena\Zurvival-Arena\sfml\lib;%(AdditionalLibraryDirectories);C:\Users\Home\Source\Repos\ZurvivalArena\Zurvival-Arena\sfml\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-audio-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-network-d.lib;%(AdditionalDependencies);sfml-graphics.lib;sfml-audio.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;sfml-graphics.lib;sfml-audio.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;%(AdditionalDependencies);sfml-graphics.lib;sfml-audio.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -126,14 +126,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Error\Desktop\ZurvivalArena\snak\snak\SFML-2.4.1\include;D:\Esi\C++\boxhead\snak\snak\SFML-2.4.1\include;D:\Documents\git\visual\ZurvivalArena\snak\sfml\include;C:\Users\yassine\Documents\VB\Zurvival-Arena\sfml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Error\Desktop\ZurvivalArena\snak\snak\SFML-2.4.1\include;D:\Esi\C++\boxhead\snak\snak\SFML-2.4.1\include;D:\Documents\git\visual\ZurvivalArena\Zurvival-Arena\sfml\include;C:\Users\yassine\Documents\VB\Zurvival-Arena\sfml\include;%(AdditionalIncludeDirectories);C:\Users\Home\Source\Repos\ZurvivalArena\Zurvival-Arena\sfml\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Error\Desktop\ZurvivalArena\snak\snak\SFML-2.4.1\lib;D:\Esi\C++\boxhead\snak\snak\SFML-2.4.1\lib;D:\Documents\git\visual\ZurvivalArena\snak\sfml\lib;C:\Users\yassine\Documents\VB\Zurvival-Arena\sfml\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Error\Desktop\ZurvivalArena\snak\snak\SFML-2.4.1\lib;D:\Esi\C++\boxhead\snak\snak\SFML-2.4.1\lib;D:\Documents\git\visual\ZurvivalArena\Zurvival-Arena\sfml\lib;C:\Users\yassine\Documents\VB\Zurvival-Arena\sfml\lib;%(AdditionalLibraryDirectories);C:\Users\Home\Source\Repos\ZurvivalArena\Zurvival-Arena\sfml\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-audio.lib;sfml-window.lib;sfml-system.lib;sfml-network.lib;%(AdditionalDependencies);sfml-graphics.lib;sfml-audio.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
