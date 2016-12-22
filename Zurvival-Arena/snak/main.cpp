@@ -6,8 +6,6 @@ using namespace sf;
 
 
 
-
-
 int main()
 {
 	const int width = 640;
@@ -52,6 +50,7 @@ int main()
 		window.draw(*(game.getPlayers().at(0).getSprite() ));
 		//window.draw(*(game.getPlayers().at(1).getSprite()));
 		for (unsigned i = 0; i < game.getNbPlayers(); i++) {
+
 
 		}
 
@@ -101,6 +100,7 @@ int main()
 				xMov += 0.1;
 				/*anim.y = Right;*/
 				game.setAnimYCharacter(0, Right);
+
 			}
 			if (Keyboard::isKeyPressed(Keyboard::F1)) {
 				yMov2 -= 0.1;
@@ -131,6 +131,7 @@ int main()
 			game.manageGame(0,fpsCount, fpsSpeed, switchFps, time);
 
 			/*if (updateFps) {
+
 				fpsCount += fpsSpeed *time.restart().asSeconds();
 			}
 			else {
@@ -144,7 +145,6 @@ int main()
 			}
 			sprit.setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));*/
 		}
-
 
 
 

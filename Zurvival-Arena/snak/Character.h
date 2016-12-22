@@ -65,7 +65,9 @@ Character::Character(Position position, int pv, unsigned num):position_(position
 	perso_ = new sf::Texture();
 	switch (num) {
 	case 0:
+
 		if (!perso_->loadFromFile("jake2.png")) {
+
 			std::cout << "error loading image" << std::endl;
 		}
 		setFillColor(sf::Color::Transparent);
