@@ -22,6 +22,12 @@ public:
 	inline void addPlayer(float posX, float posY, int pv=3);
 	inline unsigned getNbObstacles();
 	inline RectangleShape getObstacle(unsigned i);
+	inline void setPositionCharacter(unsigned i);
+	inline void setAnimXCharacter(unsigned i, Direction direction);
+	inline void setAnimYCharacter(unsigned i, Direction direction);
+	inline void setStateCharacter(unsigned i);
+	inline void stateInitializerCharacters();
+	inline void manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 
 };
 
@@ -48,4 +54,28 @@ unsigned Game::getNbObstacles()
 RectangleShape Game::getObstacle(unsigned i)
 {
 	return arena_.getObstacle(i);
+}
+
+void Game::setPositionCharacter(unsigned i) {
+	players_.at(i).setPositionSprite( (players_.at(i).getHitbox().getPosition()) );
+}
+
+void Game::setAnimXCharacter(unsigned i, Direction direction) {
+	players_.at(i).setAnimX(direction);
+}
+void Game::setAnimYCharacter(unsigned i, Direction direction) {
+	players_.at(i).setAnimY(direction);
+}
+
+void Game::setStateCharacter(unsigned i) {
+	players_.at(i).setState(Moving);
+}
+void Game::stateInitializerCharacters() {
+	for (unsigned i = 0;i < players_.size();i++) {
+		players_.at(i).setState(Idle);
+	}
+}
+
+void Game::manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time) {
+	players_.at(i).manageSprite(fpsCount, fpsSpeed, switchFps, time);
 }
