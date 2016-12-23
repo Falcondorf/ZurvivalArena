@@ -36,6 +36,7 @@ public:
 	inline void stateInitializerCharacters();
 	inline void finishGame();
 	inline void manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
+	void manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 
 	void startMovingEnemies();
 

@@ -53,6 +53,10 @@ void Game::functionMovingEnemies() {
 		for (unsigned i = 0;i < enemies_.size();i++) {
 			
 			enemies_.at(i).move(0, 0.00006);
+			enemies_.at(i).setAnimY(Down);
+			enemies_.at(i).uptadeSpritePosition();
+			enemies_.at(i).setState(Moving);
+			//enemies_.at(i).manageSprite(fpsCount, fpsSpeed, switchFps, time);
 		}
 
 	}
@@ -61,5 +65,14 @@ void Game::functionMovingEnemies() {
 
 void Game::startMovingEnemies() {
 	threadEnemies = std::unique_ptr < std::thread > (new std::thread(&Game::functionMovingEnemies,this));
+	
+}
+
+void Game::manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time) {
+	
+	for (unsigned i = 0;i < enemies_.size();i++) {
+		enemies_.at(i).manageSprite(fpsCount, fpsSpeed, switchFps, time);
+		enemies_.at(i).setState(Idle);
+	}
 	
 }

@@ -48,8 +48,8 @@ int main()
 		window.clear(Color::White);
 		
 		/*state = State::Idle;*/
-		window.draw((game.getEnemies().at(0).getHitbox()));
-		window.draw((game.getEnemies().at(1).getHitbox()));
+		window.draw(*(game.getEnemies().at(0).getSprite()));
+		window.draw(*(game.getEnemies().at(1).getSprite()));
 		game.stateInitializerCharacters();
 		//sprit.setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
 		window.draw(*(game.getPlayers().at(0).getSprite() ));
@@ -136,8 +136,9 @@ int main()
 
 		}
 		if (game.getPlayers().at(0).getState() == State::Moving) {
-			game.manageGame(0,fpsCount, fpsSpeed, switchFps, time);
-
+			game.manageGame(0, fpsCount, fpsSpeed, switchFps, time);
+		}
+		game.manageEnemi(fpsCount, fpsSpeed, switchFps, time);
 			/*if (updateFps) {
 
 				fpsCount += fpsSpeed *time.restart().asSeconds();
@@ -152,7 +153,6 @@ int main()
 				}
 			}
 			sprit.setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));*/
-		}
 
 
 
