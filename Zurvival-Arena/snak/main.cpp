@@ -42,11 +42,19 @@ int main()
 
 		/*State state;*/
 
-		game.startMovingEnemies();
-		while (window.isOpen())
-		{
-			window.clear(Color::White);
-
+	game.startMovingEnemies();
+	while (window.isOpen())
+	{
+		window.clear(Color::White);
+		
+		/*state = State::Idle;*/
+		window.draw(*(game.getEnemies().at(0).getSprite()));
+		window.draw(*(game.getEnemies().at(1).getSprite()));
+		game.stateInitializerCharacters();
+		//sprit.setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
+		window.draw(*(game.getPlayers().at(0).getSprite() ));
+		//window.draw(*(game.getPlayers().at(1).getSprite()));
+		for (unsigned i = 0; i < game.getNbPlayers(); i++) {
 			/*state = State::Idle;*/
 			window.draw((game.getEnemies().at(0).getHitbox()));
 			window.draw((game.getEnemies().at(1).getHitbox()));
@@ -123,16 +131,13 @@ int main()
 					xMov2 += 0.1;
 				}
 
-				if (!game.hasCollision(0, xMov, yMov)) {
-					game.move(0, xMov, yMov);
-					//sprit.setPosition(game.getHitBoxChar(0).getPosition());
-					game.setPositionCharacter(0);
-				}
-				if (!game.hasCollision(1, xMov2, yMov2)) {
-					game.move(1, xMov2, yMov2);
-					/*sprit2.setPosition(game.getHitBoxChar(1).getPosition());*/
-				}
 
+		}
+		if (game.getPlayers().at(0).getState() == State::Moving) {
+			game.manageGame(0, fpsCount, fpsSpeed, switchFps, time);
+		}
+		game.manageEnemi(fpsCount, fpsSpeed, switchFps, time);
+			/*if (updateFps) {
 
 			}
 			if (game.getPlayers().at(0).getState() == State::Moving) {
@@ -153,6 +158,8 @@ int main()
 				}
 				sprit.setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));*/
 			}
+			sprit.setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));*/
+
 
 
 
