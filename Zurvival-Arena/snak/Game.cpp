@@ -39,11 +39,8 @@ const RectangleShape & Game::getHitBoxChar(int i)const
 	return players_.at(i).getHitbox();
 }
 
-void Game::addEnemy(Enemy e) {
-	if (!enemies_.empty()) {
-		e.move(400, 0);
-	}
-	enemies_.push_back(e);
+void Game::addEnemy(float posX, float posY, int pv) {
+	enemies_.push_back(Enemy(Position(posX, posY), pv));
 }
 
 const std::vector<Enemy> & Game::getEnemies() const {

@@ -12,13 +12,11 @@ int main()
 	const int height = 480;
 
 	Game game = Game(width, height);
-	Enemy e = Enemy();
-	Enemy f = Enemy();
 
 	game.addPlayer(10, 10);
 	game.addPlayer(250, 250);
-	game.addEnemy(e);
-	game.addEnemy(f);
+	game.addEnemy(300,10);
+	game.addEnemy(420,300);
 
 	VideoMode videoMode(width, height);
 	RenderWindow window(videoMode, "Rectangle Collision");
@@ -50,8 +48,8 @@ int main()
 		window.clear(Color::White);
 		
 		/*state = State::Idle;*/
-		window.draw(game.getEnemies().at(0).getHitbox());
-		window.draw(game.getEnemies().at(1).getHitbox());
+		window.draw(*(game.getEnemies().at(0).getSprite()));
+		window.draw(*(game.getEnemies().at(1).getSprite()));
 		game.stateInitializerCharacters();
 		//sprit.setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
 		window.draw(*(game.getPlayers().at(0).getSprite() ));

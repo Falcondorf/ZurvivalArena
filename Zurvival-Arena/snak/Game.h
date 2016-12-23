@@ -25,7 +25,7 @@ public:
 	unsigned getNbPlayers()const;
 	const RectangleShape &getHitBoxChar(int i)const ;
 	inline void addPlayer(float posX, float posY, int pv=3);
-	void addEnemy(Enemy e);
+	void addEnemy(float posX, float posY, int pv=1);
 	const std::vector<Enemy> & getEnemies() const;
 	inline unsigned getNbObstacles();
 	inline RectangleShape getObstacle(unsigned i);
@@ -53,7 +53,7 @@ const std::vector<Character> &  Game::getPlayers() const {
 
 void Game::addPlayer(float posX, float posY, int pv)
 {
-	players_.push_back(Character(Position(posX, posY), pv, players_.size()));
+	players_.push_back(Heroes(Position(posX, posY), pv, players_.size()));
 }
 
 unsigned Game::getNbObstacles()

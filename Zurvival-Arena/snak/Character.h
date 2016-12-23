@@ -11,26 +11,29 @@ enum Direction { Up, Left, Right, Down };
 
 class Character 
 {
+protected:
+	sf::Vector2i anim{ 1,Up };
+	sf::Texture* perso_;
+	sf::Sprite* spritePerso_;
+
 private:
 	unsigned num_;
 	State state_;
 	unsigned pv_;
-	Position position_;
+	Position position_;	
 	sf::RectangleShape hitbox_;
-	sf::Texture* perso_;
-	sf::Sprite* spritePerso_;
-	void setPosition(float f1, float f2);
+	bool updateFps = true;
+	
 	void setFillColor(sf::Color c);
 	void setOutlineColor(sf::Color c);
 	void setOutlineThickness(int i);
 	void setSize(float f1, float f2);
-	sf::Vector2i anim{ 1,Up };
-	bool updateFps = true;
 
 public:
+	void setPosition(float f1, float f2);
 	void move(float f1, float f2);	
 	inline Character();
-	inline Character(Position position,int pv, unsigned num);
+	inline Character(Position position,int pv);
 	inline unsigned getPv() const;
 	inline const sf::RectangleShape &getHitbox() const;
 	inline const Position &getPosition() const;
@@ -64,38 +67,12 @@ Character::Character() {
 	
 }
 
-Character::Character(Position position, int pv, unsigned num):position_(position),pv_(pv), num_(num){
+Character::Character(Position position, int pv):position_(position),pv_(pv){
 
 	setPosition(position.getX(), position.getY());
 	setSize(30,30);
-	perso_ = new sf::Texture();
-	switch (num) {
-	case 0:
 
-		if (!perso_->loadFromFile("jake2.png")) {
-
-			std::cout << "error loading image" << std::endl;
-		}
-		setFillColor(sf::Color::Transparent);
-		setOutlineColor(sf::Color::Yellow);
-		break;
-	case 1:
-		if (!perso_->loadFromFile("player2.png")) {
-			std::cout << "error loading image" << std::endl;
-		}
-		setFillColor(sf::Color::Transparent);
-		setOutlineColor(sf::Color::Green);
-		break;
-	}		
-	setOutlineThickness(1);
-	spritePerso_ = new sf::Sprite();
-	spritePerso_->setTexture(*perso_);
-	spritePerso_->setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
-	spritePerso_->setScale(sf::Vector2f(0.9, 0.5));
-	
 	//hitbox_.setTexture(&perso_);
-
-
 
 }
 
