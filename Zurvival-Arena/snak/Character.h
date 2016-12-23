@@ -56,7 +56,13 @@ const Position & Character::getPosition() const {
 	return position_;
 }
 
-Character::Character() {}
+Character::Character() {
+	setFillColor(sf::Color::Black);
+	setPosition(10, 10);
+	setSize(30, 30);
+	setOutlineThickness(1);
+	
+}
 
 Character::Character(Position position, int pv, unsigned num):position_(position),pv_(pv), num_(num){
 

@@ -3,12 +3,17 @@
 #include <vector>
 #include "Heroes.h"
 #include "Enemy.h"
+#include <thread>
+#include <chrono>
 using namespace sf;
 class Game {
 private:
 	Arena arena_;
 	std::vector<Character> players_;
 	std::vector<Enemy> enemies_;
+	std::unique_ptr<std::thread> threadEnemies;
+	void functionMovingEnemies();
+	bool gameFinish = false;
 	
 
 public:
@@ -20,6 +25,8 @@ public:
 	unsigned getNbPlayers()const;
 	const RectangleShape &getHitBoxChar(int i)const ;
 	inline void addPlayer(float posX, float posY, int pv=3);
+	void addEnemy(Enemy e);
+	const std::vector<Enemy> & getEnemies() const;
 	inline unsigned getNbObstacles();
 	inline RectangleShape getObstacle(unsigned i);
 	inline void setPositionCharacter(unsigned i);
@@ -27,7 +34,10 @@ public:
 	inline void setAnimYCharacter(unsigned i, Direction direction);
 	inline void setStateCharacter(unsigned i);
 	inline void stateInitializerCharacters();
+	inline void finishGame();
 	inline void manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
+
+	void startMovingEnemies();
 
 };
 
@@ -78,4 +88,8 @@ void Game::stateInitializerCharacters() {
 
 void Game::manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time) {
 	players_.at(i).manageSprite(fpsCount, fpsSpeed, switchFps, time);
+}
+
+void Game::finishGame() {
+	gameFinish = true;
 }

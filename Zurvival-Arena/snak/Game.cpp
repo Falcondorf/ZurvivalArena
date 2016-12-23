@@ -38,3 +38,35 @@ const RectangleShape & Game::getHitBoxChar(int i)const
 {
 	return players_.at(i).getHitbox();
 }
+
+void Game::addEnemy(Enemy e) {
+	if (!enemies_.empty()) {
+		e.move(400, 0);
+	}
+	enemies_.push_back(e);
+}
+
+const std::vector<Enemy> & Game::getEnemies() const {
+	return enemies_;
+}
+void Game::functionMovingEnemies() {
+	using namespace std::chrono_literals;
+	Vector2f p;
+	while (!gameFinish) {
+		for (unsigned i = 0;i < enemies_.size();i++) {
+			
+			enemies_.at(i).move(0, 0.0125);
+			std::cout <<  " " << std::endl;
+		}
+		
+		
+		
+		
+	}
+	threadEnemies->detach();
+}
+
+void Game::startMovingEnemies() {
+	threadEnemies = std::unique_ptr < std::thread > (new std::thread(&Game::functionMovingEnemies,this));
+	
+}
