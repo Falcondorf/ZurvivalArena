@@ -52,13 +52,9 @@ void Game::functionMovingEnemies() {
 	while (!gameFinish) {
 		for (unsigned i = 0;i < enemies_.size();i++) {
 			
-			enemies_.at(i).move(0, 0.0125);
-			std::cout <<  " " << std::endl;
+			enemies_.at(i).move(0, 0.00006);
 		}
-		
-		
-		
-		
+
 	}
 	threadEnemies->detach();
 }
