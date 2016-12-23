@@ -3,8 +3,7 @@
 Enemy::Enemy(Position position, int pv): Character (position, pv)
 {
 	perso_ = new sf::Texture();
-		if (!perso_->loadFromFile("jake3.png")) {
-
+		if (!perso_->loadFromFile("pics/jake3.png")) {
 			std::cout << "error loading image" << std::endl;
 		}
 		setFillColor(sf::Color::Yellow);
