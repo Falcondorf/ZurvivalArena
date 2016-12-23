@@ -23,13 +23,16 @@ private:
 	Position position_;	
 	sf::RectangleShape hitbox_;
 	bool updateFps = true;
+	
+	
+
+public:
+
 	void setFillColor(sf::Color c);
 	void setOutlineColor(sf::Color c);
 	void setOutlineThickness(int i);
 	void setSize(float f1, float f2);
-	
 
-public:
 	void setPosition(float f1, float f2);
 	void move(float f1, float f2);	
 	inline Character();
