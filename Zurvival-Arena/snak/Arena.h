@@ -10,20 +10,19 @@ private:
 	unsigned width_;
 	unsigned height_;
 	std::vector<sf::RectangleShape> obstacles;
-	inline const std::vector<sf::RectangleShape> & getObstacles() const;
+	std::vector<std::vector<bool>> tiles;
 
 public:
 	Arena()=default;
-	Arena(unsigned width,unsigned height);	
+	Arena(unsigned width,unsigned height);
+	inline unsigned getWidth()const;
+	inline unsigned getHeight() const;
+	void setTiles();
 	inline unsigned getNbObstacles();
 	inline sf::RectangleShape getObstacle(unsigned index);
 
 };
 
-
-const std::vector<sf::RectangleShape> & Arena::getObstacles() const {
-	return obstacles;
-}
 
 unsigned Arena::getNbObstacles()
 {
@@ -33,4 +32,12 @@ unsigned Arena::getNbObstacles()
 sf::RectangleShape Arena::getObstacle(unsigned index)
 {
 	return obstacles[index];
+}
+
+unsigned Arena::getWidth() const {
+	return width_;
+}
+
+unsigned Arena::getHeight() const {
+	return height_;
 }

@@ -21,13 +21,13 @@ Heroes::Heroes(Position pos, int pv, unsigned num) :Character(pos, pv), num_(num
 	switch (num) {
 	case 0:
 
-		if (!perso_->loadFromFile("jake2.png")) {
+		if (!perso_->loadFromFile("pics/jake2.png")) {
 
 			std::cout << "error loading image" << std::endl;
 		}
 		break;
 	case 1:
-		if (!perso_->loadFromFile("player2.png")) {
+		if (!perso_->loadFromFile("pics/player2.png")) {
 			std::cout << "error loading image" << std::endl;
 		}
 		break;
@@ -42,8 +42,6 @@ inline Heroes::Heroes(std::string name)
 {
 
 }
-
-
 
 std::string Heroes::getName() const {
 

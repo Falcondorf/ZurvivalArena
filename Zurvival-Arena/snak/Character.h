@@ -23,6 +23,8 @@ private:
 	Position position_;	
 	sf::RectangleShape hitbox_;
 	bool updateFps = true;
+	
+public:
 	void setFillColor(sf::Color c);
 	void setOutlineColor(sf::Color c);
 	void setOutlineThickness(int i);
@@ -44,7 +46,7 @@ public:
 	inline void setAnimY(Direction direction);
 	inline const State& getState() const;
 	inline void setState(State s);
-	inline void manageSprite(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
+	void manageSprite(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 };
 
 unsigned Character::getPv() const {
@@ -99,20 +101,4 @@ const State& Character::getState() const{
 
 void Character::setState(State s) {
 	state_ = s;
-}
-
-void Character::manageSprite(float fpsCount,float fpsSpeed, float switchFps, sf::Clock time) {
-	if (updateFps) {
-		fpsCount += fpsSpeed *time.restart().asSeconds();
-	}
-	else {
-		fpsCount = 0;
-	}
-	if (fpsCount >= switchFps) {
-		anim.x++;
-		if (anim.x * 56 >= perso_->getSize().x) {
-			anim.x = 0;
-		}
-	}
-	spritePerso_->setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
 }
