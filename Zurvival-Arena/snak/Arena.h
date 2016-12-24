@@ -10,7 +10,7 @@ private:
 	unsigned width_;
 	unsigned height_;
 	std::vector<sf::RectangleShape> obstacles;
-	std::vector<std::vector<bool>> tiles;
+	std::vector<std::vector<bool>> tiles_;
 
 public:
 	Arena()=default;

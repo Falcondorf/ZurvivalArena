@@ -1,11 +1,15 @@
 #include "Arena.h"
 #include "ZurvivalException.h"
+#include "Game.h"
 
 Arena::Arena(unsigned width, unsigned height) : width_(width), height_(height) {
-	if (width % 30 != 0 && height % 30 != 0) {
+	if (width % 30 != 0 || height % 30 != 0) {
 		throw ZurvivalException("No respect of size");
 	}
 	else {
+		std::vector<std::vector<bool>> tiles(width/30, std::vector<bool>(height/30 , false));
+		tiles_ = tiles;
+
 		sf::RectangleShape top, left, right, bottom, obstacle;
 
 		obstacle.setPosition(50, 50);
@@ -45,6 +49,8 @@ Arena::Arena(unsigned width, unsigned height) : width_(width), height_(height) {
 		obstacles.push_back(left);
 		obstacles.push_back(right);
 		obstacles.push_back(obstacle);
+
+		setTiles();
 	}
 
 
@@ -52,14 +58,23 @@ Arena::Arena(unsigned width, unsigned height) : width_(width), height_(height) {
 
 void Arena::setTiles()
 {
-	//faire la recherche des dalles + trouver une bonne tailles
-	sf::RectangleShape tile;
-	tile.setSize(sf::Vector2f(30, 30));
+	sf::RectangleShape searchTile;
+	unsigned line = 0, column = 0;
+	searchTile.setSize(sf::Vector2f(30, 30));
+	searchTile.setPosition(0,0);
 
-	while (tile.getPosition().y < height_) {
-		while (tile.getPosition().y < width_) {
-
+	while (searchTile.getPosition().y < height_) {
+		while (searchTile.getPosition().x < width_) {
+			for (sf::RectangleShape rs : obstacles){
+				if (Game::intersects(rs,searchTile)){
+					tiles_[line][column] = true;
+				}
+			}
+			column++;
+			searchTile.setPosition(searchTile.getPosition().x + 30, searchTile.getPosition().y);
 		}
-
+		column = 0;
+		line++;
+		searchTile.setPosition(0, searchTile.getPosition().y + 30);
 	}
 }

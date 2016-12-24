@@ -20,7 +20,7 @@ public:
 	inline const std::vector<Character> &  getPlayers() const;
 	inline Game(unsigned width, unsigned height);
 	bool hasCollision(int idPlayer, float movex, float movey);
-	bool intersects(const RectangleShape & rect1, const RectangleShape & rect2);
+	static bool intersects(const RectangleShape & rect1, const RectangleShape & rect2);
 	void move(int idplayer, float xMove, float yMove);
 	unsigned getNbPlayers()const;
 	const RectangleShape &getHitBoxChar(int i)const;
@@ -43,12 +43,8 @@ public:
 };
 
 Game::Game(unsigned width, unsigned height) {
-	try {
-		arena_ = Arena(width, height);
-	}
-	catch (std::exception const & e) {
-		std::cout << e.what() << std::endl;
-	}
+
+	arena_ = Arena(width, height);
 }
 
 const std::vector<Character> &  Game::getPlayers() const {
