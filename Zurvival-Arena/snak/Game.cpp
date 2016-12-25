@@ -15,6 +15,11 @@ bool Game::hasCollision(int idPlayer,float movex, float movey) {
 			return true;
 		}
 	}
+	for (int j = 0; j < getEnemies().size(); j++) {
+		if (intersects(getEnemies().at(j).getHitbox(), futurePosition)) {
+			return true;
+		}
+	}
 	return false;
 }
 
@@ -57,6 +62,7 @@ void Game::functionMovingEnemies() {
 			enemies_.at(i).uptadeSpritePosition();
 			enemies_.at(i).setState(Moving);
 			//enemies_.at(i).manageSprite(fpsCount, fpsSpeed, switchFps, time);
+			//arena_.updateMatrice(enemies_.at(i).getHitbox().getPosition(), float x,float y );
 		}
 
 	}

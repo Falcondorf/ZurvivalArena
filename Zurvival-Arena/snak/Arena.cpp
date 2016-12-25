@@ -69,6 +69,7 @@ void Arena::setTiles()
 				if (Game::intersects(rs,searchTile)){
 					tiles_[line][column] = true;
 				}
+				
 			}
 			column++;
 			searchTile.setPosition(searchTile.getPosition().x + 30, searchTile.getPosition().y);
@@ -77,4 +78,10 @@ void Arena::setTiles()
 		line++;
 		searchTile.setPosition(0, searchTile.getPosition().y + 30);
 	}
+
+	
+}
+void Arena::updateMatrice(Position pos, Position futurePosition) {
+	
+	tiles_[pos.getX()][pos.getY()]
 }
