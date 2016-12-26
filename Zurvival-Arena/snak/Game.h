@@ -7,13 +7,6 @@
 #include <chrono>
 using namespace sf;
 
-struct Node {
-	sf::Vector2f parent;
-	sf::Vector2f position;
-	unsigned gValue;
-	unsigned hValue;
-	unsigned fValue;
-};
 
 class Game {
 private:
