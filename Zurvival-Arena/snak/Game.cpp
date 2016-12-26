@@ -98,7 +98,7 @@ void Game::brain()
 			}
 
 			if ((courant.first == arrivee.position.x) && (courant.second == arrivee.position.y)) {
-				recoverPath(depart, arrivee); 
+				recoverPath(depart, arrivee);  //où le mettre pour enemy?
 
 				//add the best possibloe movement
 			}
