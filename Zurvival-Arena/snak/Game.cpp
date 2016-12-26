@@ -4,14 +4,14 @@
 #include <iostream>
 using namespace sf;
 
-bool Game::hasCollision(int idPlayer,float movex, float movey) {
+bool Game::hasCollision(int idPlayer, float movex, float movey) {
 	if (idPlayer < 0 || idPlayer>1) {
 		//throw invalid_argument();
 	}
 	RectangleShape futurePosition = players_.at(idPlayer).getHitbox();
 	futurePosition.move(movex, movey);
-	for (int i = 0; i< getNbObstacles(); i++) {
-		if (intersects( getObstacle(i), futurePosition)) {
+	for (int i = 0; i < getNbObstacles(); i++) {
+		if (intersects(getObstacle(i), futurePosition)) {
 			return true;
 		}
 	}
@@ -56,7 +56,7 @@ void Game::functionMovingEnemies() {
 	Vector2f p;
 	while (!gameFinish) {
 		for (unsigned i = 0;i < enemies_.size();i++) {
-			
+
 			enemies_.at(i).move(0, 0.00006);
 			enemies_.at(i).setAnimY(Down);
 			enemies_.at(i).uptadeSpritePosition();
@@ -70,17 +70,17 @@ void Game::functionMovingEnemies() {
 }
 
 void Game::startMovingEnemies() {
-	threadEnemies = std::unique_ptr < std::thread > (new std::thread(&Game::functionMovingEnemies,this));
-	
+	threadEnemies = std::unique_ptr < std::thread >(new std::thread(&Game::functionMovingEnemies, this));
+
 }
 
 void Game::manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time) {
-	
+
 	for (unsigned i = 0;i < enemies_.size();i++) {
 		enemies_.at(i).manageSprite(fpsCount, fpsSpeed, switchFps, time);
 		enemies_.at(i).setState(Idle);
 	}
-	
+
 }
 
 std::vector<sf::Vector2f> Game::brain(unsigned idEnemy) {
@@ -94,7 +94,7 @@ std::vector<sf::Vector2f> Game::brain(unsigned idEnemy) {
 	//openList.push_back(noeud);    // on place le noeud sur lequel est le joueur dans l openlist
 	Node node;
 	node.position = en.getHitbox().getPosition();
-	node.parent = en.getHitbox().getPosition(); 
+	node.parent = en.getHitbox().getPosition();
 	node.fValue = 0;
 	node.gValue = 0;
 	node.hValue = spaceCase(en.getHitbox().getPosition());
@@ -106,9 +106,10 @@ std::vector<sf::Vector2f> Game::brain(unsigned idEnemy) {
 		Node q;
 		int cpt = 0;
 		int itQ = 0;
+		std::cout << openList.size() << std::endl;
 		for (Node n : openList) {  //on parcourt tous les noeuds à traiter
 			cpt++;
-			if (n.fValue<fVal) {  //trouve la fValue la plus petite
+			if (n.fValue < fVal) {  //trouve la fValue la plus petite
 				fVal = n.fValue;
 				q.parent = n.parent;
 				q.position = n.position;
@@ -122,9 +123,8 @@ std::vector<sf::Vector2f> Game::brain(unsigned idEnemy) {
 		// enlève de l'openList le noeud avec la fvalue la plus petite
 
 		std::vector<Node> successors;
-		generateSuccessors( q.position, &successors, q);
+		generateSuccessors(q.position, &successors, q);
 		//création des successeurs du noeuds évalué.
-
 		for (Node n : successors) {
 			if (n.hValue == 0) {
 				//Goal atteint, arret de la recherche
@@ -143,37 +143,38 @@ std::vector<sf::Vector2f> Game::brain(unsigned idEnemy) {
 				//prise dans l'openList car elle possède un score
 				//plus proche de la solution de chemin.
 				openList.push_back(n);
-
+				
 			}
 		}
+
 
 		closedList.push_back(q);
-		//On met le noeud qui était évalué dans la closedList (liste des noeuds traité)
-		Node current = closedList.back();
-		//On récupère le dernier noeuds du chemin
-		std::vector<sf::Vector2f> reversePath;
-		//Vecteur qui contiendra les positions des noeuds décrivant le chemin de retour 
-		reversePath.push_back(sf::Vector2f(current.position.x, current.position.y));
-		//On prend déjà le noeud courant (dernier de 
-		//la closed list
-		while (current.position.x != current.parent.x || current.position.y != current.parent.y) {
-			//Le noeud parent à comme position
-			//de noeud parent sa propre position
-			for (Node n : closedList) {
-				//On parcourt la closedList 
-				if (n.position.x == current.parent.x && n.position.y == current.position.y) {
-					// On cherche le parent du noeud
-					current = n;
-					break;
-				}
-			}
-			reversePath.push_back((sf::Vector2f(current.position.x, current.position.y)));
-			//On ajout le noeud courant 
-			//(anciennement le parent)
-		}
-		return reversePath;
 	}
-		
+	//On met le noeud qui était évalué dans la closedList (liste des noeuds traité)
+	Node current = closedList.back();
+	//On récupère le dernier noeuds du chemin
+	std::vector<sf::Vector2f> reversePath;
+	//Vecteur qui contiendra les positions des noeuds décrivant le chemin de retour 
+	reversePath.push_back(sf::Vector2f(current.position.x, current.position.y));
+	//On prend déjà le noeud courant (dernier de 
+	//la closed list
+	while (current.position.x != current.parent.x || current.position.y != current.parent.y) {
+		//Le noeud parent à comme position
+		//de noeud parent sa propre position
+		for (Node n : closedList) {
+			//On parcourt la closedList 
+			if (n.position.x == current.parent.x && n.position.y == current.position.y) {
+				// On cherche le parent du noeud
+				current = n;
+				break;
+			}
+		}
+		reversePath.push_back((sf::Vector2f(current.position.x, current.position.y)));
+		//On ajout le noeud courant 
+		//(anciennement le parent)
+
+	}
+	return reversePath;
 }
 
 unsigned Game::spaceCase(Vector2f pos) {
@@ -186,35 +187,31 @@ unsigned Game::spaceCase(Vector2f pos) {
 
 void Game::generateSuccessors(Vector2f pos, std::vector<Node> *successors, Node parent) {
 	// manque les diagonale
-	if (pos.x >= 30 && arena_.isFree(pos.x -30 , pos.y)) {
+	if (pos.x >= 30 && arena_.isFree(pos.x - 30, pos.y)) {
 		if (pos.x - 60 != parent.position.x || pos.y != parent.position.y) {
-			Node node{ parent.position, sf::Vector2f(pos.x - 60, pos.y), 0, spaceCase(sf::Vector2f(pos.x -60, pos.y)),0 };
+			Node node{ parent.position, sf::Vector2f(pos.x - 60, pos.y), 0, spaceCase(sf::Vector2f(pos.x - 60, pos.y)),0 };
 			successors->push_back(node);
-			std::cout << 1;
 		}
 
 	}
-	if (pos.x < arena_.getWidth() /* * 2 - 3*/  && arena_.isFree(pos.x + 30, pos.y)) {
+	if (pos.x < arena_.getWidth() /* * 2 - 3*/ && arena_.isFree(pos.x + 30, pos.y)) {
 		if (pos.x + 60 != parent.position.x || pos.y != parent.position.y) {
 			Node node{ parent.position, sf::Vector2f(pos.x + 60, pos.y), 0, spaceCase(sf::Vector2f(pos.x + 60, pos.y)),0 };
 			successors->push_back(node);
-			std::cout << 2;
 		}
 
 	}
-	if (pos.y>=30 && arena_.isFree(pos.x, pos.y - 30)) {
+	if (pos.y >= 30 && arena_.isFree(pos.x, pos.y - 30)) {
 		if (pos.x != parent.position.x || pos.y - 60 != parent.position.y) {
-			Node node{ parent.position, sf::Vector2f(pos.x, pos.y-60), 0, spaceCase(sf::Vector2f(pos.x, pos.y-60)),0 };
+			Node node{ parent.position, sf::Vector2f(pos.x, pos.y - 60), 0, spaceCase(sf::Vector2f(pos.x, pos.y - 60)),0 };
 			successors->push_back(node);
-			std::cout << 3;
 
 		}
 	}
-	if (pos.y< arena_.getWidth() /* * 2 - 3*/ && arena_.isFree(pos.x, pos.y + 30)) {
+	if (pos.y < arena_.getWidth() /* * 2 - 3*/ && arena_.isFree(pos.x, pos.y + 30)) {
 		if (pos.x != parent.position.x || pos.y + 60 != parent.position.y) {
 			Node node{ parent.position, sf::Vector2f(pos.x, pos.y + 60), 0, spaceCase(sf::Vector2f(pos.x, pos.y + 60)),0 };
 			successors->push_back(node);
-			std::cout << 4;
 		}
 
 	}
