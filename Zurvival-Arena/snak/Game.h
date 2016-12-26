@@ -59,6 +59,9 @@ public:
 	bool nodeExistInList(pair<int, int> n, map <pair<int, int>, Node>& l);
 	void addAdjectentCell(pair <int, int>& n);
 	float distance(int x1, int y1, int x2, int y2);
+	pair<int, int> bestNode(map <pair<int, int>, Node> l);
+	void addToClosedList(pair<int, int>& p);
+	vector<pair<int,int>> recoverPath(Node start,Node objectif);
 	inline Arena getArena();
 
 };

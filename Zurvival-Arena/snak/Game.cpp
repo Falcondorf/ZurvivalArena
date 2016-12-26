@@ -123,7 +123,7 @@ void Game::addAdjectentCell(pair<int, int>& n)
 				/* calcul du cout G du noeud en cours d'étude : cout du parent + distance jusqu'au parent */
 				tmp.gValue = closedList[n].gValue + distance(i, j, n.first, n.second);
 				/* calcul du cout H du noeud à la destination */
-				tmp.hValue = distance(i, j, posPlayer.getX(), posPlayer.getY());
+				tmp.hValue = distance(i, j, posPlayer.getX()/30, posPlayer.getY()/30);
 				tmp.fValue = tmp.gValue + tmp.hValue;
 				tmp.position = Vector2f(n.first,n.second);
 
@@ -146,6 +146,52 @@ void Game::addAdjectentCell(pair<int, int>& n)
 float Game::distance(int x1, int y1, int x2, int y2)
 {
 	return sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
+}
+pair<int, int> Game::bestNode(map <pair<int, int>, Node> l) {
+	float m_coutf = l.begin()->second.fValue;
+	pair<int, int> m_noeud = l.begin()->first;
+
+	for (map <pair<int, int>, Node>::iterator i = l.begin(); i != l.end(); i++)
+		if (i->second.fValue< m_coutf) {
+			m_coutf = i->second.fValue;
+			m_noeud = i->first;
+		}
+
+	return m_noeud;
+}
+void Game::addToClosedList(pair<int, int>& p) {
+	Node& n = openList[p];
+	closedList[p] = n;
+
+	/* il faut le supprimer de la liste ouverte, ce n'est plus une solution explorable */
+	if (openList.erase(p) == 0)
+		cerr << "Erreur, le noeud n'apparait pas dans la liste ouverte, impossible à supprimer" << endl;
+	return;
+}
+
+vector<pair<int,int>> Game::recoverPath(Node start,Node objectif)
+{
+	vector <pair<int,int>>chemin;
+	Position posPlayer = players_[0].getPosition();
+	/* l'arrivée est le dernier élément de la liste fermée */
+	Node& tmp = closedList[std::pair<int, int>(objectif.position.x, objectif.position.y)];
+
+	pair<int,int>n;
+	pair<int,int> prec;
+	n.first=posPlayer.getX();
+	n.second=posPlayer.getY();
+	prec.first=tmp.parent.x;
+	prec.second=tmp.parent.y;
+	chemin.push_back(n);
+
+	while (prec != pair<int, int>(start.parent.x, start.parent.y)) {
+		n.first = prec.first;
+		n.second = prec.second;
+		chemin.push_back(n);
+		tmp = closedList[pair<int,int>(tmp.parent.x,tmp.parent.y)];
+		prec.first = tmp.parent.x;
+		prec.second = tmp.parent.y;
+	}
 }
 
 
