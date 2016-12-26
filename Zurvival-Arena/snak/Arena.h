@@ -2,7 +2,7 @@
 
 #include "SFML/Graphics.hpp"
 #include <vector>
-
+#include <string>
 
 class Arena
 {
@@ -20,8 +20,9 @@ public:
 	void setTiles();
 	inline unsigned getNbObstacles();
 	inline sf::RectangleShape getObstacle(unsigned index);
+	inline std::vector<std::vector<bool>> getTiles();
 	bool isFree(float x, float y);
-
+	void printTiles();
 };
 
 
@@ -41,4 +42,7 @@ unsigned Arena::getWidth() const {
 
 unsigned Arena::getHeight() const {
 	return height_;
+}
+std::vector<std::vector<bool>> Arena::getTiles() {
+	return tiles_;
 }

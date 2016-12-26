@@ -5,27 +5,36 @@
 #include "Enemy.h"
 #include <thread>
 #include <chrono>
+#include <map>
+#include <utility>
 using namespace sf;
-
-
+using namespace std;
+struct Node {
+	sf::Vector2f parent;
+	sf::Vector2f position;
+	unsigned gValue;
+	unsigned hValue;
+	unsigned fValue;
+};
 class Game {
 private:
 	Arena arena_;
-	std::vector<Character> players_;
-	std::vector<Enemy> enemies_;
-	std::unique_ptr<std::thread> threadEnemies;
+	vector<Character> players_;
+	vector<Enemy> enemies_;
+	unique_ptr<thread> threadEnemies;
 	void functionMovingEnemies();
 	bool gameFinish = false;
 	unsigned spaceCase(Vector2f pos);
-
-	void generateSuccessors(Vector2f pos, std::vector<Node> *successors, Node parent);
+	map <pair<int, int>, Node> openList;
+	map <pair<int, int>, Node> closedList;
+	/*void generateSuccessors(Vector2f pos, std::vector<Node> *successors, Node parent);
 	bool parcourOpen(std::vector<Node> openList, sf::Vector2f position, int fValue);
-	bool parcourClosed(std::vector<Node> closedList, sf::Vector2f position, int fValue);
+	bool parcourClosed(std::vector<Node> closedList, sf::Vector2f position, int fValue);*/
 
 
 
 public:
-	inline const std::vector<Character> &  getPlayers() const;
+	inline const vector<Character> &  getPlayers() const;
 	inline Game(unsigned width, unsigned height);
 	bool hasCollision(int idPlayer, float movex, float movey);
 	static bool intersects(const RectangleShape & rect1, const RectangleShape & rect2);
@@ -34,7 +43,7 @@ public:
 	const RectangleShape &getHitBoxChar(int i)const;
 	inline void addPlayer(float posX, float posY, int pv = 3);
 	void addEnemy(float posX, float posY, int pv = 1);
-	const std::vector<Enemy> & getEnemies() const;
+	const vector<Enemy> & getEnemies() const;
 	inline unsigned getNbObstacles();
 	inline RectangleShape getObstacle(unsigned i);
 	inline void setPositionCharacter(unsigned i);
@@ -45,8 +54,12 @@ public:
 	inline void finishGame();
 	inline void manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 	void manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
-	std::vector<sf::Vector2f> brain(unsigned idEnemy);
+	vector<sf::Vector2f> brain(unsigned idEnemy);
 	void startMovingEnemies();
+	bool nodeExistInList(pair<int, int> n, map <pair<int, int>, Node>& l);
+	void addAdjectentCell(pair <int, int>& n);
+	float distance(int x1, int y1, int x2, int y2);
+	inline Arena getArena();
 
 };
 
@@ -54,7 +67,7 @@ Game::Game(unsigned width, unsigned height) {
 	arena_ = Arena(width, height);
 }
 
-const std::vector<Character> &  Game::getPlayers() const {
+const vector<Character> &  Game::getPlayers() const {
 
 	return players_;
 }
@@ -100,4 +113,7 @@ void Game::manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFp
 
 void Game::finishGame() {
 	gameFinish = true;
+}
+Arena Game::getArena() {
+	return arena_;
 }

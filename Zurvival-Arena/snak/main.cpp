@@ -13,12 +13,13 @@ int main()
 		game.addPlayer(250, 250);
 		game.addEnemy(300, 10);
 		game.addEnemy(420, 300);
+		game.getArena().printTiles();
 		VideoMode videoMode(width, height);
 		RenderWindow window(videoMode, "Rectangle Collision");
 		sf::Clock time;
 		float fpsCount = 0, switchFps = 0, fpsSpeed = 500;
 		std::vector<Vector2f> p;
-		p=game.brain(1);
+		//p=game.brain(1);
 		for (Vector2f b : p) {
 			std::cout << " X : " << b.x << " Y : " << b.y << std::endl;
 		}

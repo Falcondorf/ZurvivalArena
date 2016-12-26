@@ -17,7 +17,3 @@ Enemy::Enemy(Position position, int pv): Character (position, pv)
 void Enemy::uptadeSpritePosition() {
 	spritePerso_->setPosition(getHitbox().getPosition());
 }
-
-void Enemy::loadNodeList() {
-
-}

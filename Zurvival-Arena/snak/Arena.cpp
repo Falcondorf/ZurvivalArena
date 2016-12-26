@@ -12,7 +12,7 @@ Arena::Arena(unsigned width, unsigned height) : width_(width), height_(height) {
 
 		sf::RectangleShape top, left, right, bottom, obstacle;
 
-		obstacle.setPosition(50, 50);
+		obstacle.setPosition(120, 120);
 		obstacle.setSize(sf::Vector2f(200, 100));
 		obstacle.setFillColor(sf::Color::Blue);
 
@@ -84,4 +84,14 @@ void Arena::setTiles()
 bool Arena::isFree(float x, float y) {
 	Position p = Position(x / 30, y / 30);
 	return tiles_[p.getX()][p.getY()] == false;
+}
+
+void Arena::printTiles()
+{
+	for (int i = 0; i < height_ / 30; i++) {
+		for (int j = 0; j < width_ / 30; j++) {
+			std::cout << tiles_[i][j];
+		}
+		std::cout << std::endl;
+	}
 }
