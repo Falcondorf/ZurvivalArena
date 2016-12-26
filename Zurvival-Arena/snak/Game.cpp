@@ -72,14 +72,52 @@ void Game::functionMovingEnemies() {
 	threadEnemies->detach();
 }
 
+void Game::brain()
+{
+	for (unsigned i = 0; i < enemies_.size(); i++) { //build enemies path to player
+		//A revérifier par Salmane et Yassine 
+			Node arrivee;
+			arrivee.position.x = players_[0].getHitbox().getPosition().x;
+			arrivee.position.y = players_[0].getHitbox().getPosition().y;
+			Node depart;
+			depart.parent.x = 0;
+			depart.parent.y = 0;
+			pair<int, int> courant;
+			courant.first = 0;
+			courant.second = 0;
+			openList[courant] = depart;
+			addToClosedList(courant);
+			addAdjectentCell(courant);
+	
+			while (!((courant.first == arrivee.position.x) && (courant.second == arrivee.position.y)) && (!openList.empty())) {
+				courant = bestNode(openList);
+
+				addToClosedList(courant);
+
+				addAdjectentCell(courant);
+			}
+
+			if ((courant.first == arrivee.position.x) && (courant.second == arrivee.position.y)) {
+				recoverPath(depart, arrivee); 
+
+				//add the best possibloe movement
+			}
+			else {
+				//Pas de solution
+			}
+	}
+	//Que faire après la constitution des movements des enemis vers les joueurs?
+	
+}
+
 void Game::startMovingEnemies() {
 	threadEnemies = std::unique_ptr < std::thread >(new std::thread(&Game::functionMovingEnemies, this));
 
 }
 
-bool Game::nodeExistInList(pair<int, int> n, map<pair<int, int>, Node>& l)
+bool Game::nodeExistInList(std::pair<int, int> n, std::map<std::pair<int, int>, Node>& l)
 {
-	map<pair<int, int>, Node>::iterator i = l.find(n);
+	std::map<std::pair<int, int>, Node>::iterator i = l.find(n);
 	if (i == l.end())
 		return false;
 	else
@@ -123,9 +161,9 @@ void Game::addAdjectentCell(pair<int, int>& n)
 				/* calcul du cout G du noeud en cours d'étude : cout du parent + distance jusqu'au parent */
 				tmp.gValue = closedList[n].gValue + distance(i, j, n.first, n.second);
 				/* calcul du cout H du noeud à la destination */
-				tmp.hValue = distance(i, j, posPlayer.getX()/30, posPlayer.getY()/30);
+				tmp.hValue = distance(i, j, posPlayer.getX() / 30, posPlayer.getY() / 30);
 				tmp.fValue = tmp.gValue + tmp.hValue;
-				tmp.position = Vector2f(n.first,n.second);
+				tmp.position = Vector2f(n.first, n.second);
 
 				if (nodeExistInList(it, openList)) {
 					/* le noeud est déjà présent dans la liste ouverte, il faut comparer les couts */
@@ -152,7 +190,7 @@ pair<int, int> Game::bestNode(map <pair<int, int>, Node> l) {
 	pair<int, int> m_noeud = l.begin()->first;
 
 	for (map <pair<int, int>, Node>::iterator i = l.begin(); i != l.end(); i++)
-		if (i->second.fValue< m_coutf) {
+		if (i->second.fValue < m_coutf) {
 			m_coutf = i->second.fValue;
 			m_noeud = i->first;
 		}
@@ -169,29 +207,31 @@ void Game::addToClosedList(pair<int, int>& p) {
 	return;
 }
 
-vector<pair<int,int>> Game::recoverPath(Node start,Node objectif)
+vector<pair<int, int>> Game::recoverPath(Node start, Node objectif)
 {
-	vector <pair<int,int>>chemin;
+	vector <pair<int, int>>chemin;
 	Position posPlayer = players_[0].getPosition();
 	/* l'arrivée est le dernier élément de la liste fermée */
 	Node& tmp = closedList[std::pair<int, int>(objectif.position.x, objectif.position.y)];
 
-	pair<int,int>n;
-	pair<int,int> prec;
-	n.first=posPlayer.getX();
-	n.second=posPlayer.getY();
-	prec.first=tmp.parent.x;
-	prec.second=tmp.parent.y;
-	chemin.push_back(n);
+	pair<int, int>n;
+	pair<int, int> prec;
+	n.first = posPlayer.getX();
+	n.second = posPlayer.getY();
+	prec.first = tmp.parent.x;
+	prec.second = tmp.parent.y;
+	chemin.insert(chemin.begin(), n);
 
 	while (prec != pair<int, int>(start.parent.x, start.parent.y)) {
 		n.first = prec.first;
 		n.second = prec.second;
-		chemin.push_back(n);
-		tmp = closedList[pair<int,int>(tmp.parent.x,tmp.parent.y)];
+		chemin.insert(chemin.begin(), n);
+		tmp = closedList[pair<int, int>(tmp.parent.x, tmp.parent.y)];
 		prec.first = tmp.parent.x;
 		prec.second = tmp.parent.y;
 	}
+
+	return chemin;
 }
 
 

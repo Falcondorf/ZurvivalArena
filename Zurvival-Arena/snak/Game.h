@@ -54,7 +54,8 @@ public:
 	inline void finishGame();
 	inline void manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 	void manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
-	vector<sf::Vector2f> brain(unsigned idEnemy);
+	//vector<Vector2f> brain(unsigned idEnemy);
+	void brain();
 	void startMovingEnemies();
 	bool nodeExistInList(pair<int, int> n, map <pair<int, int>, Node>& l);
 	void addAdjectentCell(pair <int, int>& n);
