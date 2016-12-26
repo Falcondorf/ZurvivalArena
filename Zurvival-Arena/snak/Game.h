@@ -6,6 +6,15 @@
 #include <thread>
 #include <chrono>
 using namespace sf;
+
+struct Node {
+	sf::Vector2f parent;
+	sf::Vector2f position;
+	unsigned gValue;
+	unsigned hValue;
+	unsigned fValue;
+};
+
 class Game {
 private:
 	Arena arena_;
@@ -14,6 +23,12 @@ private:
 	std::unique_ptr<std::thread> threadEnemies;
 	void functionMovingEnemies();
 	bool gameFinish = false;
+	unsigned spaceCase(Vector2f pos);
+
+	void generateSuccessors(Vector2f pos, std::vector<Node> *successors, Node parent);
+	bool parcourOpen(std::vector<Node> openList, sf::Vector2f position, int fValue);
+	bool parcourClosed(std::vector<Node> closedList, sf::Vector2f position, int fValue);
+
 
 
 public:
@@ -37,13 +52,12 @@ public:
 	inline void finishGame();
 	inline void manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 	void manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
-
+	std::vector<sf::Vector2f> brain(unsigned idEnemy);
 	void startMovingEnemies();
 
 };
 
 Game::Game(unsigned width, unsigned height) {
-
 	arena_ = Arena(width, height);
 }
 

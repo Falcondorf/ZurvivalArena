@@ -82,3 +82,173 @@ void Game::manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Cloc
 	}
 	
 }
+
+std::vector<sf::Vector2f> Game::brain(unsigned idEnemy) {
+	bool end = false;
+	std::vector<Node> openList;     // openList est la liste des nœuds adjacents au nœud courantpas encore évalué
+	std::vector<Node> closedList; //la liste des nœuds qui ont été évalués en temps que nœud courant.
+	Enemy en = enemies_.at(idEnemy);
+	int i = en.getHitbox().getPosition().x;
+	int j = en.getHitbox().getPosition().y;
+	//Node noeud{ getPlayer(numJoueur).getPos(),std::pair<unsigned, unsigned>(i,j), 0, board_.getFrameHV(i,j,numJoueur - 1), 0 };   //on crée le noeud ou se trouve le joueur évalué 
+	//openList.push_back(noeud);    // on place le noeud sur lequel est le joueur dans l openlist
+	Node node;
+	node.position = en.getHitbox().getPosition();
+	node.parent = en.getHitbox().getPosition(); 
+	node.fValue = 0;
+	node.gValue = 0;
+	node.hValue = spaceCase(en.getHitbox().getPosition());
+	openList.push_back(node);
+
+	while (!openList.empty() && !end) {
+		//  tant que la liste n'est pas vide si il n'y a pas de chemin et pas end (quand hvalue = 0 càd  qu on est de l autre coté)
+		int fVal = 1000;
+		Node q;
+		int cpt = 0;
+		int itQ = 0;
+		for (Node n : openList) {  //on parcourt tous les noeuds à traiter
+			cpt++;
+			if (n.fValue<fVal) {  //trouve la fValue la plus petite
+				fVal = n.fValue;
+				q.parent = n.parent;
+				q.position = n.position;
+				q.fValue = n.fValue;
+				q.gValue = n.gValue;
+				q.hValue = n.hValue;
+				itQ = cpt; // itérateur de node servant à vidé de l'openList le noeud avec la fvalue la plus petite
+			}
+		}
+		openList.erase(openList.begin() + itQ - 1);
+		// enlève de l'openList le noeud avec la fvalue la plus petite
+
+		std::vector<Node> successors;
+		generateSuccessors( q.position, &successors, q);
+		//création des successeurs du noeuds évalué.
+
+		for (Node n : successors) {
+			if (n.hValue == 0) {
+				//Goal atteint, arret de la recherche
+				end = true;
+				std::cout << "FIN" << std::endl;
+				break;
+			}
+			n.gValue = q.gValue + 1;
+			//Attribution de la valeur gVal (score de parcours)
+			n.fValue = n.gValue + n.hValue;
+			//Attribution de la valeur fVal (score de noeud) - somme de la gVal et fVal
+
+			if (!parcourOpen(openList, n.position, n.fValue) && !parcourClosed(closedList, n.position, n.fValue)) {
+				//Si on a pas trouvé une node avec une fVal 
+				//plus intérressante dans les listes, elle peut être 
+				//prise dans l'openList car elle possède un score
+				//plus proche de la solution de chemin.
+				openList.push_back(n);
+
+			}
+		}
+
+		closedList.push_back(q);
+		//On met le noeud qui était évalué dans la closedList (liste des noeuds traité)
+		Node current = closedList.back();
+		//On récupère le dernier noeuds du chemin
+		std::vector<sf::Vector2f> reversePath;
+		//Vecteur qui contiendra les positions des noeuds décrivant le chemin de retour 
+		reversePath.push_back(sf::Vector2f(current.position.x, current.position.y));
+		//On prend déjà le noeud courant (dernier de 
+		//la closed list
+		while (current.position.x != current.parent.x || current.position.y != current.parent.y) {
+			//Le noeud parent à comme position
+			//de noeud parent sa propre position
+			for (Node n : closedList) {
+				//On parcourt la closedList 
+				if (n.position.x == current.parent.x && n.position.y == current.position.y) {
+					// On cherche le parent du noeud
+					current = n;
+					break;
+				}
+			}
+			reversePath.push_back((sf::Vector2f(current.position.x, current.position.y)));
+			//On ajout le noeud courant 
+			//(anciennement le parent)
+		}
+		return reversePath;
+	}
+		
+}
+
+unsigned Game::spaceCase(Vector2f pos) {
+	unsigned hValue;
+	hValue = std::abs(players_.at(0).getHitbox().getPosition().x - pos.x);
+	hValue += std::abs(players_.at(0).getHitbox().getPosition().y - pos.y);
+
+	return hValue;
+}
+
+void Game::generateSuccessors(Vector2f pos, std::vector<Node> *successors, Node parent) {
+	// manque les diagonale
+	if (pos.x >= 30 && arena_.isFree(pos.x -30 , pos.y)) {
+		if (pos.x - 60 != parent.position.x || pos.y != parent.position.y) {
+			Node node{ parent.position, sf::Vector2f(pos.x - 60, pos.y), 0, spaceCase(sf::Vector2f(pos.x -60, pos.y)),0 };
+			successors->push_back(node);
+			std::cout << 1;
+		}
+
+	}
+	if (pos.x < arena_.getWidth() /* * 2 - 3*/  && arena_.isFree(pos.x + 30, pos.y)) {
+		if (pos.x + 60 != parent.position.x || pos.y != parent.position.y) {
+			Node node{ parent.position, sf::Vector2f(pos.x + 60, pos.y), 0, spaceCase(sf::Vector2f(pos.x + 60, pos.y)),0 };
+			successors->push_back(node);
+			std::cout << 2;
+		}
+
+	}
+	if (pos.y>=30 && arena_.isFree(pos.x, pos.y - 30)) {
+		if (pos.x != parent.position.x || pos.y - 60 != parent.position.y) {
+			Node node{ parent.position, sf::Vector2f(pos.x, pos.y-60), 0, spaceCase(sf::Vector2f(pos.x, pos.y-60)),0 };
+			successors->push_back(node);
+			std::cout << 3;
+
+		}
+	}
+	if (pos.y< arena_.getWidth() /* * 2 - 3*/ && arena_.isFree(pos.x, pos.y + 30)) {
+		if (pos.x != parent.position.x || pos.y + 60 != parent.position.y) {
+			Node node{ parent.position, sf::Vector2f(pos.x, pos.y + 60), 0, spaceCase(sf::Vector2f(pos.x, pos.y + 60)),0 };
+			successors->push_back(node);
+			std::cout << 4;
+		}
+
+	}
+}
+
+bool Game::parcourOpen(std::vector<Node> openList, sf::Vector2f position, int fValue) {
+	// Evalue qu'un noeud évalué à une 
+	//même position ait une fValue moins intéressante
+	bool ok = false;
+
+	for (Node node : openList) {
+		if (node.position.x == position.x &&
+			node.position.y == position.y &&
+			node.fValue < fValue) {
+			ok = true;
+			break;
+		}
+
+	}
+	return ok;
+}
+
+bool Game::parcourClosed(std::vector<Node> closedList, sf::Vector2f position, int fValue) {
+	// Evalue qu'un noeud évalué à une 
+	//même position ait une fValue moins intéressante
+	bool ok = false;
+	for (Node node : closedList) {
+		if (node.position.x == position.x &&
+			node.position.y == position.y &&
+			node.fValue < fValue) {
+			ok = true;
+			break;
+		}
+
+	}
+	return ok;
+}

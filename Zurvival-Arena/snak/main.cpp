@@ -5,8 +5,8 @@
 using namespace sf;
 int main()
 {
-	const int width = 960;
-	const int height = 960;
+	const int width = 660;
+	const int height = 660;
 	try {
 		Game game = Game(width, height);
 		game.addPlayer(10, 10);
@@ -15,13 +15,14 @@ int main()
 		game.addEnemy(420, 300);
 		VideoMode videoMode(width, height);
 		RenderWindow window(videoMode, "Rectangle Collision");
-		sf::Texture perso;
-		if (!perso.loadFromFile("player.png")) {
-			std::cout << "error loading image" << std::endl;
-		}
 		sf::Clock time;
 		float fpsCount = 0, switchFps = 0, fpsSpeed = 500;
-		game.startMovingEnemies();
+		std::vector<Vector2f> p;
+		p=game.brain(1);
+		for (Vector2f b : p) {
+			std::cout << " X : " << b.x << " Y : " << b.y << std::endl;
+		}
+		//game.startMovingEnemies();
 		while (window.isOpen())
 		{
 			window.clear(Color::White);

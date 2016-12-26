@@ -78,10 +78,10 @@ void Arena::setTiles()
 		line++;
 		searchTile.setPosition(0, searchTile.getPosition().y + 30);
 	}
-
 	
 }
-void Arena::updateMatrice(Position pos, Position futurePosition) {
-	
-	tiles_[pos.getX()][pos.getY()]
+
+bool Arena::isFree(float x, float y) {
+	Position p = Position(x / 30, y / 30);
+	return tiles_[p.getX()][p.getY()] == false;
 }

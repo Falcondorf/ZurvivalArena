@@ -18,9 +18,9 @@ public:
 	inline unsigned getWidth()const;
 	inline unsigned getHeight() const;
 	void setTiles();
-	void updateMatrice(Position pos, Position futurePosition);
 	inline unsigned getNbObstacles();
 	inline sf::RectangleShape getObstacle(unsigned index);
+	bool isFree(float x, float y);
 
 };
 
