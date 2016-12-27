@@ -90,6 +90,9 @@ void Game::brain(Enemy &e )
 			depart.parent.x = pos.getX()/30;
 			depart.parent.y = pos.getY()/30;
 			depart.position = Vector2f(pos.getX()/30, pos.getY()/30);
+			
+			depart.gValue = 1;
+			
 			pair<int, int> courant;
 			courant.first = depart.position.x;
 			courant.second = depart.position.y;
@@ -106,8 +109,10 @@ void Game::brain(Enemy &e )
 			if ((courant.first == arrivee.position.x) && (courant.second == arrivee.position.y)) {
 				e.setPath(recoverPath(depart, arrivee));  //où le mettre pour enemy?
 				//add the best possibloe movement
+				cout << "OK" << endl;
 			}
 			else {
+				cout << "PLEURE" << endl;
 				//Pas de solution
 			}
 
@@ -203,6 +208,7 @@ pair<int, int> Game::bestNode(map <pair<int, int>, Node> l) {
 
 	return m_noeud;
 }
+
 void Game::addToClosedList(pair<int, int>& p) {
 	Node& n = openList[p];
 	closedList[p] = n;
@@ -240,7 +246,7 @@ vector<pair<int, int>> Game::recoverPath(Node start, Node objectif)
 		prec.first = tmp.position.x;
 		prec.second = tmp.position.y;
 	}
-	
+
 	return chemin;
 }
 
