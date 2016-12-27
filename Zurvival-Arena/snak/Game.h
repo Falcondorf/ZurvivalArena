@@ -32,7 +32,6 @@ private:
 	bool parcourClosed(std::vector<Node> closedList, sf::Vector2f position, int fValue);*/
 
 
-
 public:
 	inline const vector<Character> &  getPlayers() const;
 	inline Game(unsigned width, unsigned height);

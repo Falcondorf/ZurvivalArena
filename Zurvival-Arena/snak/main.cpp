@@ -9,22 +9,22 @@ int main()
 	const int height = 660;
 	try {
 		Game game = Game(width, height);
-		game.addPlayer(300, 210);
+		game.addPlayer(300, 180);
 		game.addPlayer(250, 250);
 		game.addEnemy(210, 240);
 		game.addEnemy(420, 300);
-		game.getArena().printTiles();
-		game.brain(game.getEnemies()[0]);
+		//game.getArena().printTiles();
+		//game.brain(game.getEnemies()[0]);
 		VideoMode videoMode(width, height);
 		RenderWindow window(videoMode, "Rectangle Collision");
 		sf::Clock time;
 		float fpsCount = 0, switchFps = 0, fpsSpeed = 500;
-		std::vector<Vector2f> p;
-		//p=game.brain(1);
-		for (Vector2f b : p) {
-			std::cout << " X : " << b.x << " Y : " << b.y << std::endl;
-		}
-		//game.startMovingEnemies();
+		//std::vector<Vector2f> p;
+		////p=game.brain(1);
+		//for (Vector2f b : p) {
+		//	std::cout << " X : " << b.x << " Y : " << b.y << std::endl;
+		//}
+		game.startMovingEnemies();
 		while (window.isOpen())
 		{
 			window.clear(Color::White);

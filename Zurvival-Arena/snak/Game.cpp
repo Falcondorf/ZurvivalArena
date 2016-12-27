@@ -60,13 +60,18 @@ void Game::functionMovingEnemies() {
 	while (!gameFinish) {
 		for (unsigned i = 0; i < enemies_.size(); i++) {
 
-			enemies_.at(i).move(0, 0.00006);
+			/*enemies_.at(i).move(0, 0.00006);
 			enemies_.at(i).setAnimY(Down);
 			enemies_.at(i).uptadeSpritePosition();
-			enemies_.at(i).setState(Moving);
+			enemies_.at(i).setState(Moving);*/
 
-
-
+			brain(enemies_.at(i));
+			cout << "Chemin : " << enemies_.at(i).getPath().size() << endl;
+			/*for (unsigned j = 0;j < enemies_.at(i).getPath().size(); j++) {
+				pair<int, int> p = enemies_.at(i).getPath().at(j);
+				cout << p.first << " " << p.second << endl;
+			}*/
+			
 			//enemies_.at(i).manageSprite(fpsCount, fpsSpeed, switchFps, time);
 			//arena_.updateMatrice(enemies_.at(i).getHitbox().getPosition(), float x,float y );
 		}
@@ -74,7 +79,6 @@ void Game::functionMovingEnemies() {
 	}
 	threadEnemies->detach();
 }
-
 void Game::brain(Enemy &e )
 {
 	for (unsigned i = 0; i < enemies_.size(); i++) { //build enemies path to player
@@ -83,6 +87,7 @@ void Game::brain(Enemy &e )
 			Node arrivee;
 			arrivee.position.x = players_[0].getHitbox().getPosition().x/30;
 			arrivee.position.y = players_[0].getHitbox().getPosition().y/30;
+
 			Node depart;
 			depart.parent.x = pos.getX();
 			depart.parent.y = pos.getY();
@@ -109,6 +114,7 @@ void Game::brain(Enemy &e )
 			else {
 				//Pas de solution
 			}
+
 	}
 	//Que faire après la constitution des movements des enemis vers les joueurs?
 	
@@ -215,25 +221,33 @@ vector<pair<int, int>> Game::recoverPath(Node start, Node objectif)
 	vector <pair<int, int>>chemin;
 	Position posPlayer = players_[0].getPosition();
 	/* l'arrivée est le dernier élément de la liste fermée */
-	Node& tmp = closedList[pair<int, int>(objectif.position.x, objectif.position.y)];
-
+	map <pair<int, int>, Node>::reverse_iterator it = closedList.rbegin();
+	//Node& tmp = closedList[pair<int, int>(objectif.position.x, objectif.position.y)];
+	Node& tmp = it->second;
 	pair<int, int>n;
 	pair<int, int> prec;
-	n.first = posPlayer.getX();
-	n.second = posPlayer.getY();
+	//n.first = posPlayer.getX();
+	//n.second = posPlayer.getY();
+	n.first = tmp.position.x;
+	n.second = tmp.position.y;
+// parent est 0 ?? mais doit contenir la position joueur ??
 	prec.first = tmp.parent.x;
 	prec.second = tmp.parent.y;
+	
 	chemin.insert(chemin.begin(), n);
-
 	while (prec != pair<int, int>(start.parent.x, start.parent.y)) {
 		n.first = prec.first;
 		n.second = prec.second;
 		chemin.insert(chemin.begin(), n);
+		//chemin.push_back(n);
 		tmp = closedList[pair<int, int>(tmp.parent.x, tmp.parent.y)];
 		prec.first = tmp.parent.x;
 		prec.second = tmp.parent.y;
 	}
-
+	for (unsigned j = 0;j < chemin.size(); j++) {
+		pair<int, int> p = chemin.at(j);
+		cout << p.first << " " << p.second << endl;
+	}
 	return chemin;
 }
 
