@@ -64,19 +64,17 @@ void Game::functionMovingEnemies() {
 			enemies_.at(i).setAnimY(Down);
 			enemies_.at(i).uptadeSpritePosition();
 			enemies_.at(i).setState(Moving);*/
-
 			brain(enemies_.at(i));
 			cout << "Chemin : " << enemies_.at(i).getPath().size() << endl;
-			/*for (unsigned j = 0;j < enemies_.at(i).getPath().size(); j++) {
+			for (unsigned j = 0;j < enemies_.at(i).getPath().size(); j++) {
 				pair<int, int> p = enemies_.at(i).getPath().at(j);
 				cout << p.first << " " << p.second << endl;
-			}*/
+			}
 			
 			//enemies_.at(i).manageSprite(fpsCount, fpsSpeed, switchFps, time);
 			//arena_.updateMatrice(enemies_.at(i).getHitbox().getPosition(), float x,float y );
 		}
-
-	}
+	} 
 	threadEnemies->detach();
 }
 void Game::brain(Enemy &e )
@@ -89,21 +87,19 @@ void Game::brain(Enemy &e )
 			arrivee.position.y = players_[0].getHitbox().getPosition().y/30;
 
 			Node depart;
-			depart.parent.x = pos.getX();
-			depart.parent.y = pos.getY();
-			depart.position = Vector2f(pos.getX(), pos.getY());
+			depart.parent.x = pos.getX()/30;
+			depart.parent.y = pos.getY()/30;
+			depart.position = Vector2f(pos.getX()/30, pos.getY()/30);
 			pair<int, int> courant;
-			courant.first = 0;
-			courant.second = 0;
+			courant.first = depart.position.x;
+			courant.second = depart.position.y;
 			openList[courant] = depart;
 			addToClosedList(courant);
 			addAdjectentCell(courant);
 	
 			while (!((courant.first == arrivee.position.x) && (courant.second == arrivee.position.y)) && (!openList.empty())) {
 				courant = bestNode(openList);
-
 				addToClosedList(courant);
-
 				addAdjectentCell(courant);
 			}
 
@@ -173,7 +169,8 @@ void Game::addAdjectentCell(pair<int, int>& n)
 				/* calcul du cout H du noeud à la destination */
 				tmp.hValue = distance(i, j, posPlayer.getX() / 30, posPlayer.getY() / 30);
 				tmp.fValue = tmp.gValue + tmp.hValue;
-				tmp.position = Vector2f(n.first, n.second);
+				tmp.position = Vector2f(i, j);
+				tmp.parent = Vector2f(n.first, n.second);
 				if (nodeExistInList(it, openList)) {
 					/* le noeud est déjà présent dans la liste ouverte, il faut comparer les couts */
 					if (tmp.fValue < openList[it].fValue) {
@@ -232,8 +229,7 @@ vector<pair<int, int>> Game::recoverPath(Node start, Node objectif)
 	n.second = tmp.position.y;
 // parent est 0 ?? mais doit contenir la position joueur ??
 	prec.first = tmp.parent.x;
-	prec.second = tmp.parent.y;
-	
+	prec.second = tmp.parent.y;	
 	chemin.insert(chemin.begin(), n);
 	while (prec != pair<int, int>(start.parent.x, start.parent.y)) {
 		n.first = prec.first;
@@ -241,13 +237,10 @@ vector<pair<int, int>> Game::recoverPath(Node start, Node objectif)
 		chemin.insert(chemin.begin(), n);
 		//chemin.push_back(n);
 		tmp = closedList[pair<int, int>(tmp.parent.x, tmp.parent.y)];
-		prec.first = tmp.parent.x;
-		prec.second = tmp.parent.y;
+		prec.first = tmp.position.x;
+		prec.second = tmp.position.y;
 	}
-	for (unsigned j = 0;j < chemin.size(); j++) {
-		pair<int, int> p = chemin.at(j);
-		cout << p.first << " " << p.second << endl;
-	}
+	
 	return chemin;
 }
 

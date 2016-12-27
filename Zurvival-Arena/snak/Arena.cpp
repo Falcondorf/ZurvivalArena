@@ -12,7 +12,7 @@ Arena::Arena(unsigned width, unsigned height) : width_(width), height_(height) {
 
 		sf::RectangleShape top, left, right, bottom, obstacle;
 
-		obstacle.setPosition(120, 120);
+		obstacle.setPosition(90, 30);
 		obstacle.setSize(sf::Vector2f(200, 100));
 		obstacle.setFillColor(sf::Color::Blue);
 
@@ -48,7 +48,7 @@ Arena::Arena(unsigned width, unsigned height) : width_(width), height_(height) {
 		obstacles.push_back(bottom);
 		obstacles.push_back(left);
 		obstacles.push_back(right);
-		//obstacles.push_back(obstacle);
+		/*obstacles.push_back(obstacle);*/
 
 		setTiles();
 	}
