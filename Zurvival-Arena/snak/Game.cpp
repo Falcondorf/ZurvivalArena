@@ -97,7 +97,10 @@ void Game::brain(Enemy &e )
 				courant.first = depart.position.x;
 				courant.second = depart.position.y;
 			
-			
+				if (arrivee.position.x < depart.position.x) {
+					inversion = true;
+			}
+
 			openList[courant] = depart;
 			addToClosedList(courant);
 			addAdjectentCell(courant);
@@ -117,6 +120,7 @@ void Game::brain(Enemy &e )
 				cout << "PLEURE" << endl;
 				//Pas de solution
 			}
+			
 
 	}
 	//Que faire après la constitution des movements des enemis vers les joueurs?
@@ -175,14 +179,10 @@ void Game::addAdjectentCell(pair<int, int>& n)
 				tmp.gValue = closedList[n].gValue + distance(i, j, n.first, n.second);
 				/* calcul du cout H du noeud à la destination */
 
-
 					tmp.hValue = distance(i, j, posPlayer.getX() / 30, posPlayer.getY() / 30);
 					tmp.fValue = tmp.gValue + tmp.hValue;
 					tmp.position = Vector2f(i, j);
 					tmp.parent = Vector2f(n.first, n.second);
-				
-				
-
 
 				if (nodeExistInList(it, openList)) {
 					/* le noeud est déjà présent dans la liste ouverte, il faut comparer les couts */
@@ -208,12 +208,21 @@ float Game::distance(int x1, int y1, int x2, int y2)
 pair<int, int> Game::bestNode(map <pair<int, int>, Node> l) {
 	float m_coutf = l.begin()->second.fValue;
 	pair<int, int> m_noeud = l.begin()->first;
-
-	for (map <pair<int, int>, Node>::iterator i = l.begin(); i != l.end(); i++)
-		if (i->second.fValue < m_coutf) {
-			m_coutf = i->second.fValue;
-			m_noeud = i->first;
-		}
+	if (inversion) {
+		for (map <pair<int, int>, Node>::reverse_iterator i = l.rbegin(); i != l.rend(); i++)
+			if (i->second.fValue < m_coutf) {
+				m_coutf = i->second.fValue;
+				m_noeud = i->first;
+			}
+	}
+	else {
+		for (map <pair<int, int>, Node>::iterator i = l.begin(); i != l.end(); i++)
+			if (i->second.fValue < m_coutf) {
+				m_coutf = i->second.fValue;
+				m_noeud = i->first;
+			}
+	}
+	
 
 	return m_noeud;
 }
@@ -232,10 +241,20 @@ vector<pair<int, int>> Game::recoverPath(Node start, Node objectif)
 {
 	vector <pair<int, int>>chemin;
 	Position posPlayer = players_[0].getPosition();
+	Node tmp;
 	/* l'arrivée est le dernier élément de la liste fermée */
-	map <pair<int, int>, Node>::reverse_iterator it = closedList.rbegin();
-	//Node& tmp = closedList[pair<int, int>(objectif.position.x, objectif.position.y)];
-	Node& tmp = it->second;
+	map <pair<int, int>, Node>::iterator it;
+	if (inversion) {
+		map <pair<int, int>, Node>::iterator it = closedList.begin();
+		//Node& tmp = closedList[pair<int, int>(objectif.position.x, objectif.position.y)];
+		tmp = it->second;
+	}
+	else {
+		map <pair<int, int>, Node>::reverse_iterator it = closedList.rbegin();
+		//Node& tmp = closedList[pair<int, int>(objectif.position.x, objectif.position.y)];
+		tmp = it->second;
+	}
+	
 	pair<int, int>n;
 	pair<int, int> prec;
 	//n.first = posPlayer.getX();
