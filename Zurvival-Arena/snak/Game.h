@@ -62,6 +62,9 @@ public:
 	void addToClosedList(pair<int, int>& p);
 	vector<pair<int,int>> recoverPath(Node start,Node objectif);
 	inline Arena getArena();
+	sf::Vector2f getNextPos(unsigned idEnemy);
+	int findDirection(unsigned idEnemy);
+	void moveToPos(unsigned idEnemy);
 
 };
 

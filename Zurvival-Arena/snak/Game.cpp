@@ -57,19 +57,41 @@ std::vector<Enemy> & Game::getEnemies() {
 void Game::functionMovingEnemies() {
 	using namespace std::chrono_literals;
 	Vector2f p;
+
+	enemies_.at(0).setAnimY(Down);
+	enemies_.at(0).uptadeSpritePosition();
+	enemies_.at(0).setState(Moving);
+	brain(enemies_.at(0));
+	moveToPos(0);
+
+
+	//enemies_.at(0).setPosition(getNextPos(0).x, getNextPos(0).y);
+	//enemies_.at(0).uptadeSpritePosition();
+	/*enemies_.at(0).setPosition((float)(enemies_.at(0).getPath().at(1).first) * 30, (float)(enemies_.at(0).getPath().at(1).second) * 30);
+	enemies_.at(0).uptadeSpritePosition();*/
+
+	//brain(enemies_.at(1));
+
+
+
 	while (!gameFinish) {
 		for (unsigned i = 0; i < enemies_.size(); i++) {
 
-			/*enemies_.at(i).move(0, 0.00006);
-			enemies_.at(i).setAnimY(Down);
+		//	enemies_.at(i).move(0, 0.00006);
+		/*	enemies_.at(i).setAnimY(Down);
 			enemies_.at(i).uptadeSpritePosition();
-			enemies_.at(i).setState(Moving);*/
-			brain(enemies_.at(i)); 
-			cout << "Chemin : " << enemies_.at(i).getPath().size() << endl;
+			enemies_.at(i).setState(Moving);
+			brain(enemies_.at(i));
+
+
+			enemies_.at(i).move(enemies_.at(i).getPath().at(0).first, enemies_.at(i).getPath().at(0).second);
+			enemies_.at(i).uptadeSpritePosition();
+*/
+			/*cout << "Chemin : " << enemies_.at(i).getPath().size() << endl;
 			for (unsigned j = 0;j < enemies_.at(i).getPath().size(); j++) {
 				pair<int, int> p = enemies_.at(i).getPath().at(j);
 				cout << p.first << " " << p.second << endl;
-			}
+			}*/
 			
 			//enemies_.at(i).manageSprite(fpsCount, fpsSpeed, switchFps, time);
 			//arena_.updateMatrice(enemies_.at(i).getHitbox().getPosition(), float x,float y );
@@ -145,7 +167,8 @@ void Game::manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Cloc
 
 	for (unsigned i = 0; i < enemies_.size(); i++) {
 		enemies_.at(i).manageSprite(fpsCount, fpsSpeed, switchFps, time);
-		enemies_.at(i).setState(Idle);
+		enemies_.at(i).setState(Moving);
+		
 	}
 
 }
@@ -279,6 +302,87 @@ vector<pair<int, int>> Game::recoverPath(Node start, Node objectif)
 	}
 
 	return chemin;
+}
+
+sf::Vector2f Game::getNextPos(unsigned idEnemy){
+	sf::Vector2f vectorNextPos((float)enemies_.at(idEnemy).getPath().at(0).first*30,(float)enemies_.at(idEnemy).getPath().at(0).second*30);
+	//enemies_.at(0).getPath().erase(enemies_.at(0).getPath().begin()); // supprime le premier element du path qu'on retourne ensuite
+	return vectorNextPos;
+}
+
+
+int Game::findDirection(unsigned idEnemy) {
+	float x = enemies_.at(idEnemy).getPosition().getX()*30;
+	float nextX = getNextPos(idEnemy).x;
+	float y = enemies_.at(idEnemy).getPosition().getY() * 30;
+	float nextY = getNextPos(idEnemy).y;
+	if (x == nextX && y < nextY) {
+		return 0; //haut
+	}
+	else if(x == nextX && y > nextY){
+		return 1; //bas
+	}
+	else if(x > nextX && y == nextY) {
+		return 2; //droite
+	}
+	else if(x < nextX && y == nextY){
+		return 3; //gauche
+	}
+	else if(x > nextX && y > nextY){
+		return 4; //basDroit
+	}
+	else if(x < nextX && y < nextY){
+		return 5; //hautGauche
+	}
+	else if(x < nextX && y > nextY){
+		return 6; // basGauche
+	}
+	else if (x > nextX && y < nextY) {
+		return 7; // hautDroit
+	}
+
+}
+
+void Game::moveToPos(unsigned idEnemy) {
+	
+	for (int i = 0; i < 50000; i++) {
+		switch (findDirection(idEnemy)) {
+		case 0 :
+			enemies_.at(idEnemy).move(0, -0.0006);
+			enemies_.at(0).setAnimY(Up);
+			break;
+		case 1:
+			enemies_.at(idEnemy).move(0, 0.0006);
+			enemies_.at(0).setAnimY(Down);
+			break;
+		case 2:
+			enemies_.at(idEnemy).move(0.0006, 0);
+			enemies_.at(0).setAnimY(Right);
+			break;
+		case 3:
+			enemies_.at(idEnemy).move(-0.0006, 0);
+			enemies_.at(0).setAnimY(Left);
+			break;
+		case 4:
+			enemies_.at(idEnemy).move(0.0006, 0.0006);
+			enemies_.at(0).setAnimY(Down);
+			break;
+		case 5:
+			enemies_.at(idEnemy).move(-0.0006, -0.0006);
+			enemies_.at(0).setAnimY(Up);
+			break;
+		case 6:
+			enemies_.at(idEnemy).move(-0.0006, 0.0006);
+			enemies_.at(0).setAnimY(Down);
+			break;
+		case 7:
+			enemies_.at(idEnemy).move(0.0006, -0.0006);
+			enemies_.at(0).setAnimY(Up);
+			break;
+		
+		}
+		enemies_.at(idEnemy).uptadeSpritePosition();
+	}
 }
 
 
