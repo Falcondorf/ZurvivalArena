@@ -30,7 +30,7 @@ private:
 	/*void generateSuccessors(Vector2f pos, std::vector<Node> *successors, Node parent);
 	bool parcourOpen(std::vector<Node> openList, sf::Vector2f position, int fValue);
 	bool parcourClosed(std::vector<Node> closedList, sf::Vector2f position, int fValue);*/
-
+	bool inversion = false;
 
 public:
 	inline const vector<Character> &  getPlayers() const;

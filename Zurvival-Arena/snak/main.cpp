@@ -9,9 +9,9 @@ int main()
 	const int height = 660;
 	try {
 		Game game = Game(width, height);
-		game.addPlayer(300, 180);
+		game.addPlayer(240, 330);
 		game.addPlayer(250, 250);
-		game.addEnemy(210, 240); 
+		game.addEnemy(210, 240);
 		game.addEnemy(420, 300);
 		game.getArena().printTiles();
 		//game.brain(game.getEnemies()[0]);

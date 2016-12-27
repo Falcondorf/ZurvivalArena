@@ -64,7 +64,7 @@ void Game::functionMovingEnemies() {
 			enemies_.at(i).setAnimY(Down);
 			enemies_.at(i).uptadeSpritePosition();
 			enemies_.at(i).setState(Moving);*/
-			brain(enemies_.at(i));
+			brain(enemies_.at(i)); 
 			cout << "Chemin : " << enemies_.at(i).getPath().size() << endl;
 			for (unsigned j = 0;j < enemies_.at(i).getPath().size(); j++) {
 				pair<int, int> p = enemies_.at(i).getPath().at(j);
@@ -85,7 +85,7 @@ void Game::brain(Enemy &e )
 			Node arrivee;
 			arrivee.position.x = players_[0].getHitbox().getPosition().x/30;
 			arrivee.position.y = players_[0].getHitbox().getPosition().y/30;
-
+		/*	arrivee.gValue = 1;*/
 			Node depart;
 			depart.parent.x = pos.getX()/30;
 			depart.parent.y = pos.getY()/30;
@@ -94,8 +94,10 @@ void Game::brain(Enemy &e )
 			depart.gValue = 1;
 			
 			pair<int, int> courant;
-			courant.first = depart.position.x;
-			courant.second = depart.position.y;
+				courant.first = depart.position.x;
+				courant.second = depart.position.y;
+			
+			
 			openList[courant] = depart;
 			addToClosedList(courant);
 			addAdjectentCell(courant);
@@ -172,10 +174,16 @@ void Game::addAdjectentCell(pair<int, int>& n)
 				/* calcul du cout G du noeud en cours d'étude : cout du parent + distance jusqu'au parent */
 				tmp.gValue = closedList[n].gValue + distance(i, j, n.first, n.second);
 				/* calcul du cout H du noeud à la destination */
-				tmp.hValue = distance(i, j, posPlayer.getX() / 30, posPlayer.getY() / 30);
-				tmp.fValue = tmp.gValue + tmp.hValue;
-				tmp.position = Vector2f(i, j);
-				tmp.parent = Vector2f(n.first, n.second);
+
+
+					tmp.hValue = distance(i, j, posPlayer.getX() / 30, posPlayer.getY() / 30);
+					tmp.fValue = tmp.gValue + tmp.hValue;
+					tmp.position = Vector2f(i, j);
+					tmp.parent = Vector2f(n.first, n.second);
+				
+				
+
+
 				if (nodeExistInList(it, openList)) {
 					/* le noeud est déjà présent dans la liste ouverte, il faut comparer les couts */
 					if (tmp.fValue < openList[it].fValue) {
@@ -194,6 +202,7 @@ void Game::addAdjectentCell(pair<int, int>& n)
 }
 float Game::distance(int x1, int y1, int x2, int y2)
 {
+	//return std::abs(x1 - x2) + std::abs(y1-y2);
 	return sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
 }
 pair<int, int> Game::bestNode(map <pair<int, int>, Node> l) {
@@ -237,14 +246,17 @@ vector<pair<int, int>> Game::recoverPath(Node start, Node objectif)
 	prec.first = tmp.parent.x;
 	prec.second = tmp.parent.y;	
 	chemin.insert(chemin.begin(), n);
+	
+
 	while (prec != pair<int, int>(start.parent.x, start.parent.y)) {
+		
 		n.first = prec.first;
 		n.second = prec.second;
 		chemin.insert(chemin.begin(), n);
 		//chemin.push_back(n);
 		tmp = closedList[pair<int, int>(tmp.parent.x, tmp.parent.y)];
 		prec.first = tmp.position.x;
-		prec.second = tmp.position.y;
+		prec.second = tmp.position.y ;
 	}
 
 	return chemin;
