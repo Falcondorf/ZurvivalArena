@@ -9,11 +9,12 @@ int main()
 	const int height = 660;
 	try {
 		Game game = Game(width, height);
-		game.addPlayer(10, 10);
+		game.addPlayer(300, 210);
 		game.addPlayer(250, 250);
-		game.addEnemy(300, 10);
+		game.addEnemy(210, 240);
 		game.addEnemy(420, 300);
 		game.getArena().printTiles();
+		game.brain(game.getEnemies()[0]);
 		VideoMode videoMode(width, height);
 		RenderWindow window(videoMode, "Rectangle Collision");
 		sf::Clock time;

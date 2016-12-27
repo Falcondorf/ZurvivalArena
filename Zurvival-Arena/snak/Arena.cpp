@@ -48,7 +48,7 @@ Arena::Arena(unsigned width, unsigned height) : width_(width), height_(height) {
 		obstacles.push_back(bottom);
 		obstacles.push_back(left);
 		obstacles.push_back(right);
-		obstacles.push_back(obstacle);
+		//obstacles.push_back(obstacle);
 
 		setTiles();
 	}

@@ -43,7 +43,7 @@ public:
 	const RectangleShape &getHitBoxChar(int i)const;
 	inline void addPlayer(float posX, float posY, int pv = 3);
 	void addEnemy(float posX, float posY, int pv = 1);
-	const vector<Enemy> & getEnemies() const;
+	vector<Enemy> & getEnemies();
 	inline unsigned getNbObstacles();
 	inline RectangleShape getObstacle(unsigned i);
 	inline void setPositionCharacter(unsigned i);
@@ -54,8 +54,7 @@ public:
 	inline void finishGame();
 	inline void manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 	void manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
-	//vector<Vector2f> brain(unsigned idEnemy);
-	void brain();
+	void brain(Enemy &e);
 	void startMovingEnemies();
 	bool nodeExistInList(pair<int, int> n, map <pair<int, int>, Node>& l);
 	void addAdjectentCell(pair <int, int>& n);

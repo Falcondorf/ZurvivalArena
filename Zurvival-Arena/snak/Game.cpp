@@ -51,7 +51,7 @@ void Game::addEnemy(float posX, float posY, int pv) {
 	enemies_.push_back(Enemy(Position(posX, posY), pv));
 }
 
-const std::vector<Enemy> & Game::getEnemies() const {
+std::vector<Enemy> & Game::getEnemies() {
 	return enemies_;
 }
 void Game::functionMovingEnemies() {
@@ -64,6 +64,9 @@ void Game::functionMovingEnemies() {
 			enemies_.at(i).setAnimY(Down);
 			enemies_.at(i).uptadeSpritePosition();
 			enemies_.at(i).setState(Moving);
+
+
+
 			//enemies_.at(i).manageSprite(fpsCount, fpsSpeed, switchFps, time);
 			//arena_.updateMatrice(enemies_.at(i).getHitbox().getPosition(), float x,float y );
 		}
@@ -72,16 +75,18 @@ void Game::functionMovingEnemies() {
 	threadEnemies->detach();
 }
 
-void Game::brain()
+void Game::brain(Enemy &e )
 {
 	for (unsigned i = 0; i < enemies_.size(); i++) { //build enemies path to player
 		//A revérifier par Salmane et Yassine 
+		Position pos = e.getPosition();
 			Node arrivee;
-			arrivee.position.x = players_[0].getHitbox().getPosition().x;
-			arrivee.position.y = players_[0].getHitbox().getPosition().y;
+			arrivee.position.x = players_[0].getHitbox().getPosition().x/30;
+			arrivee.position.y = players_[0].getHitbox().getPosition().y/30;
 			Node depart;
-			depart.parent.x = 0;
-			depart.parent.y = 0;
+			depart.parent.x = pos.getX();
+			depart.parent.y = pos.getY();
+			depart.position = Vector2f(pos.getX(), pos.getY());
 			pair<int, int> courant;
 			courant.first = 0;
 			courant.second = 0;
@@ -98,8 +103,7 @@ void Game::brain()
 			}
 
 			if ((courant.first == arrivee.position.x) && (courant.second == arrivee.position.y)) {
-				recoverPath(depart, arrivee);  //où le mettre pour enemy?
-
+				e.setPath(recoverPath(depart, arrivee));  //où le mettre pour enemy?
 				//add the best possibloe movement
 			}
 			else {
@@ -164,7 +168,6 @@ void Game::addAdjectentCell(pair<int, int>& n)
 				tmp.hValue = distance(i, j, posPlayer.getX() / 30, posPlayer.getY() / 30);
 				tmp.fValue = tmp.gValue + tmp.hValue;
 				tmp.position = Vector2f(n.first, n.second);
-
 				if (nodeExistInList(it, openList)) {
 					/* le noeud est déjà présent dans la liste ouverte, il faut comparer les couts */
 					if (tmp.fValue < openList[it].fValue) {
@@ -212,7 +215,7 @@ vector<pair<int, int>> Game::recoverPath(Node start, Node objectif)
 	vector <pair<int, int>>chemin;
 	Position posPlayer = players_[0].getPosition();
 	/* l'arrivée est le dernier élément de la liste fermée */
-	Node& tmp = closedList[std::pair<int, int>(objectif.position.x, objectif.position.y)];
+	Node& tmp = closedList[pair<int, int>(objectif.position.x, objectif.position.y)];
 
 	pair<int, int>n;
 	pair<int, int> prec;
