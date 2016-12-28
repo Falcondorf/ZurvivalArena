@@ -19,11 +19,11 @@ bool Game::hasCollision(int idPlayer, float movex, float movey) {
 			return true;
 		}
 	}
-	/*for (int j = 0; j < getEnemies().size(); j++) {
+	for (int j = 0; j < getEnemies().size(); j++) {
 		if (intersects(getEnemies().at(j).getHitbox(), futurePosition)) {
 			return true;
 		}
-	}*/
+	}
 	return false;
 }
 
@@ -99,17 +99,19 @@ enemies_.at(0).uptadeSpritePosition();*/
 
 			v.clear();
 			Vector2f c = players_.at(i).getHitbox().getPosition();
-			cout << "J -->  X : "<< c.x / 30 <<" Y :" << c.y / 30 << endl;
+		//	cout << "J -->  X : "<< c.x / 30 <<" Y :" << c.y / 30 << endl;
 			brain(i);
 			v = pathToEnemy.at(i);
+			cout << "first : " << v.at(0).first << "second : " << v.at(0).second << endl;
+			cout << "yassine " << players_.at(0).getHitbox().getPosition().x / 30 << " " << players_.at(0).getHitbox().getPosition().y / 30 << endl;
 			/*for (unsigned f = 0;f < v.size();f++) {
 				cout << "X : " << v.at(f).first << " Y : " << v.at(f).second << endl;
 			}*/
 			enemies_.at(i).setPlayerMoving(false);
 			enemies_.at(i).resetIndicePath();
 			//moveToPos(0);
-			cout <<" PATHSIZE : "  << v.size() << endl;
-			cout << " ";
+		//	cout <<" PATHSIZE : "  << v.size() << endl;
+			//cout << " ";
 		}
 		
 		if (enemies_.at(i).getIndicePath() < v.size()) {
@@ -154,6 +156,7 @@ enemies_.at(0).uptadeSpritePosition();*/
 }
 void Game::brain(unsigned i)
 {
+	closedList.clear();
 	Enemy & e = enemies_.at(i);
 	for (unsigned i = 0; i < enemies_.size(); i++) { //build enemies path to player
 		//A revérifier par Salmane 
@@ -163,7 +166,7 @@ void Game::brain(unsigned i)
 		arrivee.position.x = players_[0].getHitbox().getPosition().x / 30;
 		arrivee.position.y = players_[0].getHitbox().getPosition().y / 30;
 
-		cout << "JBrain -->  X : " << arrivee.position.x << " Y :" << arrivee.position.y<< endl;
+	//	cout << "JBrain -->  X : " << arrivee.position.x << " Y :" << arrivee.position.y<< endl;
 		/*	arrivee.gValue = 1;*/
 		Node depart;
 		depart.parent.x = pos.getX() / 30;
@@ -175,7 +178,7 @@ void Game::brain(unsigned i)
 		pair<int, int> courant;
 		courant.first = depart.position.x;
 		courant.second = depart.position.y;
-
+	//	cout << " pos ennemi" << endl;
 		if (arrivee.position.x < depart.position.x) {
 			inversion = true;
 		}
@@ -183,8 +186,8 @@ void Game::brain(unsigned i)
 		openList[courant] = depart;
 		addToClosedList(courant);
 		addAdjectentCell(courant);
-		
-		while (!((courant.first == arrivee.position.x) && (courant.second == arrivee.position.y)) && (!openList.empty())) {      
+	//	cout << "JJJPX2  " << arrivee.position.x << " JJJPY2  " << arrivee.position.y << endl;
+		while (!((courant.first <= arrivee.position.x && courant.first + 1 > arrivee.position.x) && (courant.second <= arrivee.position.y && courant.second + 1 > arrivee.position.y)) && (!openList.empty())) {
 			//yassine !! dans le cas ou on déplace le joueur pendant que l ennemi bouge l'open list est vide 
 			courant = bestNode(openList);	// si l open list est vide brain ne donne plus de path à l'ennemi et du coup n'adapte pas sa trajectoire pour suivre le joueur
 			addToClosedList(courant);
@@ -192,9 +195,9 @@ void Game::brain(unsigned i)
 		}
 		int x = arrivee.position.x;
 		int y = arrivee.position.y;
-		cout <<"X  " <<courant.first << " Y  " << courant.second << endl;
-		cout << "XP  " << e.getPosition().getX() << " YP  " << e.getPosition().getY() << endl;
-		cout << "JJJPX  " << arrivee.position.x << " JJJPY  " << arrivee.position.y << endl;
+	//	cout <<"X  " <<courant.first << " Y  " << courant.second << endl;
+	//	cout << "XP  " << e.getPosition().getX() << " YP  " << e.getPosition().getY() << endl;
+	//	cout << "JJJPX  " << arrivee.position.x << " JJJPY  " << arrivee.position.y << endl;
 		if ((courant.first <= arrivee.position.x && courant.first+1 > arrivee.position.x) &&
 			(courant.second <= arrivee.position.y && courant.second + 1 > arrivee.position.y)) {
 			/*e.setPath(recoverPath(depart, arrivee)); */
@@ -217,7 +220,6 @@ void Game::brain(unsigned i)
 
 void Game::startMovingEnemies() {
 	threadEnemies = std::unique_ptr < std::thread >(new std::thread(&Game::functionMovingEnemies, this));
-	
 
 }
 
@@ -249,6 +251,7 @@ unsigned Game::spaceCase(Vector2f pos) {
 
 void Game::addAdjectentCell(pair<int, int>& n)
 {
+
 	Position posPlayer = players_[0].getPosition();
 	Node tmp;
 	for (int i = n.first - 1; i <= n.first + 1; i++) {
@@ -286,7 +289,7 @@ void Game::addAdjectentCell(pair<int, int>& n)
 					/* le noeud n'est pas présent dans la liste ouverte, on l'y ajoute */
 					openList[pair<int, int>(i, j)] = tmp;
 				}
-			}
+			}			
 		}
 	}
 }
@@ -367,6 +370,7 @@ vector<pair<int, int>> Game::recoverPath(Node start, Node objectif)
 		prec.first = tmp.position.x;
 		prec.second = tmp.position.y;
 	}
+	chemin.pop_back();
 	return chemin;
 }
 
