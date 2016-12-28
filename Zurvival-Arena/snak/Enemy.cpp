@@ -7,6 +7,8 @@ Enemy::Enemy(Position position, int pv): Character (position, pv)
 		if (!perso_->loadFromFile("pics/jake3.png")) {
 			std::cout << "error loading image" << std::endl;
 		}
+		playerMove = true;
+		indicePath = 0;
 	spritePerso_ = new sf::Sprite();
 	spritePerso_->setTexture(*perso_);
 	spritePerso_->setPosition(getHitbox().getPosition());
@@ -17,3 +19,23 @@ Enemy::Enemy(Position position, int pv): Character (position, pv)
 void Enemy::uptadeSpritePosition() {
 	spritePerso_->setPosition(getHitbox().getPosition());
 }
+
+bool Enemy::getPlayerMoving() {
+	return playerMove;
+}
+void Enemy::setPlayerMoving(bool b) {
+	playerMove = b;
+}
+
+
+int Enemy::getIndicePath()const {
+	return indicePath;
+}
+
+void Enemy::incrementIndicePath() {
+	indicePath++;
+}
+void Enemy::resetIndicePath() {
+	indicePath = 0;
+}
+

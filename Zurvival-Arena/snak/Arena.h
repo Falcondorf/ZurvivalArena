@@ -3,10 +3,12 @@
 #include "SFML/Graphics.hpp"
 #include <vector>
 #include <string>
+#include <mutex>
 
 class Arena
 {
 private:
+
 	unsigned width_;
 	unsigned height_;
 	std::vector<sf::RectangleShape> obstacles;

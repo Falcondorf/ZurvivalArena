@@ -4,11 +4,13 @@
 #include "Heroes.h"
 #include "Enemy.h"
 #include <thread>
+#include <mutex>
 #include <chrono>
 #include <map>
 #include <utility>
 using namespace sf;
 using namespace std;
+
 struct Node {
 	sf::Vector2f parent;
 	sf::Vector2f position;
@@ -18,6 +20,7 @@ struct Node {
 };
 class Game {
 private:
+	
 	Arena arena_;
 	vector<Character> players_;
 	vector<Enemy> enemies_;
@@ -31,6 +34,8 @@ private:
 	bool parcourOpen(std::vector<Node> openList, sf::Vector2f position, int fValue);
 	bool parcourClosed(std::vector<Node> closedList, sf::Vector2f position, int fValue);*/
 	bool inversion = false;
+	bool playerMove = false;
+	vector< vector<pair<int, int>> > pathToEnemy;
 
 public:
 	inline const vector<Character> &  getPlayers() const;
@@ -53,7 +58,7 @@ public:
 	inline void finishGame();
 	inline void manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 	void manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
-	void brain(Enemy &e);
+	void brain(unsigned i);
 	void startMovingEnemies();
 	bool nodeExistInList(pair<int, int> n, map <pair<int, int>, Node>& l);
 	void addAdjectentCell(pair <int, int>& n);
@@ -66,10 +71,17 @@ public:
 	int findDirection(unsigned idEnemy);
 	void moveToPos(unsigned idEnemy);
 
+	void playerMoving(bool moving);
 };
 
 Game::Game(unsigned width, unsigned height) {
 	arena_ = Arena(width, height);
+	/*pathToEnemy.reserve(enemies_.size());*/
+	
+	pathToEnemy.push_back(vector<pair<int,int>>( (make_pair(9,0),2)));
+	pathToEnemy.push_back(vector<pair<int, int>>((make_pair(9, 0), 2)));
+
+	
 }
 
 const vector<Character> &  Game::getPlayers() const {

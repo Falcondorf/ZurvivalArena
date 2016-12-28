@@ -36,6 +36,7 @@ Heroes::Heroes(Position pos, int pv, unsigned num) :Character(pos, pv), num_(num
 	spritePerso_->setTexture(*perso_);
 	spritePerso_->setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
 	spritePerso_->setScale(sf::Vector2f(0.9, 0.5));
+	setPositionSprite(getHitbox().getPosition());
 }
 
 inline Heroes::Heroes(std::string name)

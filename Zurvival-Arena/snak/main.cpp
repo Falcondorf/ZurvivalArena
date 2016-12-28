@@ -5,6 +5,7 @@
 using namespace sf;
 int main()
 {
+	pair<int, int> lastPosition;
 	const int width = 660;
 	const int height = 660;
 	try {
@@ -13,6 +14,8 @@ int main()
 		game.addPlayer(250, 250);
 		game.addEnemy(210, 240);
 		game.addEnemy(420, 300);
+		lastPosition = make_pair(11, 2);
+		/*game.addEnemy(180, 120);*/
 		game.getArena().printTiles();
 		//game.brain(game.getEnemies()[0]);
 		VideoMode videoMode(width, height);
@@ -24,17 +27,21 @@ int main()
 		//for (Vector2f b : p) {
 		//	std::cout << " X : " << b.x << " Y : " << b.y << std::endl;
 		//}
+		
 		game.startMovingEnemies();
+
 		while (window.isOpen())
 		{
 			window.clear(Color::White);
 			window.draw(game.getEnemies().at(0).getHitbox());
 			window.draw(*(game.getEnemies().at(0).getSprite()));
 			window.draw(*(game.getEnemies().at(1).getSprite()));
+			//window.draw(*(game.getEnemies().at(2).getSprite()));
 			game.stateInitializerCharacters();
+			window.draw((game.getPlayers().at(0).getHitbox()));
 			window.draw(*(game.getPlayers().at(0).getSprite()));
-			for (unsigned i = 0; i < game.getNbPlayers(); i++) {
-			}
+			/*for (unsigned i = 0; i < game.getNbPlayers(); i++) {
+			}*/
 			for (unsigned i = 0; i < game.getNbObstacles(); i++) {
 				window.draw(game.getObstacle(i));
 			}
@@ -93,8 +100,8 @@ int main()
 				if (!game.hasCollision(1, xMov2, yMov2)) {
 					game.move(1, xMov2, yMov2);
 				}
-
-
+				
+				game.getEnemies().at(0).setPlayerMoving(true);
 			}
 			if (game.getPlayers().at(0).getState() == State::Moving) {
 				game.manageGame(0, fpsCount, fpsSpeed, switchFps, time);

@@ -19,11 +19,11 @@ bool Game::hasCollision(int idPlayer, float movex, float movey) {
 			return true;
 		}
 	}
-	for (int j = 0; j < getEnemies().size(); j++) {
+	/*for (int j = 0; j < getEnemies().size(); j++) {
 		if (intersects(getEnemies().at(j).getHitbox(), futurePosition)) {
 			return true;
 		}
-	}
+	}*/
 	return false;
 }
 
@@ -55,10 +55,14 @@ void Game::addEnemy(float posX, float posY, int pv) {
 std::vector<Enemy> & Game::getEnemies() {
 	return enemies_;
 }
+
+void Game::playerMoving(bool moving) {
+	playerMove = moving;
+}
+
 void Game::functionMovingEnemies() {
 	using namespace std::chrono_literals;
-	Vector2f p;
-
+	vector < pair<int, int> >v;
 	enemies_.at(0).setAnimY(Down);
 	enemies_.at(0).uptadeSpritePosition();
 	enemies_.at(0).setState(Moving);
@@ -80,12 +84,49 @@ enemies_.at(0).uptadeSpritePosition();*/
 
 //brain(enemies_.at(1));
 
-
-
+	vector< vector<pair<int, int>> > pathToEn;
+	unsigned i = 0;
 	while (!gameFinish) {
-		for (unsigned i = 0; i < enemies_.size(); i++) {
-			brain(enemies_.at(0));
-			moveToPos(0);
+
+		//playerMoving(false);
+		/*for (unsigned i = 0; i < enemies_.size(); i++) {*/
+			Enemy& e = enemies_.at(i);
+			if (!pathToEnemy.empty()) {
+				v = pathToEnemy.at(i);
+			}
+			
+		if (enemies_.at(i).getPlayerMoving() == true) {
+
+			v.clear();
+			Vector2f c = players_.at(i).getHitbox().getPosition();
+			cout << "J -->  X : "<< c.x / 30 <<" Y :" << c.y / 30 << endl;
+			brain(i);
+			v = pathToEnemy.at(i);
+			/*for (unsigned f = 0;f < v.size();f++) {
+				cout << "X : " << v.at(f).first << " Y : " << v.at(f).second << endl;
+			}*/
+			enemies_.at(i).setPlayerMoving(false);
+			enemies_.at(i).resetIndicePath();
+			//moveToPos(0);
+			cout <<" PATHSIZE : "  << v.size() << endl;
+			cout << " ";
+		}
+		
+		if (enemies_.at(i).getIndicePath() < v.size()) {
+			enemies_.at(i).setPositionHitbox(v.at(e.getIndicePath()).first * 30, v.at(e.getIndicePath()).second * 30);
+			enemies_.at(i).setPosition(v.at(e.getIndicePath()).first * 30, v.at(e.getIndicePath()).second * 30);
+			enemies_.at(i).uptadeSpritePosition();
+			enemies_.at(i).incrementIndicePath();
+		}
+		else
+		{
+			/*cout << "Fini" << endl;*/
+		}
+
+		/*cout << "PATH : " <<  enemies_.at(i).getIndicePath() << endl;
+		cout << "Quitte" << endl;*/
+
+
 			//	enemies_.at(i).move(0, 0.00006);
 			/*	enemies_.at(i).setAnimY(Down);
 				enemies_.at(i).uptadeSpritePosition();
@@ -104,18 +145,25 @@ enemies_.at(0).uptadeSpritePosition();*/
 
 	//enemies_.at(i).manageSprite(fpsCount, fpsSpeed, switchFps, time);
 	//arena_.updateMatrice(enemies_.at(i).getHitbox().getPosition(), float x,float y );
-		}
+		
+		
+		// for }
+		/*cout << "PASSE " << endl;*/
 	}
 	threadEnemies->detach();
 }
-void Game::brain(Enemy &e)
+void Game::brain(unsigned i)
 {
+	Enemy & e = enemies_.at(i);
 	for (unsigned i = 0; i < enemies_.size(); i++) { //build enemies path to player
 		//A revérifier par Salmane 
-		Position pos = e.getPosition();
+		Position pos = Position( e.getHitbox().getPosition().x , e.getHitbox().getPosition().y);
 		Node arrivee;
+		
 		arrivee.position.x = players_[0].getHitbox().getPosition().x / 30;
 		arrivee.position.y = players_[0].getHitbox().getPosition().y / 30;
+
+		cout << "JBrain -->  X : " << arrivee.position.x << " Y :" << arrivee.position.y<< endl;
 		/*	arrivee.gValue = 1;*/
 		Node depart;
 		depart.parent.x = pos.getX() / 30;
@@ -135,17 +183,26 @@ void Game::brain(Enemy &e)
 		openList[courant] = depart;
 		addToClosedList(courant);
 		addAdjectentCell(courant);
-
-		while (!((courant.first == arrivee.position.x) && (courant.second == arrivee.position.y)) && (!openList.empty())) {      //yassine !! dans le cas ou on déplace le joueur pendant que l ennemi bouge l'open list est vide 
-			courant = bestNode(openList);																							// si l open list est vide brain ne donne plus de path à l'ennemi et du coup n'adapte pas sa trajectoire pour suivre le joueur
+		
+		while (!((courant.first == arrivee.position.x) && (courant.second == arrivee.position.y)) && (!openList.empty())) {      
+			//yassine !! dans le cas ou on déplace le joueur pendant que l ennemi bouge l'open list est vide 
+			courant = bestNode(openList);	// si l open list est vide brain ne donne plus de path à l'ennemi et du coup n'adapte pas sa trajectoire pour suivre le joueur
 			addToClosedList(courant);
 			addAdjectentCell(courant);
 		}
-
-		if ((courant.first == arrivee.position.x) && (courant.second == arrivee.position.y)) {
-			e.setPath(recoverPath(depart, arrivee));  //où le mettre pour enemy?
+		int x = arrivee.position.x;
+		int y = arrivee.position.y;
+		cout <<"X  " <<courant.first << " Y  " << courant.second << endl;
+		cout << "XP  " << e.getPosition().getX() << " YP  " << e.getPosition().getY() << endl;
+		cout << "JJJPX  " << arrivee.position.x << " JJJPY  " << arrivee.position.y << endl;
+		if ((courant.first <= arrivee.position.x && courant.first+1 > arrivee.position.x) &&
+			(courant.second <= arrivee.position.y && courant.second + 1 > arrivee.position.y)) {
+			/*e.setPath(recoverPath(depart, arrivee)); */
+			pathToEnemy.at(i) = recoverPath(depart, arrivee);
+				//où le mettre pour enemy?
 			//add the best possibloe movement
 			cout << "OK" << endl;
+			
 		}
 		else {
 			cout << "PLEURE" << endl;
@@ -153,13 +210,14 @@ void Game::brain(Enemy &e)
 		}
 
 
-	}
+	 }
 	//Que faire après la constitution des movements des enemis vers les joueurs?
 
 }
 
 void Game::startMovingEnemies() {
 	threadEnemies = std::unique_ptr < std::thread >(new std::thread(&Game::functionMovingEnemies, this));
+	
 
 }
 
@@ -272,7 +330,7 @@ void Game::addToClosedList(pair<int, int>& p) {
 vector<pair<int, int>> Game::recoverPath(Node start, Node objectif)
 {
 	vector <pair<int, int>>chemin;
-	Position posPlayer = players_[0].getPosition();
+	/*Position posPlayer = players_[0].getPosition();*/
 	Node tmp;
 	/* l'arrivée est le dernier élément de la liste fermée */
 	map <pair<int, int>, Node>::iterator it;
@@ -309,14 +367,8 @@ vector<pair<int, int>> Game::recoverPath(Node start, Node objectif)
 		prec.first = tmp.position.x;
 		prec.second = tmp.position.y;
 	}
-
 	return chemin;
 }
-
-
-
-
-
 
 
 sf::Vector2f Game::getNextPos(unsigned idEnemy, bool eraseFirst) {
