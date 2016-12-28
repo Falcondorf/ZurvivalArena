@@ -115,9 +115,10 @@ enemies_.at(0).uptadeSpritePosition();*/
 		}
 		
 		if (enemies_.at(i).getIndicePath() < v.size()) {
-			enemies_.at(i).setPositionHitbox(v.at(e.getIndicePath()).first * 30, v.at(e.getIndicePath()).second * 30);
-			enemies_.at(i).setPosition(v.at(e.getIndicePath()).first * 30, v.at(e.getIndicePath()).second * 30);
-			enemies_.at(i).uptadeSpritePosition();
+			//enemies_.at(i).setPositionHitbox(v.at(e.getIndicePath()).first * 30, v.at(e.getIndicePath()).second * 30);
+			//enemies_.at(i).setPosition(v.at(e.getIndicePath()).first * 30, v.at(e.getIndicePath()).second * 30);
+			//enemies_.at(i).uptadeSpritePosition();
+			moveToPos(i);
 			enemies_.at(i).incrementIndicePath();
 		}
 		else
@@ -370,21 +371,21 @@ vector<pair<int, int>> Game::recoverPath(Node start, Node objectif)
 		prec.first = tmp.position.x;
 		prec.second = tmp.position.y;
 	}
-	chemin.pop_back();
+	//chemin.pop_back();
 	return chemin;
 }
 
 
 sf::Vector2f Game::getNextPos(unsigned idEnemy, bool eraseFirst) {
 
-	sf::Vector2f vectorNextPos((float)enemies_.at(idEnemy).getPath().at(0).first * 30, (float)enemies_.at(idEnemy).getPath().at(0).second * 30);
-	std::vector<std::pair<int, int>> path = enemies_.at(0).getPath();
+	sf::Vector2f vectorNextPos((float)pathToEnemy.at(idEnemy).at(0).first * 30, (float)pathToEnemy.at(idEnemy).at(0).second * 30);
+	std::vector<std::pair<int, int>> path = pathToEnemy.at(idEnemy);
 	std::vector<std::pair<int, int>>::iterator position = std::find(path.begin(), path.end(), path.front());   
 	if (position != path.end()) { 
 		path.erase(position);   // supprime à chaque fois la position dans la liste qui est atteinte par l'ennemi qui poursuit le joueur
 	}
 	if (eraseFirst) {
-		enemies_.at(idEnemy).setPath(path);
+		pathToEnemy.at(idEnemy) = path;
 	}
 	return vectorNextPos;
 }
