@@ -6,10 +6,14 @@ void Character::move(float f1, float f2) {
 	hitbox_.move(f1, f2);
 }
 
-void Character::setPosition(float f1, float f2) {
+void Character::setPositionHitbox(float f1, float f2) {
 	hitbox_.setPosition(f1, f2);
 }
 
+void Character::setPosition(unsigned x, unsigned y) {
+	position_.setX(x);
+	position_.setY(y);
+}
 void Character::setFillColor(Color c) {
 	hitbox_.setFillColor(c);
 }

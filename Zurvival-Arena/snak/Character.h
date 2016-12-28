@@ -33,7 +33,8 @@ public:
 
 public:
 	
-	void setPosition(float f1, float f2);
+	void setPositionHitbox(float f1, float f2);
+	void setPosition(unsigned x, unsigned y);
 	void move(float f1, float f2);	
 	inline Character();
 	inline Character(Position position,int pv);
@@ -64,7 +65,7 @@ const Position & Character::getPosition() const {
 
 Character::Character() {
 	setFillColor(sf::Color::Black);
-	setPosition(10, 10);
+	setPositionHitbox(10, 10);
 	setSize(30, 30);
 	setOutlineThickness(1);
 	
@@ -72,9 +73,9 @@ Character::Character() {
 
 Character::Character(Position position, int pv):position_(position),pv_(pv){
 
-	setPosition(position.getX(), position.getY());
+	setPositionHitbox(position.getX(), position.getY());
 	setSize(30,30);
-
+	setFillColor(sf::Color::Red);
 	//hitbox_.setTexture(&perso_);
 
 }

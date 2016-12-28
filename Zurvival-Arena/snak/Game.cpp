@@ -4,6 +4,7 @@
 #include <iostream>
 #include <utility>
 #include <iterator>
+#include <algorithm>
 #include <map>
 using namespace sf;
 
@@ -61,92 +62,100 @@ void Game::functionMovingEnemies() {
 	enemies_.at(0).setAnimY(Down);
 	enemies_.at(0).uptadeSpritePosition();
 	enemies_.at(0).setState(Moving);
+	//brain(enemies_.at(0));
+	//moveToPos(0);
+	//moveToPos(0);
+	//moveToPos(0);
+	//moveToPos(0);
+	/*brain(enemies_.at(0));
+	moveToPos(0);
 	brain(enemies_.at(0));
 	moveToPos(0);
+*/
 
+//enemies_.at(0).setPosition(getNextPos(0).x, getNextPos(0).y);
+//enemies_.at(0).uptadeSpritePosition();
+/*enemies_.at(0).setPosition((float)(enemies_.at(0).getPath().at(1).first) * 30, (float)(enemies_.at(0).getPath().at(1).second) * 30);
+enemies_.at(0).uptadeSpritePosition();*/
 
-	//enemies_.at(0).setPosition(getNextPos(0).x, getNextPos(0).y);
-	//enemies_.at(0).uptadeSpritePosition();
-	/*enemies_.at(0).setPosition((float)(enemies_.at(0).getPath().at(1).first) * 30, (float)(enemies_.at(0).getPath().at(1).second) * 30);
-	enemies_.at(0).uptadeSpritePosition();*/
-
-	//brain(enemies_.at(1));
+//brain(enemies_.at(1));
 
 
 
 	while (!gameFinish) {
 		for (unsigned i = 0; i < enemies_.size(); i++) {
+			brain(enemies_.at(0));
+			moveToPos(0);
+			//	enemies_.at(i).move(0, 0.00006);
+			/*	enemies_.at(i).setAnimY(Down);
+				enemies_.at(i).uptadeSpritePosition();
+				enemies_.at(i).setState(Moving);
+				brain(enemies_.at(i));
 
-		//	enemies_.at(i).move(0, 0.00006);
-		/*	enemies_.at(i).setAnimY(Down);
-			enemies_.at(i).uptadeSpritePosition();
-			enemies_.at(i).setState(Moving);
-			brain(enemies_.at(i));
 
+				enemies_.at(i).move(enemies_.at(i).getPath().at(0).first, enemies_.at(i).getPath().at(0).second);
+				enemies_.at(i).uptadeSpritePosition();
+	*/
+	/*cout << "Chemin : " << enemies_.at(i).getPath().size() << endl;
+	for (unsigned j = 0;j < enemies_.at(i).getPath().size(); j++) {
+		pair<int, int> p = enemies_.at(i).getPath().at(j);
+		cout << p.first << " " << p.second << endl;
+	}*/
 
-			enemies_.at(i).move(enemies_.at(i).getPath().at(0).first, enemies_.at(i).getPath().at(0).second);
-			enemies_.at(i).uptadeSpritePosition();
-*/
-			/*cout << "Chemin : " << enemies_.at(i).getPath().size() << endl;
-			for (unsigned j = 0;j < enemies_.at(i).getPath().size(); j++) {
-				pair<int, int> p = enemies_.at(i).getPath().at(j);
-				cout << p.first << " " << p.second << endl;
-			}*/
-			
-			//enemies_.at(i).manageSprite(fpsCount, fpsSpeed, switchFps, time);
-			//arena_.updateMatrice(enemies_.at(i).getHitbox().getPosition(), float x,float y );
+	//enemies_.at(i).manageSprite(fpsCount, fpsSpeed, switchFps, time);
+	//arena_.updateMatrice(enemies_.at(i).getHitbox().getPosition(), float x,float y );
 		}
-	} 
+	}
 	threadEnemies->detach();
 }
-void Game::brain(Enemy &e )
+void Game::brain(Enemy &e)
 {
 	for (unsigned i = 0; i < enemies_.size(); i++) { //build enemies path to player
-		//A revérifier par Salmane et Yassine 
+		//A revérifier par Salmane 
 		Position pos = e.getPosition();
-			Node arrivee;
-			arrivee.position.x = players_[0].getHitbox().getPosition().x/30;
-			arrivee.position.y = players_[0].getHitbox().getPosition().y/30;
+		Node arrivee;
+		arrivee.position.x = players_[0].getHitbox().getPosition().x / 30;
+		arrivee.position.y = players_[0].getHitbox().getPosition().y / 30;
 		/*	arrivee.gValue = 1;*/
-			Node depart;
-			depart.parent.x = pos.getX()/30;
-			depart.parent.y = pos.getY()/30;
-			depart.position = Vector2f(pos.getX()/30, pos.getY()/30);
-			
-			depart.gValue = 1;
-			
-			pair<int, int> courant;
-				courant.first = depart.position.x;
-				courant.second = depart.position.y;
-			
-				if (arrivee.position.x < depart.position.x) {
-					inversion = true;
-			}
+		Node depart;
+		depart.parent.x = pos.getX() / 30;
+		depart.parent.y = pos.getY() / 30;
+		depart.position = Vector2f(pos.getX() / 30, pos.getY() / 30);
 
-			openList[courant] = depart;
+		depart.gValue = 1;
+
+		pair<int, int> courant;
+		courant.first = depart.position.x;
+		courant.second = depart.position.y;
+
+		if (arrivee.position.x < depart.position.x) {
+			inversion = true;
+		}
+
+		openList[courant] = depart;
+		addToClosedList(courant);
+		addAdjectentCell(courant);
+
+		while (!((courant.first == arrivee.position.x) && (courant.second == arrivee.position.y)) && (!openList.empty())) {      //yassine !! dans le cas ou on déplace le joueur pendant que l ennemi bouge l'open list est vide 
+			courant = bestNode(openList);																							// si l open list est vide brain ne donne plus de path à l'ennemi et du coup n'adapte pas sa trajectoire pour suivre le joueur
 			addToClosedList(courant);
 			addAdjectentCell(courant);
-	
-			while (!((courant.first == arrivee.position.x) && (courant.second == arrivee.position.y)) && (!openList.empty())) {
-				courant = bestNode(openList);
-				addToClosedList(courant);
-				addAdjectentCell(courant);
-			}
+		}
 
-			if ((courant.first == arrivee.position.x) && (courant.second == arrivee.position.y)) {
-				e.setPath(recoverPath(depart, arrivee));  //où le mettre pour enemy?
-				//add the best possibloe movement
-				cout << "OK" << endl;
-			}
-			else {
-				cout << "PLEURE" << endl;
-				//Pas de solution
-			}
-			
+		if ((courant.first == arrivee.position.x) && (courant.second == arrivee.position.y)) {
+			e.setPath(recoverPath(depart, arrivee));  //où le mettre pour enemy?
+			//add the best possibloe movement
+			cout << "OK" << endl;
+		}
+		else {
+			cout << "PLEURE" << endl;
+			//Pas de solution
+		}
+
 
 	}
 	//Que faire après la constitution des movements des enemis vers les joueurs?
-	
+
 }
 
 void Game::startMovingEnemies() {
@@ -168,7 +177,7 @@ void Game::manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Cloc
 	for (unsigned i = 0; i < enemies_.size(); i++) {
 		enemies_.at(i).manageSprite(fpsCount, fpsSpeed, switchFps, time);
 		enemies_.at(i).setState(Moving);
-		
+
 	}
 
 }
@@ -202,10 +211,10 @@ void Game::addAdjectentCell(pair<int, int>& n)
 				tmp.gValue = closedList[n].gValue + distance(i, j, n.first, n.second);
 				/* calcul du cout H du noeud à la destination */
 
-					tmp.hValue = distance(i, j, posPlayer.getX() / 30, posPlayer.getY() / 30);
-					tmp.fValue = tmp.gValue + tmp.hValue;
-					tmp.position = Vector2f(i, j);
-					tmp.parent = Vector2f(n.first, n.second);
+				tmp.hValue = distance(i, j, posPlayer.getX() / 30, posPlayer.getY() / 30);
+				tmp.fValue = tmp.gValue + tmp.hValue;
+				tmp.position = Vector2f(i, j);
+				tmp.parent = Vector2f(n.first, n.second);
 
 				if (nodeExistInList(it, openList)) {
 					/* le noeud est déjà présent dans la liste ouverte, il faut comparer les couts */
@@ -245,7 +254,7 @@ pair<int, int> Game::bestNode(map <pair<int, int>, Node> l) {
 				m_noeud = i->first;
 			}
 	}
-	
+
 
 	return m_noeud;
 }
@@ -277,78 +286,92 @@ vector<pair<int, int>> Game::recoverPath(Node start, Node objectif)
 		//Node& tmp = closedList[pair<int, int>(objectif.position.x, objectif.position.y)];
 		tmp = it->second;
 	}
-	
+
 	pair<int, int>n;
 	pair<int, int> prec;
 	//n.first = posPlayer.getX();
 	//n.second = posPlayer.getY();
 	n.first = tmp.position.x;
 	n.second = tmp.position.y;
-// parent est 0 ?? mais doit contenir la position joueur ??
+	// parent est 0 ?? mais doit contenir la position joueur ??
 	prec.first = tmp.parent.x;
-	prec.second = tmp.parent.y;	
+	prec.second = tmp.parent.y;
 	chemin.insert(chemin.begin(), n);
-	
+
 
 	while (prec != pair<int, int>(start.parent.x, start.parent.y)) {
-		
+
 		n.first = prec.first;
 		n.second = prec.second;
 		chemin.insert(chemin.begin(), n);
 		//chemin.push_back(n);
 		tmp = closedList[pair<int, int>(tmp.parent.x, tmp.parent.y)];
 		prec.first = tmp.position.x;
-		prec.second = tmp.position.y ;
+		prec.second = tmp.position.y;
 	}
 
 	return chemin;
 }
 
-sf::Vector2f Game::getNextPos(unsigned idEnemy){
-	sf::Vector2f vectorNextPos((float)enemies_.at(idEnemy).getPath().at(0).first*30,(float)enemies_.at(idEnemy).getPath().at(0).second*30);
-	//enemies_.at(0).getPath().erase(enemies_.at(0).getPath().begin()); // supprime le premier element du path qu'on retourne ensuite
+
+
+
+
+
+
+sf::Vector2f Game::getNextPos(unsigned idEnemy, bool eraseFirst) {
+
+	sf::Vector2f vectorNextPos((float)enemies_.at(idEnemy).getPath().at(0).first * 30, (float)enemies_.at(idEnemy).getPath().at(0).second * 30);
+	std::vector<std::pair<int, int>> path = enemies_.at(0).getPath();
+	std::vector<std::pair<int, int>>::iterator position = std::find(path.begin(), path.end(), path.front());   
+	if (position != path.end()) { 
+		path.erase(position);   // supprime à chaque fois la position dans la liste qui est atteinte par l'ennemi qui poursuit le joueur
+	}
+	if (eraseFirst) {
+		enemies_.at(idEnemy).setPath(path);
+	}
 	return vectorNextPos;
 }
 
 
-int Game::findDirection(unsigned idEnemy) {
-	float x = enemies_.at(idEnemy).getPosition().getX()*30;
-	float nextX = getNextPos(idEnemy).x;
-	float y = enemies_.at(idEnemy).getPosition().getY() * 30;
-	float nextY = getNextPos(idEnemy).y;
-	if (x == nextX && y < nextY) {
+int Game::findDirection(unsigned idEnemy) { // en fonction de sa position et de la prochaine l'enemi saura dans quelle direction avancer logiquement
+	float x = enemies_.at(idEnemy).getPosition().getX();
+	float nextX = getNextPos(idEnemy, false).x;
+	float y = enemies_.at(idEnemy).getPosition().getY();
+	float nextY = getNextPos(idEnemy, false).y;
+	if (x == nextX && y > nextY) {
 		return 0; //haut
 	}
-	else if(x == nextX && y > nextY){
+	else if (x == nextX && y < nextY) {
 		return 1; //bas
 	}
-	else if(x > nextX && y == nextY) {
+	else if (x < nextX && y == nextY) {
 		return 2; //droite
 	}
-	else if(x < nextX && y == nextY){
+	else if (x > nextX && y == nextY) {
 		return 3; //gauche
 	}
-	else if(x > nextX && y > nextY){
+	else if (x < nextX && y < nextY) {
 		return 4; //basDroit
 	}
-	else if(x < nextX && y < nextY){
+	else if (x > nextX && y > nextY) {
 		return 5; //hautGauche
 	}
-	else if(x < nextX && y > nextY){
+	else if (x > nextX && y < nextY) {
 		return 6; // basGauche
 	}
-	else if (x > nextX && y < nextY) {
+	else if (x < nextX && y > nextY) {
 		return 7; // hautDroit
 	}
 
 }
 
 void Game::moveToPos(unsigned idEnemy) {
-	
-	for (int i = 0; i < 50000; i++) {
+
+	for (int i = 0; i < 50000; i++) {  // 50 000 car 30 /50 000 = 0.0006 qui est une bonne vitesse pour voir l'ennemi bouger à l'oeil nu
 		switch (findDirection(idEnemy)) {
-		case 0 :
-			enemies_.at(idEnemy).move(0, -0.0006);
+		case 0:
+			enemies_.at(idEnemy).move(0, -0.0006);   //mouvement graphique
 			enemies_.at(0).setAnimY(Up);
 			break;
 		case 1:
@@ -379,10 +402,49 @@ void Game::moveToPos(unsigned idEnemy) {
 			enemies_.at(idEnemy).move(0.0006, -0.0006);
 			enemies_.at(0).setAnimY(Up);
 			break;
-		
+
 		}
 		enemies_.at(idEnemy).uptadeSpritePosition();
+
 	}
+	switch (findDirection(idEnemy)) {  
+	case 0:
+		enemies_.at(idEnemy).setPositionHitbox((float)enemies_.at(idEnemy).getPosition().getX(), (float)enemies_.at(idEnemy).getPosition().getY() - 30);
+		enemies_.at(idEnemy).setPosition(enemies_.at(idEnemy).getPosition().getX(), enemies_.at(idEnemy).getPosition().getY() - 30);  // bouge réellement l'ennemi (sa position etant donné que le brain calcul en fonction 
+																																	  //de la position de l ennemi et non sa hitbox aparemment)
+		break;
+	case 1:
+		enemies_.at(idEnemy).setPositionHitbox((float)enemies_.at(idEnemy).getPosition().getX(), (float)enemies_.at(idEnemy).getPosition().getY() +30);
+		enemies_.at(idEnemy).setPosition(enemies_.at(idEnemy).getPosition().getX(), enemies_.at(idEnemy).getPosition().getY() + 30);
+		break;
+	case 2:
+		enemies_.at(idEnemy).setPositionHitbox((float)enemies_.at(idEnemy).getPosition().getX()+30, (float)enemies_.at(idEnemy).getPosition().getY());
+		enemies_.at(idEnemy).setPosition(enemies_.at(idEnemy).getPosition().getX()+30, enemies_.at(idEnemy).getPosition().getY());
+		break;
+	case 3:
+		enemies_.at(idEnemy).setPositionHitbox((float)enemies_.at(idEnemy).getPosition().getX()-30, (float)enemies_.at(idEnemy).getPosition().getY());
+		enemies_.at(idEnemy).setPosition(enemies_.at(idEnemy).getPosition().getX() - 30, enemies_.at(idEnemy).getPosition().getY() );
+		break;
+	case 4:
+		enemies_.at(idEnemy).setPositionHitbox((float)enemies_.at(idEnemy).getPosition().getX()+30, (float)enemies_.at(idEnemy).getPosition().getY() + 30);
+		enemies_.at(idEnemy).setPosition(enemies_.at(idEnemy).getPosition().getX()+30, enemies_.at(idEnemy).getPosition().getY()+30);
+		break;
+	case 5:
+		enemies_.at(idEnemy).setPositionHitbox((float)enemies_.at(idEnemy).getPosition().getX()-30, (float)enemies_.at(idEnemy).getPosition().getY() -30);
+		enemies_.at(idEnemy).setPosition(enemies_.at(idEnemy).getPosition().getX()-30, enemies_.at(idEnemy).getPosition().getY() - 30);
+		break;
+	case 6:
+		enemies_.at(idEnemy).setPositionHitbox((float)enemies_.at(idEnemy).getPosition().getX()-30, (float)enemies_.at(idEnemy).getPosition().getY() + 30);
+		enemies_.at(idEnemy).setPosition(enemies_.at(idEnemy).getPosition().getX()-30, enemies_.at(idEnemy).getPosition().getY() + 30);
+		break;
+	case 7:
+		enemies_.at(idEnemy).setPositionHitbox((float)enemies_.at(idEnemy).getPosition().getX()+30, (float)enemies_.at(idEnemy).getPosition().getY() - 30);
+		enemies_.at(idEnemy).setPosition(enemies_.at(idEnemy).getPosition().getX()+30, enemies_.at(idEnemy).getPosition().getY() - 30);
+		break;
+
+	}
+	getNextPos(idEnemy, true); //efface le premier element de la liste du path
+
 }
 
 
