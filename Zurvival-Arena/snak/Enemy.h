@@ -12,6 +12,7 @@ public:
 	void uptadeSpritePosition();
 	inline void setPath(vector<pair<int, int>> p);
 	inline vector<pair<int, int>> getPath() const;
+    void setHitTexture();
 	bool getPlayerMoving();
 	void setPlayerMoving(bool b);
 	int getIndicePath() const;

@@ -62,6 +62,7 @@ void Game::playerMoving(bool moving) {
 }
 
 void Game::functionMovingEnemies() {
+	
 	using namespace std::chrono_literals;
 	vector < pair<int, int> >v;
 	enemies_.at(0).setAnimY(Down);
@@ -71,42 +72,47 @@ void Game::functionMovingEnemies() {
 	vector< vector<pair<int, int>> > pathToEn;
 
 	while (!gameFinish) {
-		for (int i = 0; i < enemies_.size(); i++) {
-			//int i = 0;
-			Enemy& e = enemies_.at(i);
-			if (!pathToEnemy.empty()) {
-				v = pathToEnemy.at(i);
-			}
+		//for (int i = 0; i < enemies_.size(); i++) {
+		
+		int i = 0;
+		Enemy& e = enemies_.at(i);
+		if (!pathToEnemy.empty()) {
+			v = pathToEnemy.at(i);
+		}
 
-			if (enemies_.at(i).getPlayerMoving() == true) {
+		if (enemies_.at(i).getPlayerMoving() == true) {
 
-				v.clear();
-				Vector2f c = players_.at(i).getHitbox().getPosition();
-				brain(i);
-				v = pathToEnemy.at(i);
-				cout << "first : " << v.at(0).first << "second : " << v.at(0).second << endl;
-				cout << "yassine " << players_.at(0).getHitbox().getPosition().x / 30 << " " << players_.at(0).getHitbox().getPosition().y / 30 << endl;
-				enemies_.at(i).setPlayerMoving(false);
-				enemies_.at(i).resetIndicePath();
-			}
+			v.clear();
+			Vector2f c = players_.at(i).getHitbox().getPosition();
+			brain(i);
+			v = pathToEnemy.at(i);
+			cout << "first : " << v.at(0).first << "second : " << v.at(0).second << endl;
+			cout << "yassine " << players_.at(0).getHitbox().getPosition().x / 30 << " " << players_.at(0).getHitbox().getPosition().y / 30 << endl;
+			enemies_.at(i).setPlayerMoving(false);
+			enemies_.at(i).resetIndicePath();
+		}
 
-			if (enemies_.at(i).getIndicePath() < v.size()) {
-				moveToPos(i, v);
-				enemies_.at(i).incrementIndicePath();
+		if (enemies_.at(i).getIndicePath() < v.size()) {
+			if (textChange) {
+
 			}
-			else
-			{
-				if (players_.at(0).getPv() < 2) {
-					//cout << "STOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOP t es mort" << endl;
+			moveToPos(i, v);
+			enemies_.at(i).incrementIndicePath();
+		}else{
+			if (players_.at(0).getPv() < 2) {
+				//cout << "STOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOP t es mort" << endl;
+			}else {
+				players_.at(0).removePv();
+				if (!textChange) {
+					enemies_.at(0).setHitTexture();
+					textChange = true;
+				}	
+				for (int k = 0; k < players_.at(0).getPv(); k += 100) {
+					cout << "*";
 				}
-				else {
-					players_.at(0).removePv();
-					for (int k = 0; k < players_.at(0).getPv(); k += 100) {
-						cout << "*";
-					}
-					cout << endl;
-				}
+				cout << endl;
 			}
+			//}
 		}
 	}
 	threadEnemies->detach();

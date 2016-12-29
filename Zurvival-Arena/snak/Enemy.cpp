@@ -38,4 +38,10 @@ void Enemy::incrementIndicePath() {
 void Enemy::resetIndicePath() {
 	indicePath = 0;
 }
-
+void Enemy::setHitTexture() {
+	sf::Texture* perso = new sf::Texture();
+	if (!perso->loadFromFile("pics/jakeHit.png")) {
+		std::cout << "error loading image" << std::endl;
+	}
+	spritePerso_->setTexture(*perso);
+}

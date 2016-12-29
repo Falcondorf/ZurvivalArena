@@ -20,7 +20,7 @@ struct Node {
 };
 class Game {
 private:
-	
+	bool textChange = false;
 	Arena arena_;
 	vector<Character> players_;
 	vector<Enemy> enemies_;
