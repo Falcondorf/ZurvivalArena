@@ -10,7 +10,7 @@ int main()
 	const int height = 660;
 	try {
 		Game game = Game(width, height);
-		game.addPlayer(60, 60);
+		game.addPlayer(330, 270);
 		game.addPlayer(250, 250);
 		game.addEnemy(210, 240);
 	//	game.addEnemy(420, 300);
