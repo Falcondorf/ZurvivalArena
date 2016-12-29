@@ -10,10 +10,10 @@ int main()
 	const int height = 660;
 	try {
 		Game game = Game(width, height);
-		game.addPlayer(330, 270);
+		game.addPlayer(330, 30);
 		game.addPlayer(250, 250);
 		game.addEnemy(210, 240);
-	//	game.addEnemy(420, 300);
+		game.addEnemy(420, 300);
 		lastPosition = make_pair(11, 2);
 		/*game.addEnemy(180, 120);*/
 		game.getArena().printTiles();
@@ -35,7 +35,8 @@ int main()
 			window.clear(Color::White);
 			window.draw(game.getEnemies().at(0).getHitbox());
 			window.draw(*(game.getEnemies().at(0).getSprite()));
-		//	window.draw(*(game.getEnemies().at(1).getSprite()));
+			window.draw(game.getEnemies().at(1).getHitbox());
+			window.draw(*(game.getEnemies().at(1).getSprite()));
 			//window.draw(*(game.getEnemies().at(2).getSprite()));
 			game.stateInitializerCharacters();
 			window.draw((game.getPlayers().at(0).getHitbox()));
@@ -49,6 +50,7 @@ int main()
 			Event event;
 			while (window.pollEvent(event))
 			{
+		
 				if ((event.type == Event::Closed) ||
 					((event.type == Event::KeyPressed) && (event.key.code == Keyboard::Escape))) {
 					game.finishGame();

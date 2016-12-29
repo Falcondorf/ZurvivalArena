@@ -47,6 +47,7 @@ public:
 	inline void setAnimY(Direction direction);
 	inline const State& getState() const;
 	inline void setState(State s);
+	void removePv(); // mettre en privé et redef dans game
 	void manageSprite(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 };
 
@@ -68,6 +69,7 @@ Character::Character() {
 	setPositionHitbox(10, 10);
 	setSize(30, 30);
 	setOutlineThickness(1);
+	pv_ = 1000;
 	
 }
 
@@ -77,6 +79,7 @@ Character::Character(Position position, int pv):position_(position),pv_(pv){
 	setSize(30,30);
 	setFillColor(sf::Color::Red);
 	//hitbox_.setTexture(&perso_);
+	pv_ = 1000;
 
 }
 

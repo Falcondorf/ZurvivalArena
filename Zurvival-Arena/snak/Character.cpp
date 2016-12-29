@@ -28,6 +28,15 @@ void Character::setSize(float f1, float f2) {
 	hitbox_.setSize(Vector2f(f1, f2));
 }
 
+void Character::removePv() {
+	if (pv_ == 0) {
+	}
+	else {
+		pv_--;
+	}
+
+}
+
 void Character::manageSprite(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time) {
 	if (updateFps) {
 		fpsCount += fpsSpeed *time.restart().asSeconds();
