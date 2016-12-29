@@ -32,7 +32,7 @@ int main()
 		sf::RenderWindow window3(sf::VideoMode(800, 450), "Zurvival Arena");
 		Menu menu2(600, 600);
 
-		//window.setVisible(false);
+		window.setVisible(false);
 
 
 
