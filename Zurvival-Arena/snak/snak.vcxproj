@@ -164,6 +164,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arena.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Heroes.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="ZurvivalException.h" />
   </ItemGroup>
