@@ -41,7 +41,7 @@ public:
 	inline unsigned getPv() const;
 	inline const sf::RectangleShape &getHitbox() const;
 	inline const Position &getPosition() const;
-	inline const sf::Sprite* getSprite() const;
+	inline  sf::Sprite* getSprite() const;
 	inline void setPositionSprite(sf::Vector2f p);
 	inline void setAnimX(Direction direction);
 	inline void setAnimY(Direction direction);
@@ -79,11 +79,11 @@ Character::Character(Position position, int pv):position_(position),pv_(pv){
 	setSize(30,30);
 	setFillColor(sf::Color::Red);
 	//hitbox_.setTexture(&perso_);
-	pv_ = 1000;
+	pv_ = 1000000;
 
 }
 
-const sf::Sprite * Character::getSprite() const {
+ sf::Sprite * Character::getSprite() const {
 
 	return spritePerso_;
 }

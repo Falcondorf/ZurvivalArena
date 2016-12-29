@@ -33,13 +33,13 @@ int main()
 		while (window.isOpen())
 		{
 			window.clear(Color::White);
-			window.draw(game.getEnemies().at(0).getHitbox());
+			window.draw(game.getEnemies().at(0).getHitbox()); 
 			window.draw(*(game.getEnemies().at(0).getSprite()));
 			//window.draw(game.getEnemies().at(1).getHitbox());
 			//window.draw(*(game.getEnemies().at(1).getSprite()));
 			//window.draw(*(game.getEnemies().at(2).getSprite()));
 			game.stateInitializerCharacters();
-			window.draw((game.getPlayers().at(0).getHitbox()));
+			// window.draw((game.getPlayers().at(0).getHitbox()));jjjjjj
 			window.draw(*(game.getPlayers().at(0).getSprite()));
 			/*for (unsigned i = 0; i < game.getNbPlayers(); i++) {
 			}*/

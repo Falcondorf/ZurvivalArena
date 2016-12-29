@@ -18,7 +18,7 @@ public:
 	int getIndicePath() const;
 	void incrementIndicePath();
 	void resetIndicePath();
-	
+	void Enemy::setHitTextureDepart();
 
 };
 
