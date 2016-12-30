@@ -5,7 +5,7 @@
 #include <iostream>
 #pragma region variables
 enum State { Idle, Moving };
-enum Direction { Up, Left, Right, Down };
+enum Direction { Down, Left, Right, Up };
 
 #pragma endregion variables
 
@@ -68,7 +68,7 @@ const Position & Character::getPosition() const {
 
 Character::Character() {
 	setFillColor(sf::Color::Black);
-	setPositionHitbox(10, 10);
+	setPositionHitbox(0, 0);
 	setSize(30, 30);
 	setOutlineThickness(1);
 	pv_ = 100;
@@ -89,7 +89,8 @@ Character::Character(Position position, int pv):position_(position),pv_(pv){
 	return spritePerso_;
 }
 void Character::setPositionSprite(sf::Vector2f p) {
-	spritePerso_->setPosition(p);
+	
+	spritePerso_->setPosition(sf::Vector2f(p.x-20,p.y-5));
 }
 
 void Character::setAnimX(Direction direction) {

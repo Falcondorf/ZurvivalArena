@@ -50,10 +50,10 @@ void Character::manageSprite(float fpsCount, float fpsSpeed, float switchFps, sf
 	}
 	if (fpsCount >= switchFps) {
 		anim.x++;
-		if (anim.x * 56 >= perso_->getSize().x) {
+		if (anim.x * 76 >= perso_->getSize().x) {
 			anim.x = 0;
 		}
 	}
-	spritePerso_->setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
+	spritePerso_->setTextureRect(sf::IntRect(anim.x * 76, anim.y * 95, 76, 95));
 	
 }

@@ -102,19 +102,27 @@ int main()
 			window3.display();
 		}
 
-
-
+		
+		sf::Texture texture2;
+		texture2.loadFromFile("z.png");
+		sf::Sprite background3(texture2);
 		while (window.isOpen())
 		{
+				
+			//window.display();
+			window.clear();
+			
+			
+			window.draw(background3);
+		
 
-			window.clear(Color::White);
-			window.draw(game.getEnemies().at(0).getHitbox());
+		//	window.draw(game.getEnemies().at(0).getHitbox());
 			window.draw(*(game.getEnemies().at(0).getSprite()));
 		/*	window.draw(game.getEnemies().at(1).getHitbox());
 			window.draw(*(game.getEnemies().at(1).getSprite()));*/
 			//window.draw(*(game.getEnemies().at(2).getSprite()));
 			game.stateInitializerCharacters();
-			 window.draw((game.getPlayers().at(0).getHitbox()));
+			// window.draw((game.getPlayers().at(0).getHitbox()));
 			window.draw(*(game.getPlayers().at(0).getSprite()));
 			/*for (unsigned i = 0; i < game.getNbPlayers(); i++) {
 			}*/
@@ -169,13 +177,13 @@ int main()
 					std::vector<std::pair<float, float>> vec;
 					vec = game.trajectoireBalle(0);
 					
-					RectangleShape rs(sf::Vector2f(vec.at(0).first, vec.at(0).second));
+					CircleShape rs(5,20);
 					
 
 					rs.setPosition(sf::Vector2f((vec.at(0).first)*30, (vec.at(0).second)*30));
-					rs.setFillColor(sf::Color::Blue);
-					rs.setSize(sf::Vector2f(20, 20));
-					//window.draw(rs);
+					rs.setFillColor(sf::Color::Magenta);
+					//rs.setSize(sf::Vector2f(5, 5));
+					
 					
 					for (int i = 0; i < vec.size(); i++) {
 						rs.setPosition(vec.at(i).first*30, vec.at(i).second*30);

@@ -10,21 +10,31 @@ Arena::Arena(unsigned width, unsigned height) : width_(width), height_(height) {
 		std::vector<std::vector<bool>> tiles(width/30, std::vector<bool>(height/30 , false));
 		tiles_ = tiles;
 
-		sf::RectangleShape top, left, right, bottom, obstacle , obstacle2, obstacle3;
+		sf::RectangleShape top, left, right, bottom, forest , bush, barn,barrier,puit,maisonette;
 
-		obstacle.setPosition(90,120);
-		obstacle.setSize(sf::Vector2f(60, 90));
-		obstacle.setFillColor(sf::Color::Blue);
+		forest.setPosition(0,0);
+		forest.setSize(sf::Vector2f(150, 400));
+		forest.setFillColor(sf::Color::Transparent);
 
-		obstacle2.setPosition(300, 120);
-		obstacle2.setSize(sf::Vector2f(60, 420));
-		obstacle2.setFillColor(sf::Color::Blue);
+		bush.setPosition(150, 0);
+		bush.setSize(sf::Vector2f(60, 160));
+		bush.setFillColor(sf::Color::Transparent);
 
-		obstacle3.setPosition(90, 510);
-		obstacle3.setSize(sf::Vector2f(90, 30));
-		obstacle3.setFillColor(sf::Color::Blue);
+		barn.setPosition(490, 25);
+		barn.setSize(sf::Vector2f(100, 140));
+		barn.setFillColor(sf::Color::Transparent);
+		
+		barrier.setPosition(0, 610);
+		barrier.setSize(sf::Vector2f(650, 60));
+		barrier.setFillColor(sf::Color::Transparent);
 
+		puit.setPosition(455, 300);
+		puit.setSize(sf::Vector2f(30, 30));
+		puit.setFillColor(sf::Color::Transparent);
 
+		maisonette.setPosition(210, 300);
+		maisonette.setSize(sf::Vector2f(80, 120));
+		maisonette.setFillColor(sf::Color::Transparent);
 
 		top.setPosition(3, 0);
 		top.setSize(sf::Vector2f(width - 2 * 3, 3));
@@ -58,11 +68,12 @@ Arena::Arena(unsigned width, unsigned height) : width_(width), height_(height) {
 		obstacles.push_back(bottom);
 		obstacles.push_back(left);
 		obstacles.push_back(right);
-		obstacles.push_back(obstacle);
-		obstacles.push_back(obstacle2);
-		obstacles.push_back(obstacle3);
-
-
+		obstacles.push_back(forest);
+		obstacles.push_back(bush);
+		obstacles.push_back(barn);
+		obstacles.push_back(barrier);
+		obstacles.push_back(puit);
+		obstacles.push_back(maisonette);
 		setTiles();
 	}
 
