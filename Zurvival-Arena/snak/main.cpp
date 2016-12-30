@@ -14,10 +14,10 @@ int main()
 		game.addPlayer(330, 30);
 		game.addPlayer(250, 250);
 		game.addEnemy(210, 240);
-		//game.addEnemy(420, 3000);
+		//game.addEnemy(420, 300);
 		lastPosition = make_pair(11, 2);
 		/*game.addEnemy(180, 120);*/
-		//game.getArena().printTiles();
+		game.getArena().printTiles();
 		//game.brain(game.getEnemies()[0]);
 		VideoMode videoMode(width, height);
 		RenderWindow window(videoMode, "Rectangle Collision");
@@ -128,8 +128,8 @@ int main()
 			window.clear(Color::White);
 			window.draw(game.getEnemies().at(0).getHitbox());
 			window.draw(*(game.getEnemies().at(0).getSprite()));
-			//window.draw(game.getEnemies().at(1).getHitbox());
-			//window.draw(*(game.getEnemies().at(1).getSprite()));
+		/*	window.draw(game.getEnemies().at(1).getHitbox());
+			window.draw(*(game.getEnemies().at(1).getSprite()));*/
 			//window.draw(*(game.getEnemies().at(2).getSprite()));
 			game.stateInitializerCharacters();
 			 window.draw((game.getPlayers().at(0).getHitbox()));

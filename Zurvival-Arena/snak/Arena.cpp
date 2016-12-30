@@ -12,8 +12,8 @@ Arena::Arena(unsigned width, unsigned height) : width_(width), height_(height) {
 
 		sf::RectangleShape top, left, right, bottom, obstacle;
 
-		obstacle.setPosition(90, 30);
-		obstacle.setSize(sf::Vector2f(200, 100));
+		obstacle.setPosition(10,100);
+		obstacle.setSize(sf::Vector2f(500, 100));
 		obstacle.setFillColor(sf::Color::Blue);
 
 		top.setPosition(3, 0);
@@ -48,7 +48,7 @@ Arena::Arena(unsigned width, unsigned height) : width_(width), height_(height) {
 		obstacles.push_back(bottom);
 		obstacles.push_back(left);
 		obstacles.push_back(right);
-		/*obstacles.push_back(obstacle);*/
+		obstacles.push_back(obstacle);
 
 		setTiles();
 	}
@@ -67,7 +67,8 @@ void Arena::setTiles()
 		while (searchTile.getPosition().x < width_) {
 			for (sf::RectangleShape rs : obstacles){
 				if (Game::intersects(rs,searchTile)){
-					tiles_[line][column] = true;
+					tiles_[column][line] = true;
+					cout <<" x "  << line <<" Y " << column << endl;
 				}
 				
 			}
@@ -90,7 +91,7 @@ void Arena::printTiles()
 {
 	for (int i = 0; i < height_ / 30; i++) {
 		for (int j = 0; j < width_ / 30; j++) {
-			std::cout << tiles_[i][j];
+			std::cout << tiles_[j][i];
 		}
 		std::cout << std::endl;
 	}

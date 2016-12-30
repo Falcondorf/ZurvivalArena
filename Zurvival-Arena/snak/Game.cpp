@@ -72,7 +72,7 @@ void Game::functionMovingEnemies() {
 	vector< vector<pair<int, int>> > pathToEn;
 
 	while (!gameFinish) {
-		//for (int i = 0; i < enemies_.size(); i++) {
+	/*	for (int i = 0; i < enemies_.size(); i++) {*/
 
 		int i = 0;
 		Enemy& e = enemies_.at(i);
@@ -88,7 +88,6 @@ void Game::functionMovingEnemies() {
 			v = pathToEnemy.at(i);
 			/*cout << "first : " << v.at(0).first << "second : " << v.at(0).second << endl;
 			cout << "yassine " << players_.at(0).getHitbox().getPosition().x / 30 << " " << players_.at(0).getHitbox().getPosition().y / 30 << endl;*/
-
 			enemies_.at(i).setPlayerMoving(false);
 			enemies_.at(i).resetIndicePath();
 		}
@@ -100,6 +99,7 @@ void Game::functionMovingEnemies() {
 				enemies_.at(i).setHitTextureDepart();
 				textChange = false;
 			}
+			
 			moveToPos(i, v);
 			enemies_.at(i).incrementIndicePath();
 		}
@@ -120,6 +120,7 @@ void Game::functionMovingEnemies() {
 		}
 		/*cout << enemies_.at(i).getHitbox().getPosition().x << "         " << enemies_.at(i).getHitbox().getPosition().y << endl;
 		cout << players_.at(i).getHitbox().getPosition().x <<"       " <<  players_.at(i).getHitbox().getPosition().y << endl;*/
+		/*}*/
 	}
 	threadEnemies->detach();
 }
@@ -174,11 +175,11 @@ void Game::brain(unsigned i)
 			pathToEnemy.at(i).clear();
 			pathToEnemy.at(i) = recoverPath(depart, arrivee);
 			//add the best possibloe movement
-			cout << "OK" << endl;
+			/*cout << "OK" << endl;*/
 
 		}
 		else {
-			cout << "PLEURE" << endl;
+		/*	cout << "PLEURE" << endl;*/
 			//Pas de solution
 		}
 
@@ -350,21 +351,6 @@ vector<pair<int, int>> Game::recoverPath(Node start, Node objectif)
 }
 
 
-//sf::Vector2f Game::getNextPos(unsigned idEnemy, bool eraseFirst) {
-//
-//	sf::Vector2f vectorNextPos((float)pathToEnemy.at(idEnemy).at(0).first * 30, (float)pathToEnemy.at(idEnemy).at(0).second * 30);
-//	std::vector<std::pair<int, int>> path = pathToEnemy.at(idEnemy);
-//	std::vector<std::pair<int, int>>::iterator position = std::find(path.begin(), path.end(), path.front());
-//	if (position != path.end()) {
-//		path.erase(position);   // supprime à chaque fois la position dans la liste qui est atteinte par l'ennemi qui poursuit le joueur
-//	}
-//	if (eraseFirst) {
-//		pathToEnemy.at(idEnemy) = path;
-//	}
-//	return vectorNextPos;
-//}
-
-
 int Game::findDirection(unsigned idEnemy, vector < pair<int, int> >v) { // en fonction de sa position et de la prochaine l'enemi saura dans quelle direction avancer logiquement
 	Enemy& e = enemies_.at(idEnemy);
 	float x = enemies_.at(idEnemy).getPosition().getX();
@@ -486,7 +472,7 @@ void Game::shoot(int idPlayer) {
 	case Up:
 		for (int i = 0; i < enemies_.size(); i++) {
 			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 == (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 < (unsigned)playerpos.y / 30) {
-				//cout << "touché d'en bas" << endl;
+				
 				enemies_.at(i).removePv();
 				cout << enemies_.at(i).getPv() << endl;
 				enemies_.at(i).setHitTextureHit();
