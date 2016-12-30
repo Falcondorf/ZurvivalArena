@@ -178,7 +178,7 @@ int main()
 					//window.draw(rs);
 					
 					for (int i = 0; i < vec.size(); i++) {
-						rs.move(((unsigned)(vec.at(i).first)), ((unsigned)(vec.at(i).second)));
+						rs.setPosition(vec.at(i).first*30, vec.at(i).second*30);
 						window.draw(rs);
 						window.display();
 					}
