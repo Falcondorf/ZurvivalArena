@@ -11,10 +11,10 @@ int main()
 	const int height = 660;
 	try {
 		Game game = Game(width, height);
-		game.addPlayer(330, 30);
+		game.addPlayer(210, 240);
 		game.addPlayer(250, 250);
-		game.addEnemy(210, 240);
-		//game.addEnemy(420, 300);
+		game.addEnemy(330, 30);
+	/*	game.addEnemy(420, 300);*/
 		lastPosition = make_pair(11, 2);
 		/*game.addEnemy(180, 120);*/
 		game.getArena().printTiles();
@@ -84,7 +84,6 @@ int main()
 					break;
 
 
-
 				}
 
 			}
@@ -102,23 +101,6 @@ int main()
 			}
 			window3.display();
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -158,9 +140,6 @@ int main()
 
 
 
-
-
-
 			if (event.type == Event::KeyPressed) {
 				float xMov = 0, yMov = 0, xMov2 = 0, yMov2 = 0;
 				if (Keyboard::isKeyPressed(Keyboard::Up)) {
@@ -187,6 +166,7 @@ int main()
 				}
 				if (Keyboard::isKeyPressed(Keyboard::F5)) {
 					game.shoot(0);
+
 					game.getEnemies().at(0).setHitTextureDepart();
 				}
 				

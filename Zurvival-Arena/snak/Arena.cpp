@@ -12,8 +12,8 @@ Arena::Arena(unsigned width, unsigned height) : width_(width), height_(height) {
 
 		sf::RectangleShape top, left, right, bottom, obstacle;
 
-		obstacle.setPosition(10,100);
-		obstacle.setSize(sf::Vector2f(500, 100));
+		obstacle.setPosition(60,120);
+		obstacle.setSize(sf::Vector2f(60, 90));
 		obstacle.setFillColor(sf::Color::Blue);
 
 		top.setPosition(3, 0);

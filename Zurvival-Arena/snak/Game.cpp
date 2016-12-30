@@ -72,8 +72,7 @@ void Game::functionMovingEnemies() {
 	vector< vector<pair<int, int>> > pathToEn;
 
 	while (!gameFinish) {
-	/*	for (int i = 0; i < enemies_.size(); i++) {*/
-
+		/*for (int i = 0; i < enemies_.size(); i++) {*/
 		int i = 0;
 		Enemy& e = enemies_.at(i);
 		if (!pathToEnemy.empty()) {
@@ -92,14 +91,14 @@ void Game::functionMovingEnemies() {
 			enemies_.at(i).resetIndicePath();
 		}
 
-
+		v = pathToEnemy.at(i);
 		if (enemies_.at(i).getIndicePath() < v.size()) {
 			players_.at(0).getSprite()->setRotation(0);
 			if (textChange) {
 				enemies_.at(i).setHitTextureDepart();
 				textChange = false;
 			}
-			
+
 			moveToPos(i, v);
 			enemies_.at(i).incrementIndicePath();
 		}
@@ -179,8 +178,8 @@ void Game::brain(unsigned i)
 
 		}
 		else {
-		/*	cout << "PLEURE" << endl;*/
-			//Pas de solution
+			/*	cout << "PLEURE" << endl;*/
+				//Pas de solution
 		}
 
 
@@ -468,16 +467,24 @@ void Game::moveToPos(unsigned idEnemy, vector < pair<int, int> >v) {
 
 void Game::shoot(int idPlayer) {
 	sf::Vector2f playerpos = players_.at(idPlayer).getHitbox().getPosition();
+	bool isObstacle = false;
 	switch (players_.at(idPlayer).getAnim().y) {
 	case Up:
 		for (int i = 0; i < enemies_.size(); i++) {
 			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 == (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 < (unsigned)playerpos.y / 30) {
-				
-				enemies_.at(i).removePv();
-				cout << enemies_.at(i).getPv() << endl;
-				enemies_.at(i).setHitTextureHit();
+				for (unsigned k = (playerpos.y / 30);(k > enemies_.at(i).getHitbox().getPosition().y / 30 && !isObstacle);k--) {
+					if (arena_.getTiles()[playerpos.x / 30][k]) {
+						isObstacle = true;
+						cout << "O" << endl;
+					}
+				}
+				if (!isObstacle) {
+					enemies_.at(i).removePv();
+					cout << enemies_.at(i).getPv() << endl;
+					enemies_.at(i).setHitTextureHit();
+				}
 			}
-			
+
 		}
 		break;
 	case Down:
@@ -489,33 +496,57 @@ void Game::shoot(int idPlayer) {
 
 			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 == (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 > (unsigned)playerpos.y / 30) {
 				//cout << "touché d'en haut" << endl;
-				enemies_.at(i).removePv();
-				cout << enemies_.at(i).getPv() << endl;
-				enemies_.at(i).setHitTextureHit();
+				for (unsigned k = (playerpos.y / 30);(k < enemies_.at(i).getHitbox().getPosition().y/30 && !isObstacle);k++) {
+					if (arena_.getTiles()[playerpos.x / 30][k]) {
+						isObstacle = true;
+						cout << "O" << endl;
+					}
+				}
+				if (!isObstacle) {
+					enemies_.at(i).removePv();
+					cout << enemies_.at(i).getPv() << endl;
+					enemies_.at(i).setHitTextureHit();
+				}
 			}
-		
+
 		}
 		break;
 	case Right:
 		for (int i = 0; i < enemies_.size(); i++) {
 			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 > (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 == (unsigned)playerpos.y / 30) {
 				//cout << "touché depuis la gauche" << endl;
-				enemies_.at(i).removePv();
-				cout << enemies_.at(i).getPv() << endl;
-				enemies_.at(i).setHitTextureHit();
+				for (unsigned k = (playerpos.y / 30);(k < enemies_.at(i).getHitbox().getPosition().y / 30 && !isObstacle);k++) {
+					if (arena_.getTiles()[k][playerpos.x / 30]) {
+						isObstacle = true;
+						cout << "O" << endl;
+					}
+				}
+				if (!isObstacle) {
+					enemies_.at(i).removePv();
+					cout << enemies_.at(i).getPv() << endl;
+					enemies_.at(i).setHitTextureHit();
+				}
 			}
-		
+
 		}
 		break;
 	case Left:
 		for (int i = 0; i < enemies_.size(); i++) {
 			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 < (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 == (unsigned)playerpos.y / 30) {
 				//cout << "touché depuis la droite" << endl;
-				enemies_.at(i).removePv();
-				cout << enemies_.at(i).getPv() << endl;
-				enemies_.at(i).setHitTextureHit();
+				for (unsigned k = (playerpos.y / 30);(k > enemies_.at(i).getHitbox().getPosition().y / 30 && !isObstacle);k--) {
+					if (arena_.getTiles()[k][playerpos.x / 30]) {
+						isObstacle = true;
+						cout << "O" << endl;
+					}
+				}
+				if (!isObstacle) {
+					enemies_.at(i).removePv();
+					cout << enemies_.at(i).getPv() << endl;
+					enemies_.at(i).setHitTextureHit();
+				}
 			}
-		
+
 		}
 		break;
 
