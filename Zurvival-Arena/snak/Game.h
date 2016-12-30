@@ -37,6 +37,7 @@ private:
 	bool playerMove = false;
 	vector< vector<pair<int, int>> > pathToEnemy;
 
+
 public:
 	inline const vector<Character> &  getPlayers() const;
 	inline Game(unsigned width, unsigned height);
@@ -70,7 +71,7 @@ public:
 	//sf::Vector2f getNextPos(unsigned idEnemy, bool eraseFirst);
 	int findDirection(unsigned idEnemy, vector < pair<int, int> >v);
 	void moveToPos(unsigned idEnemy, vector < pair<int, int> >v);
-
+	void Game::shoot(int idPlayer);
 	void playerMoving(bool moving);
 };
 

@@ -61,7 +61,7 @@ int main()
 						{
 						case 0: std::cout << "play bouton" << std::endl;
 							window.setVisible(true);
-							game.startMovingEnemies();
+							game.startMovingEnemies();// jules
 							window3.close();
 							break;
 						case 1: std::cout << "sav buton" << std::endl;
@@ -132,7 +132,7 @@ int main()
 			//window.draw(*(game.getEnemies().at(1).getSprite()));
 			//window.draw(*(game.getEnemies().at(2).getSprite()));
 			game.stateInitializerCharacters();
-			// window.draw((game.getPlayers().at(0).getHitbox()));jjjjjj
+			 window.draw((game.getPlayers().at(0).getHitbox()));
 			window.draw(*(game.getPlayers().at(0).getSprite()));
 			/*for (unsigned i = 0; i < game.getNbPlayers(); i++) {
 			}*/
@@ -185,6 +185,12 @@ int main()
 					game.setAnimYCharacter(0, Right);
 
 				}
+				if (Keyboard::isKeyPressed(Keyboard::F5)) {
+					game.shoot(0);
+					game.getEnemies().at(0).setHitTextureDepart();
+				}
+				
+
 				if (Keyboard::isKeyPressed(Keyboard::F1)) {
 					yMov2 -= 0.1;
 				}
@@ -212,6 +218,7 @@ int main()
 				game.manageGame(0, fpsCount, fpsSpeed, switchFps, time);
 			}
 			game.manageEnemi(fpsCount, fpsSpeed, switchFps, time);
+			
 		}
 	}
 	catch (std::exception const & e) {

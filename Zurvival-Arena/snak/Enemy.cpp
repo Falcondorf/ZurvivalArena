@@ -53,3 +53,11 @@ void Enemy::setHitTextureDepart() {
 	}
 	spritePerso_->setTexture(*perso);
 }
+
+void Enemy::setHitTextureHit() {
+	sf::Texture* perso = new sf::Texture();
+	if (!perso->loadFromFile("pics/jake3Hit.png")) {
+		std::cout << "error loading image" << std::endl;
+	}
+	spritePerso_->setTexture(*perso);
+}

@@ -49,6 +49,7 @@ public:
 	inline void setState(State s);
 	void removePv(); // mettre en privé et redef dans game
 	void manageSprite(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
+	inline sf::Vector2i getAnim();
 };
 
 unsigned Character::getPv() const {
@@ -79,7 +80,7 @@ Character::Character(Position position, int pv):position_(position),pv_(pv){
 	setSize(30,30);
 	setFillColor(sf::Color::Red);
 	//hitbox_.setTexture(&perso_);
-	pv_ = 1000000;
+	pv_ = 400;
 
 }
 
@@ -105,4 +106,8 @@ const State& Character::getState() const{
 
 void Character::setState(State s) {
 	state_ = s;
+}
+
+sf::Vector2i Character::getAnim() {
+	return anim;
 }

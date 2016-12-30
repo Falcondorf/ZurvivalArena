@@ -62,7 +62,7 @@ void Game::playerMoving(bool moving) {
 }
 
 void Game::functionMovingEnemies() {
-	
+
 	using namespace std::chrono_literals;
 	vector < pair<int, int> >v;
 	enemies_.at(0).setAnimY(Down);
@@ -73,7 +73,7 @@ void Game::functionMovingEnemies() {
 
 	while (!gameFinish) {
 		//for (int i = 0; i < enemies_.size(); i++) {
-		
+
 		int i = 0;
 		Enemy& e = enemies_.at(i);
 		if (!pathToEnemy.empty()) {
@@ -88,7 +88,7 @@ void Game::functionMovingEnemies() {
 			v = pathToEnemy.at(i);
 			/*cout << "first : " << v.at(0).first << "second : " << v.at(0).second << endl;
 			cout << "yassine " << players_.at(0).getHitbox().getPosition().x / 30 << " " << players_.at(0).getHitbox().getPosition().y / 30 << endl;*/
-			
+
 			enemies_.at(i).setPlayerMoving(false);
 			enemies_.at(i).resetIndicePath();
 		}
@@ -102,17 +102,19 @@ void Game::functionMovingEnemies() {
 			}
 			moveToPos(i, v);
 			enemies_.at(i).incrementIndicePath();
-		}else{
+		}
+		else {
 			if (players_.at(0).getPv() < 2) {
-				
-				
-			}else {
+
+
+			}
+			else {
 				players_.at(0).removePv();
 				if (!textChange) {
 					enemies_.at(0).setHitTexture();
 					textChange = true;
-				}	
-				
+				}
+
 			}
 			//}
 		}
@@ -222,16 +224,25 @@ void Game::addAdjectentCell(pair<int, int>& n)
 
 	Node tmp;
 	for (int i = n.first - 1; i <= n.first + 1; i++) {
-		if ((i < 0) || (i >= (arena_.getHeight() / 30)))  /* en dehors de l'arène, on oublie */
+		if ((i < 0) || (i >= (arena_.getHeight() / 30))) {
+			/* en dehors de l'arène, on oublie */
 			continue;
+		}
 		for (int j = n.second - 1; j <= n.second + 1; j++) {
-			if ((j < 0) || (j >= (arena_.getWidth() / 30)))   /* en dehors de l'arène, on oublie */
+			if ((j < 0) || (j >= (arena_.getWidth() / 30))) {
+				/* en dehors de l'arène, on oublie */
 				continue;
-			if ((i == n.first) && (j == n.second))  /* case actuelle n, on oublie */
+			}
+			if ((i == n.first) && (j == n.second)) {
+				/* case actuelle n, on oublie */
 				continue;
-			if (arena_.getTiles()[i][j])
+			}
+			if (arena_.getTiles()[i][j]) {
 				/* obstace, terrain non franchissable, on oublie */
 				continue;
+			}
+
+
 			pair<int, int> it(i, j);
 			if (!nodeExistInList(it, closedList)) {
 				/* le noeud n'est pas déjà présent dans la liste fermée */
@@ -467,4 +478,62 @@ void Game::moveToPos(unsigned idEnemy, vector < pair<int, int> >v) {
 
 	}
 	enemies_.at(idEnemy).uptadeSpritePosition();
+}
+
+void Game::shoot(int idPlayer) {
+	sf::Vector2f playerpos = players_.at(idPlayer).getHitbox().getPosition();
+	switch (players_.at(idPlayer).getAnim().y) {
+	case Up:
+		for (int i = 0; i < enemies_.size(); i++) {
+			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 == (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 < (unsigned)playerpos.y / 30) {
+				//cout << "touché d'en bas" << endl;
+				enemies_.at(i).removePv();
+				cout << enemies_.at(i).getPv() << endl;
+				enemies_.at(i).setHitTextureHit();
+			}
+			
+		}
+		break;
+	case Down:
+		for (int i = 0; i < enemies_.size(); i++) {
+			unsigned enX = (unsigned)enemies_.at(i).getHitbox().getPosition().x / 30;
+			unsigned enY = (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30;
+			unsigned playX = (unsigned)playerpos.x / 30;
+			unsigned playY = (unsigned)playerpos.y / 30;
+
+			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 == (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 > (unsigned)playerpos.y / 30) {
+				//cout << "touché d'en haut" << endl;
+				enemies_.at(i).removePv();
+				cout << enemies_.at(i).getPv() << endl;
+				enemies_.at(i).setHitTextureHit();
+			}
+		
+		}
+		break;
+	case Right:
+		for (int i = 0; i < enemies_.size(); i++) {
+			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 > (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 == (unsigned)playerpos.y / 30) {
+				//cout << "touché depuis la gauche" << endl;
+				enemies_.at(i).removePv();
+				cout << enemies_.at(i).getPv() << endl;
+				enemies_.at(i).setHitTextureHit();
+			}
+		
+		}
+		break;
+	case Left:
+		for (int i = 0; i < enemies_.size(); i++) {
+			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 < (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 == (unsigned)playerpos.y / 30) {
+				//cout << "touché depuis la droite" << endl;
+				enemies_.at(i).removePv();
+				cout << enemies_.at(i).getPv() << endl;
+				enemies_.at(i).setHitTextureHit();
+			}
+		
+		}
+		break;
+
+	}
+
+
 }
