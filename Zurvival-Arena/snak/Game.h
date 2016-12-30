@@ -66,23 +66,27 @@ public:
 	float distance(int x1, int y1, int x2, int y2);
 	pair<int, int> bestNode(map <pair<int, int>, Node> l);
 	void addToClosedList(pair<int, int>& p);
-	vector<pair<int,int>> recoverPath(Node start,Node objectif);
+	vector<pair<int, int>> recoverPath(Node start, Node objectif);
 	inline Arena getArena();
 	//sf::Vector2f getNextPos(unsigned idEnemy, bool eraseFirst);
 	int findDirection(unsigned idEnemy, vector < pair<int, int> >v);
 	void moveToPos(unsigned idEnemy, vector < pair<int, int> >v);
 	void Game::shoot(int idPlayer);
 	void playerMoving(bool moving);
+
+	inline std::vector<int, int> trajectoireBalle(int idPlayer);
+
+
 };
 
 Game::Game(unsigned width, unsigned height) {
 	arena_ = Arena(width, height);
 	/*pathToEnemy.reserve(enemies_.size());*/
-	
-	pathToEnemy.push_back(vector<pair<int,int>>( (make_pair(9,0),2)));
+
+	pathToEnemy.push_back(vector<pair<int, int>>((make_pair(9, 0), 2)));
 	pathToEnemy.push_back(vector<pair<int, int>>((make_pair(9, 0), 2)));
 
-	
+
 }
 
 const vector<Character> &  Game::getPlayers() const {
@@ -134,4 +138,29 @@ void Game::finishGame() {
 }
 Arena Game::getArena() {
 	return arena_;
+}
+
+std::vector<int, int> Game::trajectoireBalle(int idPlayer) {
+	sf::Vector2f playerpos = players_.at(idPlayer).getHitbox().getPosition();
+	RectangleShape rs(sf::Vector2f(playerpos.x, playerpos.y));
+	switch (players_.at(idPlayer).getAnim().y) {
+		
+	case Down: 
+
+		break;
+
+	case Left:
+
+		break;
+	
+	case Up:
+
+		break;
+	
+	case Right:
+
+		break;
+
+	}
+
 }

@@ -15,6 +15,7 @@ protected:
 	sf::Vector2i anim{ 1,Up };
 	sf::Texture* perso_;
 	sf::Sprite* spritePerso_;
+	
 
 private:
 	unsigned num_;
