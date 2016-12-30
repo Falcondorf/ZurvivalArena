@@ -70,8 +70,7 @@ Character::Character() {
 	setPositionHitbox(10, 10);
 	setSize(30, 30);
 	setOutlineThickness(1);
-	pv_ = 1000;
-	
+	pv_ = 100;
 }
 
 Character::Character(Position position, int pv):position_(position),pv_(pv){
@@ -80,7 +79,7 @@ Character::Character(Position position, int pv):position_(position),pv_(pv){
 	setSize(30,30);
 	setFillColor(sf::Color::Red);
 	//hitbox_.setTexture(&perso_);
-	pv_ = 400;
+	pv_ = 100;
 
 }
 

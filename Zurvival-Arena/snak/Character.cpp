@@ -55,4 +55,5 @@ void Character::manageSprite(float fpsCount, float fpsSpeed, float switchFps, sf
 		}
 	}
 	spritePerso_->setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
+	
 }

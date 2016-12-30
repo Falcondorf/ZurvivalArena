@@ -515,7 +515,7 @@ void Game::shoot(int idPlayer) {
 		for (int i = 0; i < enemies_.size(); i++) {
 			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 > (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 == (unsigned)playerpos.y / 30) {
 				//cout << "touché depuis la gauche" << endl;
-				for (unsigned k = (playerpos.y / 30);(k < enemies_.at(i).getHitbox().getPosition().y / 30 && !isObstacle);k++) {
+				for (unsigned k = (playerpos.x / 30);(k < enemies_.at(i).getHitbox().getPosition().x/30 && !isObstacle);k++) {
 					if (arena_.getTiles()[k][playerpos.x / 30]) {
 						isObstacle = true;
 						cout << "O" << endl;
@@ -534,7 +534,7 @@ void Game::shoot(int idPlayer) {
 		for (int i = 0; i < enemies_.size(); i++) {
 			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 < (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 == (unsigned)playerpos.y / 30) {
 				//cout << "touché depuis la droite" << endl;
-				for (unsigned k = (playerpos.y / 30);(k > enemies_.at(i).getHitbox().getPosition().y / 30 && !isObstacle);k--) {
+				for (unsigned k = (playerpos.x / 30);(k > enemies_.at(i).getHitbox().getPosition().x / 30 && !isObstacle);k--) {
 					if (arena_.getTiles()[k][playerpos.x / 30]) {
 						isObstacle = true;
 						cout << "O" << endl;

@@ -11,9 +11,9 @@ int main()
 	const int height = 660;
 	try {
 		Game game = Game(width, height);
-		game.addPlayer(210, 240);
+		game.addPlayer(330,30);
 		game.addPlayer(250, 250);
-		game.addEnemy(330, 30);
+		game.addEnemy(210, 240);
 	/*	game.addEnemy(420, 300);*/
 		lastPosition = make_pair(11, 2);
 		/*game.addEnemy(180, 120);*/
@@ -61,7 +61,7 @@ int main()
 						{
 						case 0: std::cout << "play bouton" << std::endl;
 							window.setVisible(true);
-							game.startMovingEnemies();// jules
+							game.startMovingEnemies();
 							window3.close();
 							break;
 						case 1: std::cout << "sav buton" << std::endl;

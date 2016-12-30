@@ -10,11 +10,21 @@ Arena::Arena(unsigned width, unsigned height) : width_(width), height_(height) {
 		std::vector<std::vector<bool>> tiles(width/30, std::vector<bool>(height/30 , false));
 		tiles_ = tiles;
 
-		sf::RectangleShape top, left, right, bottom, obstacle;
+		sf::RectangleShape top, left, right, bottom, obstacle , obstacle2, obstacle3;
 
-		obstacle.setPosition(60,120);
+		obstacle.setPosition(90,120);
 		obstacle.setSize(sf::Vector2f(60, 90));
 		obstacle.setFillColor(sf::Color::Blue);
+
+		obstacle2.setPosition(300, 120);
+		obstacle2.setSize(sf::Vector2f(60, 420));
+		obstacle2.setFillColor(sf::Color::Blue);
+
+		obstacle3.setPosition(90, 510);
+		obstacle3.setSize(sf::Vector2f(90, 30));
+		obstacle3.setFillColor(sf::Color::Blue);
+
+
 
 		top.setPosition(3, 0);
 		top.setSize(sf::Vector2f(width - 2 * 3, 3));
@@ -49,6 +59,9 @@ Arena::Arena(unsigned width, unsigned height) : width_(width), height_(height) {
 		obstacles.push_back(left);
 		obstacles.push_back(right);
 		obstacles.push_back(obstacle);
+		obstacles.push_back(obstacle2);
+		obstacles.push_back(obstacle3);
+
 
 		setTiles();
 	}
