@@ -166,6 +166,25 @@ int main()
 				}
 				if (Keyboard::isKeyPressed(Keyboard::F5)) {
 					game.shoot(0);
+					std::vector<std::pair<float, float>> vec;
+					vec = game.trajectoireBalle(0);
+					
+					RectangleShape rs(sf::Vector2f(vec.at(0).first, vec.at(0).second));
+					
+
+					rs.setPosition(sf::Vector2f((vec.at(0).first)*30, (vec.at(0).second)*30));
+					rs.setFillColor(sf::Color::Blue);
+					rs.setSize(sf::Vector2f(20, 20));
+					//window.draw(rs);
+					
+					for (int i = 0; i < vec.size(); i++) {
+						rs.move(((unsigned)(vec.at(i).first)), ((unsigned)(vec.at(i).second)));
+						window.draw(rs);
+						window.display();
+					}
+
+
+
 
 					game.getEnemies().at(0).setHitTextureDepart();
 				}

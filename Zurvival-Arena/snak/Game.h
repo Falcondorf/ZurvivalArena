@@ -74,8 +74,8 @@ public:
 	void Game::shoot(int idPlayer);
 	void playerMoving(bool moving);
 
-	inline std::vector<int, int> trajectoireBalle(int idPlayer);
-
+	 std::vector<std::pair<float, float>> trajectoireBalle(int idPlayer);
+	 void moveBall(std::vector<std::pair<float, float>> vec);
 
 };
 
@@ -140,27 +140,3 @@ Arena Game::getArena() {
 	return arena_;
 }
 
-std::vector<int, int> Game::trajectoireBalle(int idPlayer) {
-	sf::Vector2f playerpos = players_.at(idPlayer).getHitbox().getPosition();
-	RectangleShape rs(sf::Vector2f(playerpos.x, playerpos.y));
-	switch (players_.at(idPlayer).getAnim().y) {
-		
-	case Down: 
-
-		break;
-
-	case Left:
-
-		break;
-	
-	case Up:
-
-		break;
-	
-	case Right:
-
-		break;
-
-	}
-
-}

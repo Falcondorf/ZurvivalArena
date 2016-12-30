@@ -465,11 +465,32 @@ void Game::moveToPos(unsigned idEnemy, vector < pair<int, int> >v) {
 	enemies_.at(idEnemy).uptadeSpritePosition();
 }
 
+void Game::moveBall(std::vector<std::pair<float,float>> vec) {
+
+	RectangleShape rs(sf::Vector2f(vec.at(0).first,vec.at(0).second));
+	rs.setFillColor(sf::Color::Red);
+	rs.setSize(sf::Vector2f(10, 10));
+
+	for (int i = 0; i < vec.size(); i++) {
+		rs.move(vec.at(i).first, vec.at(i).second);
+		
+		
+	}
+
+}
+
 void Game::shoot(int idPlayer) {
+
+	
+	std::vector<std::pair<float, float>> vec;
+	/*vec = trajectoireBalle(idPlayer);
+	moveBall(vec);*/
 	sf::Vector2f playerpos = players_.at(idPlayer).getHitbox().getPosition();
+	RectangleShape rs(sf::Vector2f(playerpos.x, playerpos.y));
 	bool isObstacle = false;
 	switch (players_.at(idPlayer).getAnim().y) {
 	case Up:
+		
 		for (int i = 0; i < enemies_.size(); i++) {
 			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 == (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 < (unsigned)playerpos.y / 30) {
 				for (unsigned k = (playerpos.y / 30);(k > enemies_.at(i).getHitbox().getPosition().y / 30 && !isObstacle);k--) {
@@ -553,4 +574,54 @@ void Game::shoot(int idPlayer) {
 	}
 
 
+}
+
+std::vector<std::pair<float, float>> Game::trajectoireBalle(int idPlayer) {
+	sf::Vector2f playerpos = players_.at(idPlayer).getHitbox().getPosition();
+
+	int min = 0;
+	int max = 660;
+	std::vector<std::pair<float, float>> vectorpos;
+	vectorpos.clear();
+	switch (players_.at(idPlayer).getAnim().y) {
+		
+	case Down:
+
+		for (float i = playerpos.y + 30; i <= max; i += 30) {
+			vectorpos.push_back(std::make_pair(playerpos.x/30,i/30));
+
+		}
+
+
+
+		break;
+
+	case Left:
+		for (float i = playerpos.x - 30; i >= min; i -= 30) {
+			vectorpos.push_back(std::make_pair(i / 30, playerpos.y / 30));
+
+		}
+
+
+		break;
+
+	case Up:
+		for (float i = playerpos.y - 30; i >= min; i -= 30) {
+			vectorpos.push_back(std::make_pair(playerpos.x / 30, i / 30));
+
+		}
+
+
+		break;
+
+	case Right:
+		for (float i = playerpos.x + 30; i <= max; i += 30) {
+			vectorpos.push_back(std::make_pair(i / 30, playerpos.y / 30));
+
+		}
+		break;
+
+	}
+
+	return vectorpos;
 }
