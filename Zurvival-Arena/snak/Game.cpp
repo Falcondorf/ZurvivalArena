@@ -23,7 +23,9 @@ bool Game::hasCollision(int idPlayer, float movex, float movey) {
 		if (intersects(getEnemies().at(j).getHitbox(), futurePosition)) {
 			players_.at(idPlayer).removePv(1);
 			sf::RectangleShape rce = players_.at(idPlayer).getlifebar();
-			rce.setSize(sf::Vector2f(rce.getSize().x - 0.005, rce.getSize().y));
+			if (rce.getSize().x > 0) {
+				rce.setSize(sf::Vector2f(rce.getSize().x - 0.005, rce.getSize().y));
+			}
 			players_.at(idPlayer).setlifebar(rce);
 			//players_.at(idPlayer).getlifebar().setSize(sf::Vector2f(players_.at(idPlayer).getlifebar().getSize().x-1, players_.at(idPlayer).getlifebar().getSize().y));
 
@@ -129,10 +131,12 @@ void Game::functionMovingEnemies() {
 			for (int l = 0; l < players_.size(); l++) {
 				if (intersects(getEnemies().at(k).getHitbox(), players_.at(l).getHitbox())) {
 					players_.at(l).removePv(1);
-					cout << "player pv : "<< players_.at(l).getPv() << endl;
+					cout << "player pv : " << players_.at(l).getPv() << endl;
 					sf::RectangleShape rce = players_.at(l).getlifebar();
-					rce.setSize(sf::Vector2f(rce.getSize().x - 0.005, rce.getSize().y));
-					players_.at(l).setlifebar(rce);
+					if (rce.getSize().x > 0) {
+						rce.setSize(sf::Vector2f(rce.getSize().x - 0.005, rce.getSize().y));
+						players_.at(l).setlifebar(rce);
+					}
 				}
 			}
 
@@ -479,7 +483,7 @@ void Game::moveToPos(unsigned idEnemy, vector < pair<int, int> >v) {
 		break;
 
 	}
-	
+
 
 	enemies_.at(idEnemy).uptadeSpritePosition();
 }

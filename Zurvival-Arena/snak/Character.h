@@ -31,7 +31,6 @@ public:
 	void setOutlineColor(sf::Color c);
 	void setOutlineThickness(int i);
 	void setSize(float f1, float f2);
-	void slice(); //futur méthode pour trancher dans le lard mes gaillards
 	inline const sf::RectangleShape &getlifebar() const;
 	inline void setlifebar(sf::RectangleShape rce);
 	

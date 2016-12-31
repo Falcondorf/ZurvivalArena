@@ -57,7 +57,7 @@ int main()
 					case sf::Keyboard::Return:
 						switch (menu2.getPressedItem())
 						{
-						case 0: 
+						case 0:
 							window.setVisible(true);
 							game.startMovingEnemies();
 							window3.close();
