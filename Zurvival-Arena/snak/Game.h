@@ -36,7 +36,7 @@ private:
 	bool inversion = false;
 	bool playerMove = false;
 	vector< vector<pair<int, int>> > pathToEnemy;
-
+	
 
 public:
 	inline const vector<Character> &  getPlayers() const;
@@ -76,7 +76,7 @@ public:
 
 	 std::vector<std::pair<float, float>> trajectoireBalle(int idPlayer);
 	 void moveBall(std::vector<std::pair<float, float>> vec);
-
+	 inline const  sf::RectangleShape & getlifebarre() const ;
 };
 
 Game::Game(unsigned width, unsigned height) {
@@ -140,3 +140,6 @@ Arena Game::getArena() {
 	return arena_;
 }
 
+ const sf::RectangleShape & Game::getlifebarre() const  {
+return	players_.at(0).getlifebar();
+}

@@ -16,6 +16,7 @@ void Character::setPosition(unsigned x, unsigned y) {
 }
 void Character::setFillColor(Color c) {
 	hitbox_.setFillColor(c);
+	lifebar_.setFillColor(c);
 }
 void Character::setOutlineColor(Color c) {
 	hitbox_.setOutlineColor(c);
