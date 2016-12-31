@@ -29,13 +29,13 @@ void Character::setSize(float f1, float f2) {
 	hitbox_.setSize(Vector2f(f1, f2));
 }
 
-void Character::removePv() {
+void Character::removePv(unsigned damage) {
 	
 	if (pv_ == 0) {
 		std::cout << "mort !!!" << std::endl;
 	}
 	else {
-		pv_--;
+		pv_-=damage;
 		
 		
 	}

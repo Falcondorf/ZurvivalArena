@@ -21,7 +21,7 @@ bool Game::hasCollision(int idPlayer, float movex, float movey) {
 	}
 	for (int j = 0; j < getEnemies().size(); j++) {
 		if (intersects(getEnemies().at(j).getHitbox(), futurePosition)) {
-			players_.at(idPlayer).removePv();
+			players_.at(idPlayer).removePv(1);
 			sf::RectangleShape rce = players_.at(idPlayer).getlifebar();
 			rce.setSize(sf::Vector2f(rce.getSize().x - 0.005, rce.getSize().y));
 			players_.at(idPlayer).setlifebar(rce);
@@ -113,7 +113,7 @@ void Game::functionMovingEnemies() {
 
 			}
 			else {
-				players_.at(0).removePv();
+				players_.at(0).removePv(1);
 				if (!textChange) {
 					enemies_.at(0).setHitTexture();
 					textChange = true;
@@ -128,7 +128,7 @@ void Game::functionMovingEnemies() {
 		for (int k = 0; k < enemies_.size(); k++) {
 			for (int l = 0; l < players_.size(); l++) {
 				if (intersects(getEnemies().at(k).getHitbox(), players_.at(l).getHitbox())) {
-					players_.at(l).removePv();
+					players_.at(l).removePv(1);
 					cout << "player pv : "<< players_.at(l).getPv() << endl;
 					sf::RectangleShape rce = players_.at(l).getlifebar();
 					rce.setSize(sf::Vector2f(rce.getSize().x - 0.005, rce.getSize().y));
@@ -519,7 +519,7 @@ void Game::shoot(int idPlayer) {
 					}
 				}
 				if (!isObstacle) {
-					enemies_.at(i).removePv();
+					enemies_.at(i).removePv(10);
 					cout << enemies_.at(i).getPv() << endl;
 					enemies_.at(i).setHitTextureHit();
 				}
@@ -543,7 +543,7 @@ void Game::shoot(int idPlayer) {
 					}
 				}
 				if (!isObstacle) {
-					enemies_.at(i).removePv();
+					enemies_.at(i).removePv(10);
 					cout << enemies_.at(i).getPv() << endl;
 					enemies_.at(i).setHitTextureHit();
 				}
@@ -562,7 +562,7 @@ void Game::shoot(int idPlayer) {
 					}
 				}
 				if (!isObstacle) {
-					enemies_.at(i).removePv();
+					enemies_.at(i).removePv(10);
 					cout << enemies_.at(i).getPv() << endl;
 					enemies_.at(i).setHitTextureHit();
 				}
@@ -581,7 +581,7 @@ void Game::shoot(int idPlayer) {
 					}
 				}
 				if (!isObstacle) {
-					enemies_.at(i).removePv();
+					enemies_.at(i).removePv(10);
 					cout << enemies_.at(i).getPv() << endl;
 					enemies_.at(i).setHitTextureHit();
 				}
@@ -643,4 +643,32 @@ std::vector<std::pair<float, float>> Game::trajectoireBalle(int idPlayer) {
 	}
 
 	return vectorpos;
+}
+
+void Game::slice(int idPlayer)
+{
+	RectangleShape hitZone;
+	hitZone.setSize(Vector2f(30, 30));
+
+	switch (players_.at(idPlayer).getAnim().y) {
+	case Up:
+		hitZone.setPosition(players_.at(idPlayer).getHitbox().getPosition().x, players_.at(idPlayer).getHitbox().getPosition().y - 30);
+		break;
+	case Down:
+		hitZone.setPosition(players_.at(idPlayer).getHitbox().getPosition().x, players_.at(idPlayer).getHitbox().getPosition().y + 30);
+		break;
+	case Left:
+		hitZone.setPosition(players_.at(idPlayer).getHitbox().getPosition().x - 30, players_.at(idPlayer).getHitbox().getPosition().y);
+		break;
+	case Right:
+		hitZone.setPosition(players_.at(idPlayer).getHitbox().getPosition().x + 30, players_.at(idPlayer).getHitbox().getPosition().y);
+		break;
+	}
+
+	for (unsigned i = 0; i < enemies_.size(); i++) {
+		if (Game::intersects(hitZone, enemies_.at(i).getHitbox())) {
+			enemies_.at(i).removePv(1);
+			cout << "plop => " << enemies_.at(i).getPv();
+		}
+	}
 }

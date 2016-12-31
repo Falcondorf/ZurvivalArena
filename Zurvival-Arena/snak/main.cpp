@@ -195,6 +195,11 @@ int main()
 					game.getEnemies().at(0).setHitTextureDepart();
 				}
 
+				if (Keyboard::isKeyPressed(Keyboard::F6)) {
+					game.slice(0);
+					cout << game.getEnemies().at(0).getPv() << endl;
+				}
+
 
 				if (Keyboard::isKeyPressed(Keyboard::F1)) {
 					yMov2 -= 0.1;

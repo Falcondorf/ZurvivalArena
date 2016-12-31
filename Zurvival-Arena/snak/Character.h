@@ -52,7 +52,7 @@ public:
 	inline void setAnimY(Direction direction);
 	inline const State& getState() const;
 	inline void setState(State s);
-	void removePv(); // mettre en privé et redef dans game
+	void removePv(unsigned damage); // mettre en privé et redef dans game
 	void manageSprite(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 	inline sf::Vector2i getAnim();
 	inline void setPv(unsigned pv);

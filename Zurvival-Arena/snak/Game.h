@@ -71,7 +71,8 @@ public:
 	//sf::Vector2f getNextPos(unsigned idEnemy, bool eraseFirst);
 	int findDirection(unsigned idEnemy, vector < pair<int, int> >v);
 	void moveToPos(unsigned idEnemy, vector < pair<int, int> >v);
-	void Game::shoot(int idPlayer);
+	void shoot(int idPlayer);
+	void slice(int idPlayer);
 	void playerMoving(bool moving);
 
 	 std::vector<std::pair<float, float>> trajectoireBalle(int idPlayer);
