@@ -197,7 +197,6 @@ int main()
 
 				if (Keyboard::isKeyPressed(Keyboard::F6)) {
 					game.slice(0);
-					cout << game.getEnemies().at(0).getPv() << endl;
 				}
 
 

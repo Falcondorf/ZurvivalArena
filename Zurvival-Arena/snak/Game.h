@@ -3,6 +3,7 @@
 #include <vector>
 #include "Heroes.h"
 #include "Enemy.h"
+#include "subject.h"
 #include <thread>
 #include <mutex>
 #include <chrono>
@@ -18,7 +19,7 @@ struct Node {
 	unsigned hValue;
 	unsigned fValue;
 };
-class Game {
+class Game : nvs::Subject {
 private:
 	bool textChange = false;
 	Arena arena_;
