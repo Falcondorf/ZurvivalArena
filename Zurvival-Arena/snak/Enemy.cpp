@@ -17,7 +17,8 @@ Enemy::Enemy(Position position, int pv): Character (position, pv)
 }
 
 void Enemy::uptadeSpritePosition() {
-	spritePerso_->setPosition(getHitbox().getPosition());
+	spritePerso_->setPosition(sf::Vector2f(getHitbox().getPosition().x - 20, getHitbox().getPosition().y - 5));
+	
 }
 
 bool Enemy::getPlayerMoving() {

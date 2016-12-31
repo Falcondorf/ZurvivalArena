@@ -51,6 +51,7 @@ public:
 	void removePv(); // mettre en privé et redef dans game
 	void manageSprite(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 	inline sf::Vector2i getAnim();
+	inline void setPv(unsigned pv);
 };
 
 unsigned Character::getPv() const {
@@ -111,4 +112,8 @@ void Character::setState(State s) {
 
 sf::Vector2i Character::getAnim() {
 	return anim;
+}
+
+ void Character::setPv(unsigned pv) {
+	 pv_ = pv;
 }

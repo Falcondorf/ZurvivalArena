@@ -21,6 +21,7 @@ bool Game::hasCollision(int idPlayer, float movex, float movey) {
 	}
 	for (int j = 0; j < getEnemies().size(); j++) {
 		if (intersects(getEnemies().at(j).getHitbox(), futurePosition)) {
+			players_.at(idPlayer).removePv();
 
 
 		}
@@ -120,6 +121,15 @@ void Game::functionMovingEnemies() {
 		/*cout << enemies_.at(i).getHitbox().getPosition().x << "         " << enemies_.at(i).getHitbox().getPosition().y << endl;
 		cout << players_.at(i).getHitbox().getPosition().x <<"       " <<  players_.at(i).getHitbox().getPosition().y << endl;*/
 		/*}*/
+		for (int k = 0; k < enemies_.size(); k++) {
+			for (int l = 0; l < players_.size(); l++) {
+				if (intersects(getEnemies().at(k).getHitbox(), players_.at(l).getHitbox())) {
+					players_.at(l).removePv();
+					cout << "player pv : "<< players_.at(l).getPv() << endl;
+				}
+			}
+
+		}
 	}
 	threadEnemies->detach();
 }
@@ -462,26 +472,28 @@ void Game::moveToPos(unsigned idEnemy, vector < pair<int, int> >v) {
 		break;
 
 	}
+	
+
 	enemies_.at(idEnemy).uptadeSpritePosition();
 }
 
-void Game::moveBall(std::vector<std::pair<float,float>> vec) {
+void Game::moveBall(std::vector<std::pair<float, float>> vec) {
 
-	RectangleShape rs(sf::Vector2f(vec.at(0).first,vec.at(0).second));
+	RectangleShape rs(sf::Vector2f(vec.at(0).first, vec.at(0).second));
 	rs.setFillColor(sf::Color::Red);
 	rs.setSize(sf::Vector2f(10, 10));
 
 	for (int i = 0; i < vec.size(); i++) {
 		rs.move(vec.at(i).first, vec.at(i).second);
-		
-		
+
+
 	}
 
 }
 
 void Game::shoot(int idPlayer) {
 
-	
+
 	std::vector<std::pair<float, float>> vec;
 	/*vec = trajectoireBalle(idPlayer);
 	moveBall(vec);*/
@@ -490,10 +502,10 @@ void Game::shoot(int idPlayer) {
 	bool isObstacle = false;
 	switch (players_.at(idPlayer).getAnim().y) {
 	case Up:
-		
+
 		for (int i = 0; i < enemies_.size(); i++) {
 			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 == (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 < (unsigned)playerpos.y / 30) {
-				for (unsigned k = (playerpos.y / 30);(k > enemies_.at(i).getHitbox().getPosition().y / 30 && !isObstacle);k--) {
+				for (unsigned k = (playerpos.y / 30); (k > enemies_.at(i).getHitbox().getPosition().y / 30 && !isObstacle); k--) {
 					if (arena_.getTiles()[playerpos.x / 30][k]) {
 						isObstacle = true;
 						cout << "O" << endl;
@@ -517,7 +529,7 @@ void Game::shoot(int idPlayer) {
 
 			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 == (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 > (unsigned)playerpos.y / 30) {
 				//cout << "touché d'en haut" << endl;
-				for (unsigned k = (playerpos.y / 30);(k < enemies_.at(i).getHitbox().getPosition().y/30 && !isObstacle);k++) {
+				for (unsigned k = (playerpos.y / 30); (k < enemies_.at(i).getHitbox().getPosition().y / 30 && !isObstacle); k++) {
 					if (arena_.getTiles()[playerpos.x / 30][k]) {
 						isObstacle = true;
 						cout << "O" << endl;
@@ -536,7 +548,7 @@ void Game::shoot(int idPlayer) {
 		for (int i = 0; i < enemies_.size(); i++) {
 			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 > (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 == (unsigned)playerpos.y / 30) {
 				//cout << "touché depuis la gauche" << endl;
-				for (unsigned k = (playerpos.x / 30);(k < enemies_.at(i).getHitbox().getPosition().x/30 && !isObstacle);k++) {
+				for (unsigned k = (playerpos.x / 30); (k < enemies_.at(i).getHitbox().getPosition().x / 30 && !isObstacle); k++) {
 					if (arena_.getTiles()[k][playerpos.x / 30]) {
 						isObstacle = true;
 						cout << "O" << endl;
@@ -555,7 +567,7 @@ void Game::shoot(int idPlayer) {
 		for (int i = 0; i < enemies_.size(); i++) {
 			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 < (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 == (unsigned)playerpos.y / 30) {
 				//cout << "touché depuis la droite" << endl;
-				for (unsigned k = (playerpos.x / 30);(k > enemies_.at(i).getHitbox().getPosition().x / 30 && !isObstacle);k--) {
+				for (unsigned k = (playerpos.x / 30); (k > enemies_.at(i).getHitbox().getPosition().x / 30 && !isObstacle); k--) {
 					if (arena_.getTiles()[k][playerpos.x / 30]) {
 						isObstacle = true;
 						cout << "O" << endl;
@@ -584,11 +596,11 @@ std::vector<std::pair<float, float>> Game::trajectoireBalle(int idPlayer) {
 	std::vector<std::pair<float, float>> vectorpos;
 	vectorpos.clear();
 	switch (players_.at(idPlayer).getAnim().y) {
-		
+
 	case Down:
 
 		for (float i = playerpos.y + 30; i <= max; i += 30) {
-			vectorpos.push_back(std::make_pair(playerpos.x/30,i/30));
+			vectorpos.push_back(std::make_pair(playerpos.x / 30, i / 30));
 
 		}
 

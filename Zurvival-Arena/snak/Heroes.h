@@ -17,6 +17,7 @@ private:
 };
 
 Heroes::Heroes(Position pos, int pv, unsigned num) :Character(pos, pv), num_(num){
+	setPv(10000);
 	perso_ = new sf::Texture();
 	switch (num) {
 	case 0:

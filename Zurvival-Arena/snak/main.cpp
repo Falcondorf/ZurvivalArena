@@ -11,13 +11,13 @@ int main()
 	const int height = 660;
 	try {
 		Game game = Game(width, height);
-		game.addPlayer(330,30);
+		game.addPlayer(330, 30);
 		game.addPlayer(250, 250);
 		game.addEnemy(210, 240);
-	/*	game.addEnemy(420, 300);*/
+		//game.addEnemy(420, 300);
 		lastPosition = make_pair(11, 2);
 		/*game.addEnemy(180, 120);*/
-		game.getArena().printTiles();
+	//	game.getArena().printTiles();
 		//game.brain(game.getEnemies()[0]);
 		VideoMode videoMode(width, height);
 		RenderWindow window(videoMode, "Rectangle Collision");
@@ -50,23 +50,21 @@ int main()
 					switch (event.key.code) {
 					case sf::Keyboard::Up:
 						menu2.MoveUp();
-						cout << "haut" << endl;
 						break;
 					case sf::Keyboard::Down:
 						menu2.MoveDown();
-						cout << "baas" << endl;
 						break;
 					case sf::Keyboard::Return:
 						switch (menu2.getPressedItem())
 						{
-						case 0: std::cout << "play bouton" << std::endl;
+						case 0: 
 							window.setVisible(true);
 							game.startMovingEnemies();
 							window3.close();
 							break;
-						case 1: std::cout << "sav buton" << std::endl;
+						case 1:
 							break;
-						case 2: std::cout << "close" << std::endl;
+						case 2:
 							window3.close();
 							window.close();
 
@@ -79,7 +77,6 @@ int main()
 				case sf::Event::Closed:
 					window3.close();
 					window.close();
-					std::cout << "close" << std::endl;
 
 					break;
 
@@ -90,36 +87,36 @@ int main()
 
 
 			sf::Texture texture;
-			
+
 			texture.loadFromFile("a.jpg");
 			sf::Sprite background(texture);
 			window3.draw(background);
-			for (int i = 0; i <4; i++)
+			for (int i = 0; i < 4; i++)
 			{
 				window3.draw(menu2.getMenu(i));
-				
+
 			}
 			window3.display();
 		}
 
-		
+
 		sf::Texture texture2;
 		texture2.loadFromFile("z.png");
 		sf::Sprite background3(texture2);
 		while (window.isOpen())
 		{
-				
+
 			//window.display();
 			window.clear();
-			
-			
-			window.draw(background3);
-		
 
-		//	window.draw(game.getEnemies().at(0).getHitbox());
+
+			window.draw(background3);
+
+
+			window.draw(game.getEnemies().at(0).getHitbox());
 			window.draw(*(game.getEnemies().at(0).getSprite()));
-		/*	window.draw(game.getEnemies().at(1).getHitbox());
-			window.draw(*(game.getEnemies().at(1).getSprite()));*/
+			//window.draw(game.getEnemies().at(1).getHitbox());
+			//window.draw(*(game.getEnemies().at(1).getSprite()));
 			//window.draw(*(game.getEnemies().at(2).getSprite()));
 			game.stateInitializerCharacters();
 			// window.draw((game.getPlayers().at(0).getHitbox()));
@@ -131,7 +128,7 @@ int main()
 			}
 			window.display();
 			Event event;
-
+			//cout << "pv joueur : " << game.getPlayers().at(0).getPv() << endl;
 
 
 
@@ -176,17 +173,17 @@ int main()
 					game.shoot(0);
 					std::vector<std::pair<float, float>> vec;
 					vec = game.trajectoireBalle(0);
-					
-					CircleShape rs(5,20);
-					
 
-					rs.setPosition(sf::Vector2f((vec.at(0).first)*30, (vec.at(0).second)*30));
+					CircleShape rs(5, 20);
+
+
+					rs.setPosition(sf::Vector2f((vec.at(0).first) * 30, (vec.at(0).second) * 30));
 					rs.setFillColor(sf::Color::Magenta);
 					//rs.setSize(sf::Vector2f(5, 5));
-					
-					
+
+
 					for (int i = 0; i < vec.size(); i++) {
-						rs.setPosition(vec.at(i).first*30, vec.at(i).second*30);
+						rs.setPosition(vec.at(i).first * 30, vec.at(i).second * 30);
 						window.draw(rs);
 						window.display();
 					}
@@ -196,7 +193,7 @@ int main()
 
 					game.getEnemies().at(0).setHitTextureDepart();
 				}
-				
+
 
 				if (Keyboard::isKeyPressed(Keyboard::F1)) {
 					yMov2 -= 0.1;
@@ -225,7 +222,7 @@ int main()
 				game.manageGame(0, fpsCount, fpsSpeed, switchFps, time);
 			}
 			game.manageEnemi(fpsCount, fpsSpeed, switchFps, time);
-			
+
 		}
 	}
 	catch (std::exception const & e) {
