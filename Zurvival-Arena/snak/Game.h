@@ -68,6 +68,7 @@ public:
 	inline void setStateCharacter(unsigned i);
 	inline void stateInitializerCharacters();
 	inline void finishGame();
+	inline void setNbEnemies(unsigned nb);
 	inline void manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 	void manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 	
@@ -175,4 +176,8 @@ bool Game::isBrainLocked()const {
  }
 void Game::setBrainLock(bool lock) {
 	brainLock = lock;
+}
+
+void Game::setNbEnemies(unsigned nb) {
+	nbEnemies = nb;
 }

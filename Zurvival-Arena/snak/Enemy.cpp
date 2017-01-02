@@ -1,10 +1,11 @@
 #include "Enemy.h"
-
+#include <iostream>
 
 Enemy::Enemy(Position position, int pv, unsigned idEnemy, Game * gam) : Character(position, pv)
 {
 	game = gam;
 	id = idEnemy;
+	std::cout << "id ennemy " << id << std::endl;
 	positionFirst = position;
 	perso_ = new sf::Texture();
 		if (!perso_->loadFromFile("pics/jake3.png")) {

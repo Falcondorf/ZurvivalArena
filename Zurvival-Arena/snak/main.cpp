@@ -15,10 +15,10 @@ int main()
 		game.addPlayer(330, 30);
 		game.addPlayer(400, 330);
 		game.addEnemy(210, 240,1);
-		game.addEnemy(300, 410, 1);
-		game.addEnemy(420, 300,1);
-		game.addEnemy(180, 120, 1);
-		game.addEnemy(200, 230, 1);
+		game.addEnemy(300, 410, 2);
+		game.addEnemy(420, 300,3);
+		game.addEnemy(180, 120, 4);
+		game.addEnemy(200, 230, 5);
 		/*game.addEnemy(360, 190, 1);
 		game.addEnemy(260, 240, 1);*/
 

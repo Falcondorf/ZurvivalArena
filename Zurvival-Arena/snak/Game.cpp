@@ -70,7 +70,7 @@ const RectangleShape & Game::getHitBoxChar(int i)const
 void Game::addEnemy(float posX, float posY, int pv) {
 	
 	enemies_.push_back(Enemy(Position(posX, posY),nbEnemies, pv, this));
-	nbEnemies++;
+	setNbEnemies(nbEnemies + 1);
 }
 
 
