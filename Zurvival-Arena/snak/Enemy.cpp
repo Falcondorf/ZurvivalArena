@@ -87,11 +87,14 @@ void Enemy::functionMovingEnemies() {
 			/*v = pathToPlayer.at(i);*/
 		}
 
-		if (getPlayerMoving() == true ) {
+		if (getPlayerMoving() == true && (start==0 || !game->isBrainLocked() ) ) {
 			cout << "Brain" << endl;
+			start++;
 			pathToPlayer.clear();
 			Vector2f c = game->getPlayers().at(0).getHitbox().getPosition();
+			game->setBrainLock(true);
 			brain();
+			game->setBrainLock(false);
 			v = pathToPlayer;
 			/*cout << "first : " << v.at(0).first << "second : " << v.at(0).second << endl;
 			cout << "yassine " << players_.at(0).getHitbox().getPosition().x / 30 << " " << players_.at(0).getHitbox().getPosition().y / 30 << endl;*/

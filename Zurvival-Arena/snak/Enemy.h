@@ -21,6 +21,7 @@ struct Node2 {
 extern class Game;
 class Enemy : public Character {
 private:
+	unsigned start = 0;
 	Game * game=nullptr;
 	vector<pair<int, int>> pathToPlayer;
 	int indicePath;

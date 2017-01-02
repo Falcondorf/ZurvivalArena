@@ -17,7 +17,11 @@ int main()
 		game.addEnemy(210, 240,1);
 		game.addEnemy(300, 410, 1);
 		game.addEnemy(420, 300,1);
-		
+		game.addEnemy(180, 120, 1);
+		game.addEnemy(200, 230, 1);
+		game.addEnemy(360, 190, 1);
+		game.addEnemy(260, 240, 1);
+
 		lastPosition = make_pair(11, 2);
 		/*game.addEnemy(180, 120);*/
 	//	game.getArena().printTiles();
