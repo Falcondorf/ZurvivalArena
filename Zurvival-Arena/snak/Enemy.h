@@ -25,7 +25,7 @@ private:
 	vector<pair<int, int>> pathToPlayer;
 	int indicePath;
 	bool textChange = false;
-	
+	unsigned id;
 	thread threadEnemies;
 
 	Position positionFirst;
@@ -45,7 +45,7 @@ private:
 	void moveToPos(vector < pair<int, int> >v);
 
 public:
-	Enemy(Position position, int pv, Game * gam);
+	Enemy(Position position, int pv,unsigned id, Game * gam);
 	void uptadeSpritePosition();
 	inline void setPath(vector<pair<int, int>> p);
 	inline vector<pair<int, int>> getPath() const;
@@ -61,6 +61,7 @@ public:
 	void functionMovingEnemies();
 	inline thread* getThreads();
 	inline const Position &getPositionFirst() const;
+	inline unsigned getId()const;
 };
 #endif // !Game_H
 
@@ -76,4 +77,8 @@ thread* Enemy::getThreads() {
 }
 const Position & Enemy::getPositionFirst() const {
 	return positionFirst;
+}
+
+unsigned Enemy::getId()const {
+	return id;
 }

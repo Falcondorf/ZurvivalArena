@@ -29,6 +29,8 @@ struct Node {
 extern class Enemy;
 class Game : nvs::Subject {
 private:
+	bool brainLock=false;
+	unsigned nbEnemies;
 	bool textChange = false;
 	Arena arena_;
 	vector<Character> players_;
@@ -44,9 +46,6 @@ private:
 	bool inversion = false;
 	bool playerMove = false;
 	vector< vector<pair<int, int>> > pathToEnemy;
-	
-
-
 	
 
 public:
@@ -71,18 +70,18 @@ public:
 	inline void finishGame();
 	inline void manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 	void manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
-	//void brain(unsigned i);
+	
 	inline void removeEnemy(unsigned);
-
 	void startMovingEnemies();
 
-
+	//void brain(unsigned i);
 	//bool nodeExistInList(pair<int, int> n, map <pair<int, int>, Node>& l);
 	//void addAdjectentCell(pair <int, int>& n);
 	//float distance(int x1, int y1, int x2, int y2);
 	//pair<int, int> bestNode(map <pair<int, int>, Node> l);
 	//void addToClosedList(pair<int, int>& p);
 	//vector<pair<int, int>> recoverPath(Node start, Node objectif);
+
 	inline Arena getArena();
 	//sf::Vector2f getNextPos(unsigned idEnemy, bool eraseFirst);
 
@@ -98,6 +97,8 @@ public:
 	 std::vector<std::pair<float, float>> trajectoireBalle(int idPlayer);
 	 void moveBall(std::vector<std::pair<float, float>> vec);
 	 inline const  sf::RectangleShape & getlifebarre() const ;
+	 inline bool isBrainLocked()const;
+	 inline void setBrainLock(bool lock);
 
 	 /////// Interaction Joueur Ennemi
 	 void removePvOfPlayer(unsigned i);
@@ -164,7 +165,14 @@ return	players_.at(0).getlifebar();
 }
 
  void Game::removeEnemy(unsigned i) {
-	 enemies_.at(i) = Enemy(enemies_.at(i).getPositionFirst(), 1, this);
+	/* enemies_.at(i) = Enemy(enemies_.at(i).getPositionFirst(), 1, this);*/
 	 // TODO
 	
  }
+
+bool Game::isBrainLocked()const {
+	return brainLock;
+ }
+void Game::setBrainLock(bool lock) {
+	brainLock = lock;
+}

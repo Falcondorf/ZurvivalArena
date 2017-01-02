@@ -68,7 +68,8 @@ const RectangleShape & Game::getHitBoxChar(int i)const
 }
 
 void Game::addEnemy(float posX, float posY, int pv) {
-	enemies_.push_back(Enemy(Position(posX, posY), pv, this));
+	enemies_.push_back(Enemy(Position(posX, posY),nbEnemies, pv, this));
+	nbEnemies++;
 }
 
 
@@ -158,69 +159,71 @@ void Game::playerMoving(bool moving) {
 //	threadEnemies->detach();
 //}
 
-//void Game::brain(unsigned i)
-//{
-//	openList.clear();
-//	closedList.clear();
-//	Enemy & e = enemies_.at(i);
-//	for (unsigned i = 0; i < enemies_.size(); i++) { //build enemies path to player
-//		//A revérifier par Salmane 
-//		Position pos = Position(e.getHitbox().getPosition().x, e.getHitbox().getPosition().y);
-//		Node arrivee;
-//
-//		arrivee.position.x = players_[0].getHitbox().getPosition().x / 30;
-//		arrivee.position.y = players_[0].getHitbox().getPosition().y / 30;
-//
-//		//	cout << "JBrain -->  X : " << arrivee.position.x << " Y :" << arrivee.position.y<< endl;
-//			/*	arrivee.gValue = 1;*/
-//		Node depart;
-//		depart.parent.x = pos.getX() / 30;
-//		depart.parent.y = pos.getY() / 30;
-//		depart.position = Vector2f(pos.getX() / 30, pos.getY() / 30);
-//
-//		depart.gValue = 1;
-//
-//		pair<int, int> courant;
-//		courant.first = depart.position.x;
-//		courant.second = depart.position.y;
-//		//	cout << " pos ennemi" << endl;
-//		if (arrivee.position.x < depart.position.x) {
-//			inversion = true;
-//
-//		}
-//		else {
-//			inversion = false;
-//		}
-//
-//		openList[courant] = depart;
-//		addToClosedList(courant);
-//		addAdjectentCell(courant);
-//		//	cout << "JJJPX2  " << arrivee.position.x << " JJJPY2  " << arrivee.position.y << endl;
-//		while (!((courant.first <= arrivee.position.x && courant.first + 1 > arrivee.position.x) && (courant.second <= arrivee.position.y && courant.second + 1 > arrivee.position.y)) && (!openList.empty())) {
-//			//yassine !! dans le cas ou on déplace le joueur pendant que l ennemi bouge l'open list est vide 
-//			courant = bestNode(openList);	// si l open list est vide brain ne donne plus de path à l'ennemi et du coup n'adapte pas sa trajectoire pour suivre le joueur
-//			addToClosedList(courant);
-//			addAdjectentCell(courant);
-//		}
-//		int x = arrivee.position.x;
-//		int y = arrivee.position.y;
-//		if ((courant.first <= arrivee.position.x && courant.first + 1 > arrivee.position.x) &&
-//			(courant.second <= arrivee.position.y && courant.second + 1 > arrivee.position.y)) {
-//			pathToEnemy.at(i).clear();
-//			pathToEnemy.at(i) = recoverPath(depart, arrivee);
-//			//add the best possibloe movement
-//			/*cout << "OK" << endl;*/
-//
-//		}
-//		else {
-//			/*	cout << "PLEURE" << endl;*/
-//				//Pas de solution
-//		}
-//
-//
-//	}
-//	//Que faire après la constitution des movements des enemis vers les joueurs?
-//}
+////void Game::brain(unsigned i)
+////{
+////	/*mutexx.lock();*/
+////	openList.clear();
+////	closedList.clear();
+////	Enemy & e = enemies_.at(i);
+////	for (unsigned i = 0; i < enemies_.size(); i++) { //build enemies path to player
+////		//A revérifier par Salmane 
+////		Position pos = Position(e.getHitbox().getPosition().x, e.getHitbox().getPosition().y);
+////		Node arrivee;
+////
+////		arrivee.position.x = players_[0].getHitbox().getPosition().x / 30;
+////		arrivee.position.y = players_[0].getHitbox().getPosition().y / 30;
+////
+////		//	cout << "JBrain -->  X : " << arrivee.position.x << " Y :" << arrivee.position.y<< endl;
+////			/*	arrivee.gValue = 1;*/
+////		Node depart;
+////		depart.parent.x = pos.getX() / 30;
+////		depart.parent.y = pos.getY() / 30;
+////		depart.position = Vector2f(pos.getX() / 30, pos.getY() / 30);
+////
+////		depart.gValue = 1;
+////
+////		pair<int, int> courant;
+////		courant.first = depart.position.x;
+////		courant.second = depart.position.y;
+////		//	cout << " pos ennemi" << endl;
+////		if (arrivee.position.x < depart.position.x) {
+////			inversion = true;
+////
+////		}
+////		else {
+////			inversion = false;
+////		}
+////
+////		openList[courant] = depart;
+////		addToClosedList(courant);
+////		addAdjectentCell(courant);
+////		//	cout << "JJJPX2  " << arrivee.position.x << " JJJPY2  " << arrivee.position.y << endl;
+////		while (!((courant.first <= arrivee.position.x && courant.first + 1 > arrivee.position.x) && (courant.second <= arrivee.position.y && courant.second + 1 > arrivee.position.y)) && (!openList.empty())) {
+////			//yassine !! dans le cas ou on déplace le joueur pendant que l ennemi bouge l'open list est vide 
+////			courant = bestNode(openList);	// si l open list est vide brain ne donne plus de path à l'ennemi et du coup n'adapte pas sa trajectoire pour suivre le joueur
+////			addToClosedList(courant);
+////			addAdjectentCell(courant);
+////		}
+////		int x = arrivee.position.x;
+////		int y = arrivee.position.y;
+////		if ((courant.first <= arrivee.position.x && courant.first + 1 > arrivee.position.x) &&
+////			(courant.second <= arrivee.position.y && courant.second + 1 > arrivee.position.y)) {
+////			pathToEnemy.at(i).clear();
+////			pathToEnemy.at(i) = recoverPath(depart, arrivee);
+////			//add the best possibloe movement
+////			/*cout << "OK" << endl;*/
+////
+////		}
+////		else {
+////			/*	cout << "PLEURE" << endl;*/
+////				//Pas de solution
+////		}
+////
+////
+////	}
+////	//Que faire après la constitution des movements des enemis vers les joueurs?
+////	/*mutexx.unlock();*/
+////}
 
 void Game::startMovingEnemies() {
 	/*threadEnemies = std::unique_ptr < std::thread >(new std::thread(&Game::functionMovingEnemies, this));*/
@@ -249,7 +252,7 @@ void Game::manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Cloc
 
 }
 
-
+//
 //void Game::addAdjectentCell(pair<int, int>& n)
 //{
 //	Position posPlayer = Position(players_[0].getHitbox().getPosition().x, players_[0].getHitbox().getPosition().y);
@@ -305,7 +308,7 @@ void Game::manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Cloc
 //}
 //float Game::distance(int x1, int y1, int x2, int y2)
 //{
-//	//return std::abs(x1 - x2) + std::abs(y1-y2);
+//	return std::abs(x1 - x2) + std::abs(y1-y2);
 //	return sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
 //}
 //pair<int, int> Game::bestNode(map <pair<int, int>, Node> l) {
@@ -350,12 +353,12 @@ void Game::manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Cloc
 //	map <pair<int, int>, Node>::iterator it;
 //	if (inversion) {
 //		map <pair<int, int>, Node>::iterator it = closedList.begin();
-//		//Node& tmp = closedList[pair<int, int>(objectif.position.x, objectif.position.y)];
+//		Node& tmp = closedList[pair<int, int>(objectif.position.x, objectif.position.y)];
 //		tmp = it->second;
 //	}
 //	else {
 //		map <pair<int, int>, Node>::reverse_iterator it = closedList.rbegin();
-//		//Node& tmp = closedList[pair<int, int>(objectif.position.x, objectif.position.y)];
+//		Node& tmp = closedList[pair<int, int>(objectif.position.x, objectif.position.y)];
 //		tmp = it->second;
 //	}
 //
@@ -363,7 +366,7 @@ void Game::manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Cloc
 //	pair<int, int> prec;
 //	n.first = tmp.position.x;
 //	n.second = tmp.position.y;
-//	// parent est 0 ?? mais doit contenir la position joueur ??
+//	 parent est 0 ?? mais doit contenir la position joueur ??
 //	prec.first = tmp.parent.x;
 //	prec.second = tmp.parent.y;
 //	chemin.insert(chemin.begin(), n);

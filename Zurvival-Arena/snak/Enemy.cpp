@@ -1,9 +1,10 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy(Position position, int pv, Game * gam) : Character(position, pv)
+Enemy::Enemy(Position position, int pv, unsigned idEnemy, Game * gam) : Character(position, pv)
 {
 	game = gam;
+	id = idEnemy;
 	positionFirst = position;
 	perso_ = new sf::Texture();
 		if (!perso_->loadFromFile("pics/jake3.png")) {
@@ -86,7 +87,7 @@ void Enemy::functionMovingEnemies() {
 			/*v = pathToPlayer.at(i);*/
 		}
 
-		if (getPlayerMoving() == true) {
+		if (getPlayerMoving() == true ) {
 			cout << "Brain" << endl;
 			pathToPlayer.clear();
 			Vector2f c = game->getPlayers().at(0).getHitbox().getPosition();
@@ -96,6 +97,7 @@ void Enemy::functionMovingEnemies() {
 			cout << "yassine " << players_.at(0).getHitbox().getPosition().x / 30 << " " << players_.at(0).getHitbox().getPosition().y / 30 << endl;*/
 			setPlayerMoving(false);
 			resetIndicePath();
+			
 		}
 
 		if (indicePath < pathToPlayer.size()) {
@@ -221,12 +223,12 @@ void Enemy::addAdjectentCell(pair<int, int>& n)
 	Position posPlayer = Position(game->getPlayers().at(0).getHitbox().getPosition().x, game->getPlayers().at(0).getHitbox().getPosition().y);
 
 	Node2 tmp;
-	for (int i = n.first - 1; i <= n.first + 1; i++) {
+	for (int i = n.first - 1; i <= n.first + 1 && !game->isFinishGame(); i++) {
 		if ((i < 0) || (i >= (game->getArena().getHeight() / 30))) {
 			/* en dehors de l'arène, on oublie */
 			continue;
 		}
-		for (int j = n.second - 1; j <= n.second + 1; j++) {
+		for (int j = n.second - 1; j <= n.second + 1 && !game->isFinishGame(); j++) {
 			if ((j < 0) || (j >= (game->getArena().getWidth() / 30))) {
 				/* en dehors de l'arène, on oublie */
 				continue;
@@ -280,14 +282,14 @@ pair<int, int> Enemy::bestNode(map <pair<int, int>, Node2> l) {
 	float m_coutf = l.begin()->second.fValue;
 	pair<int, int> m_noeud = l.begin()->first;
 	if (inversion) {
-		for (map <pair<int, int>, Node2>::reverse_iterator i = l.rbegin(); i != l.rend(); i++)
+		for (map <pair<int, int>, Node2>::reverse_iterator i = l.rbegin(); i != l.rend() && !game->isFinishGame(); i++)
 			if (i->second.fValue < m_coutf) {
 				m_coutf = i->second.fValue;
 				m_noeud = i->first;
 			}
 	}
 	else {
-		for (map <pair<int, int>, Node2>::iterator i = l.begin(); i != l.end(); i++)
+		for (map <pair<int, int>, Node2>::iterator i = l.begin(); i != l.end() && !game->isFinishGame(); i++)
 			if (i->second.fValue < m_coutf) {
 				m_coutf = i->second.fValue;
 				m_noeud = i->first;
@@ -337,7 +339,7 @@ vector<pair<int, int>> Enemy::recoverPath(Node2 start, Node2 objectif)
 	chemin.insert(chemin.begin(), n);
 
 
-	while (prec != pair<int, int>(start.parent.x, start.parent.y)) {
+	while (prec != pair<int, int>(start.parent.x, start.parent.y) && !game->isFinishGame()) {
 
 		n.first = prec.first;
 		n.second = prec.second;
