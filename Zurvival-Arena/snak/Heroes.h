@@ -28,7 +28,7 @@ Heroes::Heroes(Position pos, int pv, unsigned num) :Character(pos, pv), num_(num
 		}
 		break;
 	case 1:
-		if (!perso_->loadFromFile("pics/player2.png")) {
+		if (!perso_->loadFromFile("pics/jake2.png")) {
 			std::cout << "error loading image" << std::endl;
 		}
 		break;

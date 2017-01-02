@@ -13,14 +13,14 @@ int main()
 	try {
 		Game game =Game(width, height);
 		game.addPlayer(330, 30);
-		game.addPlayer(250, 250);
+		game.addPlayer(400, 330);
 		game.addEnemy(210, 240,1);
 		game.addEnemy(300, 410, 1);
 		game.addEnemy(420, 300,1);
 		game.addEnemy(180, 120, 1);
 		game.addEnemy(200, 230, 1);
-		game.addEnemy(360, 190, 1);
-		game.addEnemy(260, 240, 1);
+		/*game.addEnemy(360, 190, 1);
+		game.addEnemy(260, 240, 1);*/
 
 		lastPosition = make_pair(11, 2);
 		/*game.addEnemy(180, 120);*/
@@ -115,6 +115,7 @@ int main()
 			// window.draw((game.getPlayers().at(0).getHitbox()));
 			window.draw((game.getlifebarre()));
 			window.draw(*(game.getPlayers().at(0).getSprite()));
+			window.draw(*(game.getPlayers().at(1).getSprite()));
 			/*for (unsigned i = 0; i < game.getNbPlayers(); i++) {
 			}*/
 			for (unsigned i = 0; i < game.getNbObstacles(); i++) {
@@ -202,6 +203,7 @@ int main()
 				}
 				if (!game.hasCollision(1, xMov2, yMov2)) {
 					game.move(1, xMov2, yMov2);
+					game.setPositionCharacter(1);
 				}
 				for (unsigned i = 0;i<game.getEnemies().size();i++) {
 					game.getEnemies().at(i).setPlayerMoving(true);
@@ -210,6 +212,8 @@ int main()
 			}
 			if (game.getPlayers().at(0).getState() == State::Moving) {
 				game.manageGame(0, fpsCount, fpsSpeed, switchFps, time);
+			}else if(game.getPlayers().at(1).getState() == State::Moving){
+				game.manageGame(1, fpsCount, fpsSpeed, switchFps, time);
 			}
 			game.manageEnemi(fpsCount, fpsSpeed, switchFps, time);
 

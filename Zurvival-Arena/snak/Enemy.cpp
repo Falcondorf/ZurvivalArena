@@ -164,12 +164,21 @@ void Enemy::brain()
 
 		Position pos = Position(getHitbox().getPosition().x, getHitbox().getPosition().y);
 		Node2 arrivee;
+		if (id % 2 == 0) {
+			arrivee.position.x = game->getPlayers().at(0).getHitbox().getPosition().x / 30;
 
-		arrivee.position.x = game->getPlayers().at(0).getHitbox().getPosition().x / 30;
+			arrivee.position.y = game->getPlayers().at(0).getHitbox().getPosition().y / 30;
+			cout << "1" << endl;
+		}
+		else {
+			arrivee.position.x = game->getPlayers().at(1).getHitbox().getPosition().x / 30;
+
+			arrivee.position.y = game->getPlayers().at(1).getHitbox().getPosition().y / 30;
+			cout << "2" << endl;
+		}
 		
-		arrivee.position.y = game->getPlayers().at(0).getHitbox().getPosition().y / 30;
 
-			cout << "JBrain -->  X : " << arrivee.position.x << " Y :" << arrivee.position.y<< endl;
+			/*cout << "JBrain -->  X : " << arrivee.position.x << " Y :" << arrivee.position.y<< endl;*/
 		/*	arrivegValue = 1;*/
 		Node2 depart;
 		
@@ -195,7 +204,10 @@ void Enemy::brain()
 		addToClosedList(courant);
 		addAdjectentCell(courant);
 		//	cout << "JJJPX2  " << arrivee.position.x << " JJJPY2  " << arrivee.position.y << endl;
-		while (!((courant.first <= arrivee.position.x && courant.first + 1 >arrivee.position.x) && (courant.second <= arrivee.position.y && courant.second + 1 > arrivee.position.y)) && (!openList.empty())) {
+		while (!((courant.first <= arrivee.position.x && courant.first + 1 >arrivee.position.x) 
+			&& (courant.second <= arrivee.position.y && courant.second + 1 > arrivee.position.y))
+			&& (!openList.empty())&& !game->isFinishGame()) {
+
 			//yassine !! dans le cas ou on déplace le joueur pendant que l ennemi bouge l'open list est vide 
 			courant = bestNode(openList);	// si l open list est vide brain ne donne plus de path à l'ennemi et du coup n'adapte pas sa trajectoire pour suivre le joueur
 			addToClosedList(courant);
@@ -223,8 +235,13 @@ void Enemy::brain()
 
 void Enemy::addAdjectentCell(pair<int, int>& n)
 {
-	Position posPlayer = Position(game->getPlayers().at(0).getHitbox().getPosition().x, game->getPlayers().at(0).getHitbox().getPosition().y);
-
+	Position posPlayer;
+	if (id % 2 == 0) {
+		 posPlayer= Position(game->getPlayers().at(0).getHitbox().getPosition().x, game->getPlayers().at(0).getHitbox().getPosition().y);
+	}
+	else {
+		posPlayer = Position(game->getPlayers().at(1).getHitbox().getPosition().x, game->getPlayers().at(1).getHitbox().getPosition().y);
+	}
 	Node2 tmp;
 	for (int i = n.first - 1; i <= n.first + 1 && !game->isFinishGame(); i++) {
 		if ((i < 0) || (i >= (game->getArena().getHeight() / 30))) {

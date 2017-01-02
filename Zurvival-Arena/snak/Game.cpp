@@ -12,7 +12,7 @@ using namespace sf;
 Game::Game(unsigned width, unsigned height) {
 	arena_ = Arena(width, height);
 	/*pathToEnemy.reserve(enemies_.size());*/
-
+	nbEnemies = 0;
 	pathToEnemy.push_back(vector<pair<int, int>>((make_pair(9, 0), 2)));
 	pathToEnemy.push_back(vector<pair<int, int>>((make_pair(9, 0), 2)));
 
@@ -68,6 +68,7 @@ const RectangleShape & Game::getHitBoxChar(int i)const
 }
 
 void Game::addEnemy(float posX, float posY, int pv) {
+	
 	enemies_.push_back(Enemy(Position(posX, posY),nbEnemies, pv, this));
 	nbEnemies++;
 }
