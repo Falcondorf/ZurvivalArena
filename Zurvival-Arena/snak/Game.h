@@ -1,14 +1,21 @@
 #pragma once
+#ifndef Enemy_h
+#define Enemy_h
+
+
 #include "Arena.h"
 #include <vector>
 #include "Heroes.h"
 #include "Enemy.h"
+
+
 #include "subject.h"
 #include <thread>
 #include <mutex>
 #include <chrono>
 #include <map>
 #include <utility>
+#include <SFML\Graphics.hpp>
 using namespace sf;
 using namespace std;
 
@@ -19,6 +26,7 @@ struct Node {
 	unsigned hValue;
 	unsigned fValue;
 };
+extern class Enemy;
 class Game : nvs::Subject {
 private:
 	bool textChange = false;
@@ -26,9 +34,8 @@ private:
 	vector<Character> players_;
 	vector<Enemy> enemies_;
 	unique_ptr<thread> threadEnemies;
-	void functionMovingEnemies();
+	/*void functionMovingEnemies();*/
 	bool gameFinish = false;
-	unsigned spaceCase(Vector2f pos);
 	map <pair<int, int>, Node> openList;
 	map <pair<int, int>, Node> closedList;
 	/*void generateSuccessors(Vector2f pos, std::vector<Node> *successors, Node parent);
@@ -39,9 +46,13 @@ private:
 	vector< vector<pair<int, int>> > pathToEnemy;
 	
 
+
+	
+
 public:
+	bool isFinishGame();
 	inline const vector<Character> &  getPlayers() const;
-	inline Game(unsigned width, unsigned height);
+	Game(unsigned width, unsigned height);
 	bool hasCollision(int idPlayer, float movex, float movey);
 	static bool intersects(const RectangleShape & rect1, const RectangleShape & rect2);
 	void move(int idplayer, float xMove, float yMove);
@@ -60,17 +71,25 @@ public:
 	inline void finishGame();
 	inline void manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 	void manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
-	void brain(unsigned i);
+	//void brain(unsigned i);
+	inline void removeEnemy(unsigned);
+
 	void startMovingEnemies();
-	bool nodeExistInList(pair<int, int> n, map <pair<int, int>, Node>& l);
-	void addAdjectentCell(pair <int, int>& n);
-	float distance(int x1, int y1, int x2, int y2);
-	pair<int, int> bestNode(map <pair<int, int>, Node> l);
-	void addToClosedList(pair<int, int>& p);
-	vector<pair<int, int>> recoverPath(Node start, Node objectif);
+
+
+	//bool nodeExistInList(pair<int, int> n, map <pair<int, int>, Node>& l);
+	//void addAdjectentCell(pair <int, int>& n);
+	//float distance(int x1, int y1, int x2, int y2);
+	//pair<int, int> bestNode(map <pair<int, int>, Node> l);
+	//void addToClosedList(pair<int, int>& p);
+	//vector<pair<int, int>> recoverPath(Node start, Node objectif);
 	inline Arena getArena();
 	//sf::Vector2f getNextPos(unsigned idEnemy, bool eraseFirst);
-	int findDirection(unsigned idEnemy, vector < pair<int, int> >v);
+
+
+	/*int findDirection(unsigned idEnemy, vector < pair<int, int> >v);*/
+	
+	
 	void moveToPos(unsigned idEnemy, vector < pair<int, int> >v);
 	void shoot(int idPlayer);
 	void slice(int idPlayer);
@@ -79,17 +98,15 @@ public:
 	 std::vector<std::pair<float, float>> trajectoireBalle(int idPlayer);
 	 void moveBall(std::vector<std::pair<float, float>> vec);
 	 inline const  sf::RectangleShape & getlifebarre() const ;
+
+	 /////// Interaction Joueur Ennemi
+	 void removePvOfPlayer(unsigned i);
+	 void setLifeBarOfPlayer(unsigned i, sf::RectangleShape rce);
+
 };
 
-Game::Game(unsigned width, unsigned height) {
-	arena_ = Arena(width, height);
-	/*pathToEnemy.reserve(enemies_.size());*/
+#endif // !Enemy_h
 
-	pathToEnemy.push_back(vector<pair<int, int>>((make_pair(9, 0), 2)));
-	pathToEnemy.push_back(vector<pair<int, int>>((make_pair(9, 0), 2)));
-
-
-}
 
 const vector<Character> &  Game::getPlayers() const {
 
@@ -145,3 +162,9 @@ Arena Game::getArena() {
  const sf::RectangleShape & Game::getlifebarre() const  {
 return	players_.at(0).getlifebar();
 }
+
+ void Game::removeEnemy(unsigned i) {
+	 enemies_.at(i) = Enemy(enemies_.at(i).getPositionFirst(), 1, this);
+	 // TODO
+	
+ }

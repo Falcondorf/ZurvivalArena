@@ -15,12 +15,13 @@ protected:
 	sf::Vector2i anim{ 1,Up };
 	sf::Texture* perso_;
 	sf::Sprite* spritePerso_;
+	unsigned pv_;
 	
 
 private:
 	unsigned num_;
 	State state_;
-	unsigned pv_;
+	
 	Position position_;	
 	sf::RectangleShape hitbox_;
 	sf::RectangleShape lifebar_;
