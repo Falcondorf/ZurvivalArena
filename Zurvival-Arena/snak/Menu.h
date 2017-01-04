@@ -22,10 +22,6 @@ private:
 	sf::Texture texture;
 	sf::Sprite background;
 	int nbMenu;
-
-
-
-
 };
 
 sf::Text Menu::getMenu(int id) const {

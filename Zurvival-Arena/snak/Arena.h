@@ -24,7 +24,7 @@ public:
 	inline sf::RectangleShape getObstacle(unsigned index);
 	inline std::vector<std::vector<bool>> getTiles();
 	bool isFree(float x, float y);
-	void printTiles();
+	//void printTiles();
 };
 
 

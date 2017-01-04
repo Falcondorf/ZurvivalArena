@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <map>
 using namespace sf;
-
+using namespace std;
 Game::Game(unsigned width, unsigned height, int fiboNbEnemies) : nbEnemies(fiboNbEnemies){
 	arena_ = Arena(width, height);
 	/*pathToEnemy.reserve(enemies_.size());*/
@@ -73,7 +73,7 @@ void Game::addEnemy(float posX, float posY, int pv) {
 
 
 
-std::vector<Enemy> & Game::getEnemies() {
+const std::vector<Enemy> & Game::getEnemies() const{
 	return enemies_;
 }
 
@@ -232,9 +232,9 @@ void Game::startMovingEnemies() {
 
 }
 
-//bool Game::nodeExistInList(std::pair<int, int> n, std::map<std::pair<int, int>, Node>& l)
+//bool Game::nodeExistInList(pair<int, int> n, std::map<pair<int, int>, Node>& l)
 //{
-//	std::map<std::pair<int, int>, Node>::iterator i = l.find(n);
+//	std::map<pair<int, int>, Node>::iterator i = l.find(n);
 //	if (i == l.end())
 //		return false;
 //	else
@@ -502,7 +502,7 @@ void Game::moveToPos(unsigned idEnemy, vector < pair<int, int> >v) {
 	//enemies_.at(idEnemy).uptadeSpritePosition();
 }
 
-void Game::moveBall(std::vector<std::pair<float, float>> vec) {
+void Game::moveBall(std::vector<pair<float, float>> vec) {
 
 	RectangleShape rs(sf::Vector2f(vec.at(0).first, vec.at(0).second));
 	rs.setFillColor(sf::Color::Red);
@@ -519,7 +519,7 @@ void Game::moveBall(std::vector<std::pair<float, float>> vec) {
 void Game::shoot(int idPlayer) {
 
 
-	std::vector<std::pair<float, float>> vec;
+	std::vector<pair<float, float>> vec;
 	/*vec = trajectoireBalle(idPlayer);
 	moveBall(vec);*/
 	sf::Vector2f playerpos = players_.at(idPlayer).getHitbox().getPosition();
@@ -533,7 +533,6 @@ void Game::shoot(int idPlayer) {
 				for (unsigned k = (playerpos.y / 30); (k > enemies_.at(i).getHitbox().getPosition().y / 30 && !isObstacle); k--) {
 					if (arena_.getTiles()[playerpos.x / 30][k]) {
 						isObstacle = true;
-						cout << "O" << endl;
 					}
 				}
 				if (!isObstacle) {
@@ -557,7 +556,6 @@ void Game::shoot(int idPlayer) {
 				for (unsigned k = (playerpos.y / 30); (k < enemies_.at(i).getHitbox().getPosition().y / 30 && !isObstacle); k++) {
 					if (arena_.getTiles()[playerpos.x / 30][k]) {
 						isObstacle = true;
-						cout << "O" << endl;
 					}
 				}
 				if (!isObstacle) {
@@ -576,7 +574,6 @@ void Game::shoot(int idPlayer) {
 				for (unsigned k = (playerpos.x / 30); (k < enemies_.at(i).getHitbox().getPosition().x / 30 && !isObstacle); k++) {
 					if (arena_.getTiles()[k][playerpos.x / 30]) {
 						isObstacle = true;
-						cout << "O" << endl;
 					}
 				}
 				if (!isObstacle) {
@@ -595,7 +592,6 @@ void Game::shoot(int idPlayer) {
 				for (unsigned k = (playerpos.x / 30); (k > enemies_.at(i).getHitbox().getPosition().x / 30 && !isObstacle); k--) {
 					if (arena_.getTiles()[k][playerpos.x / 30]) {
 						isObstacle = true;
-						cout << "O" << endl;
 					}
 				}
 				if (!isObstacle) {
@@ -613,12 +609,12 @@ void Game::shoot(int idPlayer) {
 
 }
 
-std::vector<std::pair<float, float>> Game::trajectoireBalle(int idPlayer) {
+std::vector<pair<float, float>> Game::trajectoireBalle(int idPlayer) {
 	sf::Vector2f playerpos = players_.at(idPlayer).getHitbox().getPosition();
 
 	int min = 0;
 	int max = 660;
-	std::vector<std::pair<float, float>> vectorpos;
+	std::vector<pair<float, float>> vectorpos;
 	vectorpos.clear();
 	switch (players_.at(idPlayer).getAnim().y) {
 
@@ -686,7 +682,6 @@ void Game::slice(int idPlayer)
 	for (unsigned i = 0; i < enemies_.size(); i++) {
 		if (Game::intersects(hitZone, enemies_.at(i).getHitbox())) {
 			enemies_.at(i).removePv(1);
-			cout << "plop => " << enemies_.at(i).getPv();
 		}
 	}
 }

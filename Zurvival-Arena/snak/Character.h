@@ -2,7 +2,6 @@
 
 #include "SFML/Graphics.hpp"
 #include "Position.h"
-#include <iostream>
 #pragma region variables
 enum State { Idle, Moving };
 enum Direction { Down, Left, Right, Up };
@@ -12,7 +11,7 @@ enum Direction { Down, Left, Right, Up };
 class Character 
 {
 protected:
-	sf::Vector2i anim{ 1,Up };
+	sf::Vector2i anim{ 1, Up };
 	sf::Texture* perso_;
 	sf::Sprite* spritePerso_;
 	unsigned pv_;
@@ -34,9 +33,6 @@ public:
 	void setSize(float f1, float f2);
 	inline const sf::RectangleShape &getlifebar() const;
 	inline void setlifebar(sf::RectangleShape rce);
-	
-
-public:
 	
 	void setPositionHitbox(float f1, float f2);
 	void setPosition(unsigned x, unsigned y);

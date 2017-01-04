@@ -1,14 +1,9 @@
 #pragma once
-#ifndef Enemy_h
-#define Enemy_h
-
 
 #include "Arena.h"
 #include <vector>
 #include "Heroes.h"
 #include "Enemy.h"
-
-
 #include "subject.h"
 #include <thread>
 #include <mutex>
@@ -16,8 +11,6 @@
 #include <map>
 #include <utility>
 #include <SFML\Graphics.hpp>
-using namespace sf;
-using namespace std;
 
 struct Node {
 	sf::Vector2f parent;
@@ -26,7 +19,7 @@ struct Node {
 	unsigned hValue;
 	unsigned fValue;
 };
-extern class Enemy;
+
 class Game : nvs::Subject {
 private:
 	int waveLevel = 0; //increment when enemyList empty
@@ -34,42 +27,45 @@ private:
 	unsigned nbEnemies;
 	bool textChange = false;
 	Arena arena_;
-	vector<Character> players_;
-	vector<Enemy> enemies_; // always make a limit of 4 enemies when an ennemy dies, replace with a new one decrement from nbEnemies
-	unique_ptr<thread> threadEnemies;
+	std::vector<Character> players_;
+	std::vector<Enemy> enemies_; // always make a limit of 4 enemies when an ennemy dies, replace with a new one decrement from nbEnemies
+	std::unique_ptr<std::thread> threadEnemies;
 	/*void functionMovingEnemies();*/
 	bool gameFinish = false;
-	map <pair<int, int>, Node> openList;
-	map <pair<int, int>, Node> closedList;
+	std::map <std::pair<int, int>, Node> openList;
+	std::map <std::pair<int, int>, Node> closedList;
 	/*void generateSuccessors(Vector2f pos, std::vector<Node> *successors, Node parent);
 	bool parcourOpen(std::vector<Node> openList, sf::Vector2f position, int fValue);
 	bool parcourClosed(std::vector<Node> closedList, sf::Vector2f position, int fValue);*/
 	bool inversion = false;
 	bool playerMove = false;
-	vector< vector<pair<int, int>> > pathToEnemy;
+	std::vector< std::vector<std::pair<int, int>> > pathToEnemy;
 	inline int fib(int x) const;
 
 public:
 	bool isFinishGame();
 	inline void nextWave();
-	inline const vector<Character> &  getPlayers() const;
+	inline const std::vector<Character> &  getPlayers() const;
 	Game(unsigned width, unsigned height, int fiboNbEnemies);
 	bool hasCollision(int idPlayer, float movex, float movey);
-	static bool intersects(const RectangleShape & rect1, const RectangleShape & rect2);
+	static bool intersects(const sf::RectangleShape & rect1, const sf::RectangleShape & rect2);
 	void move(int idplayer, float xMove, float yMove);
 	unsigned getNbPlayers()const;
-	const RectangleShape &getHitBoxChar(int i)const;
+	const sf::RectangleShape &getHitBoxChar(int i)const;
 	inline void addPlayer(float posX, float posY, int pv = 3);
 	void addEnemy(float posX, float posY, int pv = 1);
-	vector<Enemy> & getEnemies();
+	const std::vector<Enemy> & getEnemies() const;
 	inline int getRemainingEnemies() const;
 	inline int getWave() const;
 	inline unsigned getNbObstacles();
-	inline RectangleShape getObstacle(unsigned i);
+	inline sf::RectangleShape getObstacle(unsigned i);
+	inline void removeDeadEnemies();
 	inline void setPositionCharacter(unsigned i);
 	inline void setAnimXCharacter(unsigned i, Direction direction);
 	inline void setAnimYCharacter(unsigned i, Direction direction);
 	inline void setStateCharacter(unsigned i);
+	inline void setEnemyPlayerMoving(int i, bool isMoving);
+	inline void setEnemyHitTextureDepart(int i);
 	inline void stateInitializerCharacters();
 	inline void finishGame();
 	inline void setNbEnemies(unsigned nb);
@@ -80,21 +76,21 @@ public:
 	void startMovingEnemies();
 
 	//void brain(unsigned i);
-	//bool nodeExistInList(pair<int, int> n, map <pair<int, int>, Node>& l);
-	//void addAdjectentCell(pair <int, int>& n);
+	//bool nodeExistInList(std::pair<int, int> n, map <std::pair<int, int>, Node>& l);
+	//void addAdjectentCell(std::pair <int, int>& n);
 	//float distance(int x1, int y1, int x2, int y2);
-	//pair<int, int> bestNode(map <pair<int, int>, Node> l);
-	//void addToClosedList(pair<int, int>& p);
-	//vector<pair<int, int>> recoverPath(Node start, Node objectif);
+	//std::pair<int, int> bestNode(map <std::pair<int, int>, Node> l);
+	//void addToClosedList(std::pair<int, int>& p);
+	//vector<std::pair<int, int>> recoverPath(Node start, Node objectif);
 
 	inline Arena getArena();
 	//sf::Vector2f getNextPos(unsigned idEnemy, bool eraseFirst);
 
 
-	/*int findDirection(unsigned idEnemy, vector < pair<int, int> >v);*/
+	/*int findDirection(unsigned idEnemy, vector < std::pair<int, int> >v);*/
 
 
-	void moveToPos(unsigned idEnemy, vector < pair<int, int> >v);
+	void moveToPos(unsigned idEnemy, std::vector < std::pair<int, int> >v);
 	void shoot(int idPlayer);
 	void slice(int idPlayer);
 	void playerMoving(bool moving);
@@ -111,10 +107,7 @@ public:
 
 };
 
-#endif // !Enemy_h
-
-
-const vector<Character> &  Game::getPlayers() const {
+const std::vector<Character> &  Game::getPlayers() const {
 
 	return players_;
 }
@@ -129,7 +122,7 @@ unsigned Game::getNbObstacles()
 	return arena_.getNbObstacles();
 }
 
-RectangleShape Game::getObstacle(unsigned i)
+sf::RectangleShape Game::getObstacle(unsigned i)
 {
 	return arena_.getObstacle(i);
 }
@@ -207,4 +200,32 @@ int Game::fib(int x) const {
 
 int Game::getWave() const {
 	return waveLevel;
+}
+
+void Game::setEnemyPlayerMoving(int i, bool isMoving) {
+	enemies_.at(i).setPlayerMoving(isMoving);
+}
+
+void Game::setEnemyHitTextureDepart(int i)
+{
+	enemies_.at(i).setHitTextureDepart();
+}
+#include <iostream>
+void Game::removeDeadEnemies() {
+	std::cout << "Before erase" << std::endl;
+	enemies_.erase(std::remove_if(enemies_.begin(),
+		enemies_.end(),
+		[](Enemy & enemy) {
+		std::cout << "Inside lambda" << std::endl;
+		if (!enemy.isDead && enemy.getPv() == 0) {
+			enemy.isDead = true;
+			enemy.getthreads()->detach();
+			return true;
+		}
+		else {
+			return false;
+		}
+	}), enemies_.end());
+
+	std::cout << "After erase" << std::endl;
 }

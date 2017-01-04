@@ -1,5 +1,9 @@
 #include "Enemy.h"
+#include "Game.h"
 #include <iostream>
+
+using namespace std;
+using namespace sf;
 
 Enemy::Enemy(Position position, int pv, unsigned idEnemy, Game * gam) : Character(position, pv)
 {
@@ -372,9 +376,9 @@ vector<pair<int, int>> Enemy::recoverPath(Node2 start, Node2 objectif)
 	return chemin;
 }
 
-bool Enemy::nodeExistInList(std::pair<int, int> n, std::map<std::pair<int, int>, Node2>& l)
+bool Enemy::nodeExistInList(pair<int, int> n, std::map<pair<int, int>, Node2>& l)
 {
-	std::map<std::pair<int, int>, Node2>::iterator i = l.find(n);
+	std::map<pair<int, int>, Node2>::iterator i = l.find(n);
 	if (i == l.end())
 		return false;
 	else

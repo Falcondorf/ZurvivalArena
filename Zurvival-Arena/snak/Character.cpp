@@ -30,14 +30,9 @@ void Character::setSize(float f1, float f2) {
 }
 
 void Character::removePv(unsigned damage) {
-	
-	if (pv_ == 0) {
-		std::cout << "mort !!!" << std::endl;
-	}
-	else {
-		pv_-=damage;
-		
-		
+
+	if (pv_ != 0) {
+		pv_ -= damage;
 	}
 
 }
@@ -56,5 +51,5 @@ void Character::manageSprite(float fpsCount, float fpsSpeed, float switchFps, sf
 		}
 	}
 	spritePerso_->setTextureRect(sf::IntRect(anim.x * 76, anim.y * 95, 76, 95));
-	
+
 }

@@ -2,6 +2,8 @@
 
 #include "character.h"
 #include <string>
+#include "ZurvivalException.h"
+
 class Heroes : public Character
 {
 	unsigned num_;
@@ -23,13 +25,12 @@ Heroes::Heroes(Position pos, int pv, unsigned num) :Character(pos, pv), num_(num
 	case 0:
 
 		if (!perso_->loadFromFile("pics/jake2.png")) {
-
-			std::cout << "error loading image" << std::endl;
+			throw ZurvivalException("error loading image");
 		}
 		break;
 	case 1:
 		if (!perso_->loadFromFile("pics/jake2.png")) {
-			std::cout << "error loading image" << std::endl;
+			throw ZurvivalException("error loading image");
 		}
 		break;
 	}

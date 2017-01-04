@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "Menu.h"
 using namespace sf;
+using namespace std;
 int main()
 {
 	bool startgame = false;
@@ -215,7 +216,7 @@ int main()
 				}
 				if (Keyboard::isKeyPressed(Keyboard::RControl)) {
 					game.shoot(0);
-					std::vector<std::pair<float, float>> vec;
+					std::vector<pair<float, float>> vec;
 					vec = game.trajectoireBalle(0);
 					CircleShape rs(5, 20);
 					rs.setPosition(sf::Vector2f((vec.at(0).first) * 30, (vec.at(0).second) * 30));
@@ -226,7 +227,7 @@ int main()
 						window.display();
 					}
 
-					game.getEnemies().at(0).setHitTextureDepart();
+					game.setEnemyHitTextureDepart(0);
 				}
 
 				if (Keyboard::isKeyPressed(Keyboard::RAlt)) {
@@ -258,7 +259,7 @@ int main()
 					if (Keyboard::isKeyPressed(Keyboard::F5)) {
 
 						game.shoot(1);
-						std::vector<std::pair<float, float>> vec;
+						std::vector<pair<float, float>> vec;
 						vec = game.trajectoireBalle(1);
 						CircleShape rs(5, 20);
 						rs.setPosition(sf::Vector2f((vec.at(0).first) * 30, (vec.at(0).second) * 30));
@@ -269,8 +270,7 @@ int main()
 							window.display();
 						}
 
-						game.getEnemies().at(0).setHitTextureDepart();
-
+						game.setEnemyHitTextureDepart(0);
 
 					}
 
@@ -284,7 +284,7 @@ int main()
 					game.setPositionCharacter(0);
 
 					for (int i = 0; i < game.getEnemies().size(); i++) {
-						game.getEnemies().at(i).setPlayerMoving(true);
+						game.setEnemyPlayerMoving(i, true);
 					}
 					game.manageGame(0, fpsCount, fpsSpeed, switchFps, time);
 				}
@@ -293,25 +293,15 @@ int main()
 					game.setPositionCharacter(1);
 					//game.getEnemies().at(1).setPlayerMoving(true);
 					for (int i = 0; i < game.getEnemies().size(); i++) {
-						game.getEnemies().at(i).setPlayerMoving(true);
+						game.setEnemyPlayerMoving(i, true);
 					}
 					game.manageGame(1, fpsCount, fpsSpeed, switchFps, time);
 				}
-
-
-
-
-
-
 			}
 			game.manageEnemi(fpsCount, fpsSpeed, switchFps, time);
 
-			/*---------------*/
-			for (int i = 0; i < game.getEnemies().size(); i++) {
-				if (game.getEnemies()[i].getPv() == 0) {  //bug
-					game.getEnemies().erase(game.getEnemies().begin() + i + 1);
-				}
-			}
+			game.removeDeadEnemies();
+			
 			while (game.getEnemies().size() < 4 && game.getRemainingEnemies() > 0) {
 				game.addEnemy(220, 430, game.getWave());
 			}
