@@ -17,8 +17,8 @@ int main()
 		game.addEnemy(210, 240,1);
 		game.addEnemy(300, 410, 2);
 		game.addEnemy(420, 300,3);
-		game.addEnemy(180, 120, 4);
-		game.addEnemy(200, 230, 5);
+		/*game.addEnemy(180, 120, 4);
+		game.addEnemy(200, 230, 5);*/
 		/*game.addEnemy(360, 190, 1);
 		game.addEnemy(260, 240, 1);*/
 
@@ -159,18 +159,53 @@ int main()
 					game.setAnimYCharacter(0, Right);
 
 				}
-				if (Keyboard::isKeyPressed(Keyboard::F5)) {
+				if (Keyboard::isKeyPressed(Keyboard::RControl)) {
 					game.shoot(0);
 					std::vector<std::pair<float, float>> vec;
 					vec = game.trajectoireBalle(0);
-
 					CircleShape rs(5, 20);
-
-
 					rs.setPosition(sf::Vector2f((vec.at(0).first) * 30, (vec.at(0).second) * 30));
 					rs.setFillColor(sf::Color::Magenta);
-					//rs.setSize(sf::Vector2f(5, 5));
+					for (int i = 0; i < vec.size(); i++) {
+						rs.setPosition(vec.at(i).first * 30, vec.at(i).second * 30);
+						window.draw(rs);
+						window.display();
+					}
 
+					game.getEnemies().at(0).setHitTextureDepart();
+				}
+
+				if (Keyboard::isKeyPressed(Keyboard::RAlt)) {
+					game.slice(0);
+				}
+
+				if (Keyboard::isKeyPressed(Keyboard::F1)) {
+					game.setStateCharacter(1);
+					yMov2 -= 0.1;
+					game.setAnimYCharacter(1, Up);
+				}
+				if (Keyboard::isKeyPressed(Keyboard::F2)) {
+					game.setStateCharacter(1);
+					yMov2 += 0.1;
+					game.setAnimYCharacter(1, Down);
+				}
+				if (Keyboard::isKeyPressed(Keyboard::F3)) {
+					game.setStateCharacter(1);
+					xMov2 -= 0.1;
+					game.setAnimYCharacter(1, Left);
+				}
+				if (Keyboard::isKeyPressed(Keyboard::F4)) {
+					game.setStateCharacter(1);
+					xMov2 += 0.1;
+					game.setAnimYCharacter(1, Right);
+				}
+				if (Keyboard::isKeyPressed(Keyboard::F5)) {
+					game.shoot(1);
+					std::vector<std::pair<float, float>> vec;
+					vec = game.trajectoireBalle(1);
+					CircleShape rs(5, 20);
+					rs.setPosition(sf::Vector2f((vec.at(0).first) * 30, (vec.at(0).second) * 30));
+					rs.setFillColor(sf::Color::Magenta);
 					for (int i = 0; i < vec.size(); i++) {
 						rs.setPosition(vec.at(i).first * 30, vec.at(i).second * 30);
 						window.draw(rs);
@@ -181,39 +216,24 @@ int main()
 				}
 
 				if (Keyboard::isKeyPressed(Keyboard::F6)) {
-					game.slice(0);
+					game.slice(1);
 				}
 
-				if (Keyboard::isKeyPressed(Keyboard::F1)) {
-					yMov2 -= 0.1;
-				}
-				if (Keyboard::isKeyPressed(Keyboard::F2)) {
-					yMov2 += 0.1;
-				}
-				if (Keyboard::isKeyPressed(Keyboard::F3)) {
-					xMov2 -= 0.1;
-				}
-				if (Keyboard::isKeyPressed(Keyboard::F4)) {
-					xMov2 += 0.1;
-				}
 
 				if (!game.hasCollision(0, xMov, yMov)) {
 					game.move(0, xMov, yMov);
 					game.setPositionCharacter(0);
+					game.getEnemies().at(0).setPlayerMoving(true);
+					game.manageGame(0, fpsCount, fpsSpeed, switchFps, time);
 				}
 				if (!game.hasCollision(1, xMov2, yMov2)) {
 					game.move(1, xMov2, yMov2);
 					game.setPositionCharacter(1);
+					game.getEnemies().at(1).setPlayerMoving(true);
+					game.manageGame(1, fpsCount, fpsSpeed, switchFps, time);
 				}
-				for (unsigned i = 0;i<game.getEnemies().size();i++) {
-					game.getEnemies().at(i).setPlayerMoving(true);
-				}
+
 				
-			}
-			if (game.getPlayers().at(0).getState() == State::Moving) {
-				game.manageGame(0, fpsCount, fpsSpeed, switchFps, time);
-			}else if(game.getPlayers().at(1).getState() == State::Moving){
-				game.manageGame(1, fpsCount, fpsSpeed, switchFps, time);
 			}
 			game.manageEnemi(fpsCount, fpsSpeed, switchFps, time);
 
