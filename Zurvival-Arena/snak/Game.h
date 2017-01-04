@@ -104,7 +104,7 @@ public:
 	 /////// Interaction Joueur Ennemi
 	 void removePvOfPlayer(unsigned i);
 	 void setLifeBarOfPlayer(unsigned i, sf::RectangleShape rce);
-
+	
 };
 
 #endif // !Enemy_h
@@ -181,3 +181,4 @@ void Game::setBrainLock(bool lock) {
 void Game::setNbEnemies(unsigned nb) {
 	nbEnemies = nb;
 }
+

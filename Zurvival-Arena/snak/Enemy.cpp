@@ -59,13 +59,13 @@ void Enemy::setHitTextureDepart() {
 	spritePerso_->setTexture(*perso);
 }
 
-void Enemy::setHitTextureHit() {
-	sf::Texture* perso = new sf::Texture();
-	if (!perso->loadFromFile("pics/jake3Hit.png")) {
-		std::cout << "error loading image" << std::endl;
-	}
-	spritePerso_->setTexture(*perso);
-}
+//void Enemy::setHitTextureHit() {
+//	sf::Texture* perso = new sf::Texture();
+//	if (!perso->loadFromFile("pics/jake3Hit.png")) {
+//		std::cout << "error loading image" << std::endl;
+//	}
+//	spritePerso_->setTexture(*perso);
+//}
 
 ///////////////////////////////// START //////////////////////////////////////////////
 
@@ -165,7 +165,7 @@ void Enemy::brain()
 
 		Position pos = Position(getHitbox().getPosition().x, getHitbox().getPosition().y);
 		Node2 arrivee;
-		if (id % 2 == 0) {
+		if (id % 2 == 0 || game->getPlayers().size()==1) {
 			arrivee.position.x = game->getPlayers().at(0).getHitbox().getPosition().x / 30;
 
 			arrivee.position.y = game->getPlayers().at(0).getHitbox().getPosition().y / 30;
@@ -237,7 +237,7 @@ void Enemy::brain()
 void Enemy::addAdjectentCell(pair<int, int>& n)
 {
 	Position posPlayer;
-	if (id % 2 == 0) {
+	if (id % 2 == 0 || game->getPlayers().size() == 1) {
 		 posPlayer= Position(game->getPlayers().at(0).getHitbox().getPosition().x, game->getPlayers().at(0).getHitbox().getPosition().y);
 	}
 	else {

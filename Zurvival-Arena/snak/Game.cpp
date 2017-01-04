@@ -541,7 +541,7 @@ void Game::shoot(int idPlayer) {
 				if (!isObstacle) {
 					enemies_.at(i).removePv(10);
 					cout << enemies_.at(i).getPv() << endl;
-					enemies_.at(i).setHitTextureHit();
+					//enemies_.at(i).setHitTextureHit();
 				}
 			}
 
@@ -565,7 +565,7 @@ void Game::shoot(int idPlayer) {
 				if (!isObstacle) {
 					enemies_.at(i).removePv(10);
 					cout << enemies_.at(i).getPv() << endl;
-					enemies_.at(i).setHitTextureHit();
+					//enemies_.at(i).setHitTextureHit();
 				}
 			}
 
@@ -584,7 +584,7 @@ void Game::shoot(int idPlayer) {
 				if (!isObstacle) {
 					enemies_.at(i).removePv(10);
 					cout << enemies_.at(i).getPv() << endl;
-					enemies_.at(i).setHitTextureHit();
+				//	enemies_.at(i).setHitTextureHit();
 				}
 			}
 
@@ -603,7 +603,7 @@ void Game::shoot(int idPlayer) {
 				if (!isObstacle) {
 					enemies_.at(i).removePv(10);
 					cout << enemies_.at(i).getPv() << endl;
-					enemies_.at(i).setHitTextureHit();
+				//	enemies_.at(i).setHitTextureHit();
 				}
 			}
 

@@ -10,17 +10,18 @@ int main()
 	pair<int, int> lastPosition;
 	const int width = 660;
 	const int height = 660;
+	bool afficher = false;
+	int nombreJoueur;
 	try {
 		Game game =Game(width, height);
-		game.addPlayer(330, 30);
-		game.addPlayer(400, 330);
+		/*game.addPlayer(330, 30);
+		game.addPlayer(400, 330);*/
 		game.addEnemy(210, 240,1);
-		game.addEnemy(300, 410, 2);
-		game.addEnemy(420, 300,3);
-		/*game.addEnemy(180, 120, 4);
-		game.addEnemy(200, 230, 5);*/
-		/*game.addEnemy(360, 190, 1);
-		game.addEnemy(260, 240, 1);*/
+		//game.addEnemy(300, 410, 2);
+
+		
+		//game.addEnemy(180, 120, 4);
+		
 
 		lastPosition = make_pair(11, 2);
 		/*game.addEnemy(180, 120);*/
@@ -61,15 +62,32 @@ int main()
 						switch (menu2.getPressedItem())
 						{
 						case 0:
-							window.setVisible(true);
+							/*window.setVisible(true);
 							game.startMovingEnemies();
-							window3.close();
+							window3.close();*/
+							afficher = true;
+							menu2.changernbMenu(4);
+
 							break;
 						case 1:
-							break;
-						case 2:
+							
 							window3.close();
 							window.close();
+							break;
+						case 2:
+							nombreJoueur = 1;
+							window.setVisible(true);
+							
+							window3.close();
+							cout << "1joueur" << endl;
+						
+							break;
+						case 3:
+							nombreJoueur = 2;
+							window.setVisible(true);
+							
+							window3.close();
+							cout << "2joueur" << endl;
 
 							break;
 						default:
@@ -88,9 +106,13 @@ int main()
 			texture.loadFromFile("a.jpg");
 			sf::Sprite background(texture);
 			window3.draw(background);
-			for (int i = 0; i < 4; i++)
+			for (int i = 0; i < 5; i++)
 			{
-				window3.draw(menu2.getMenu(i));
+				if((i != 2&& i !=3)||afficher){
+					
+					window3.draw(menu2.getMenu(i));
+				}
+				
 			}
 			window3.display();
 		}
@@ -98,6 +120,17 @@ int main()
 		sf::Texture texture2;
 		texture2.loadFromFile("z.png");
 		sf::Sprite background3(texture2);
+		
+		if (nombreJoueur == 1) {
+			game.addPlayer(330, 30);
+			game.startMovingEnemies();
+		}
+		else {
+			game.addPlayer(330, 30);
+			game.addPlayer(400, 330);
+			game.startMovingEnemies();
+			
+		}
 		while (window.isOpen())
 		{
 			//window.display();
@@ -111,11 +144,22 @@ int main()
 				}
 				
 			}
-			game.stateInitializerCharacters();
+			
+
 			// window.draw((game.getPlayers().at(0).getHitbox()));
-			window.draw((game.getlifebarre()));
-			window.draw(*(game.getPlayers().at(0).getSprite()));
-			window.draw(*(game.getPlayers().at(1).getSprite()));
+			//window.draw((game.getlifebarre()));
+			
+			game.stateInitializerCharacters();
+			for (int i = 0; i < nombreJoueur; i++) {
+				window.draw(*(game.getPlayers().at(i).getSprite()));
+				
+			}
+			
+			
+
+			
+
+
 			/*for (unsigned i = 0; i < game.getNbPlayers(); i++) {
 			}*/
 			for (unsigned i = 0; i < game.getNbObstacles(); i++) {
@@ -178,7 +222,9 @@ int main()
 				if (Keyboard::isKeyPressed(Keyboard::RAlt)) {
 					game.slice(0);
 				}
+				if (nombreJoueur == 2) {
 
+				
 				if (Keyboard::isKeyPressed(Keyboard::F1)) {
 					game.setStateCharacter(1);
 					yMov2 -= 0.1;
@@ -200,6 +246,7 @@ int main()
 					game.setAnimYCharacter(1, Right);
 				}
 				if (Keyboard::isKeyPressed(Keyboard::F5)) {
+					
 					game.shoot(1);
 					std::vector<std::pair<float, float>> vec;
 					vec = game.trajectoireBalle(1);
@@ -213,25 +260,37 @@ int main()
 					}
 
 					game.getEnemies().at(0).setHitTextureDepart();
+
+
 				}
 
 				if (Keyboard::isKeyPressed(Keyboard::F6)) {
 					game.slice(1);
 				}
-
+				}
 
 				if (!game.hasCollision(0, xMov, yMov)) {
 					game.move(0, xMov, yMov);
 					game.setPositionCharacter(0);
-					game.getEnemies().at(0).setPlayerMoving(true);
+					
+					for (int i = 0; i < game.getEnemies().size(); i++) {
+						game.getEnemies().at(i).setPlayerMoving(true);
+				}
 					game.manageGame(0, fpsCount, fpsSpeed, switchFps, time);
 				}
-				if (!game.hasCollision(1, xMov2, yMov2)) {
+				if (nombreJoueur>1&&!game.hasCollision(1, xMov2, yMov2)) {
 					game.move(1, xMov2, yMov2);
 					game.setPositionCharacter(1);
-					game.getEnemies().at(1).setPlayerMoving(true);
+					//game.getEnemies().at(1).setPlayerMoving(true);
+					for (int i = 0; i < game.getEnemies().size(); i ++) {
+						game.getEnemies().at(i).setPlayerMoving(true);
+					}
 					game.manageGame(1, fpsCount, fpsSpeed, switchFps, time);
 				}
+
+				
+					
+				
 
 				
 			}
