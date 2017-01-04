@@ -29,12 +29,13 @@ struct Node {
 extern class Enemy;
 class Game : nvs::Subject {
 private:
-	bool brainLock=false;
+	int waveLevel = 0; //increment when enemyList empty
+	bool brainLock = false;
 	unsigned nbEnemies;
 	bool textChange = false;
 	Arena arena_;
 	vector<Character> players_;
-	vector<Enemy> enemies_;
+	vector<Enemy> enemies_; // always make a limit of 4 enemies when an ennemy dies, replace with a new one decrement from nbEnemies
 	unique_ptr<thread> threadEnemies;
 	/*void functionMovingEnemies();*/
 	bool gameFinish = false;
@@ -46,12 +47,13 @@ private:
 	bool inversion = false;
 	bool playerMove = false;
 	vector< vector<pair<int, int>> > pathToEnemy;
-	
+	inline int fib(int x) const;
 
 public:
 	bool isFinishGame();
+	inline void nextWave();
 	inline const vector<Character> &  getPlayers() const;
-	Game(unsigned width, unsigned height);
+	Game(unsigned width, unsigned height, int fiboNbEnemies);
 	bool hasCollision(int idPlayer, float movex, float movey);
 	static bool intersects(const RectangleShape & rect1, const RectangleShape & rect2);
 	void move(int idplayer, float xMove, float yMove);
@@ -60,6 +62,8 @@ public:
 	inline void addPlayer(float posX, float posY, int pv = 3);
 	void addEnemy(float posX, float posY, int pv = 1);
 	vector<Enemy> & getEnemies();
+	inline int getRemainingEnemies() const;
+	inline int getWave() const;
 	inline unsigned getNbObstacles();
 	inline RectangleShape getObstacle(unsigned i);
 	inline void setPositionCharacter(unsigned i);
@@ -71,7 +75,7 @@ public:
 	inline void setNbEnemies(unsigned nb);
 	inline void manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 	void manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
-	
+
 	inline void removeEnemy(unsigned);
 	void startMovingEnemies();
 
@@ -88,23 +92,23 @@ public:
 
 
 	/*int findDirection(unsigned idEnemy, vector < pair<int, int> >v);*/
-	
-	
+
+
 	void moveToPos(unsigned idEnemy, vector < pair<int, int> >v);
 	void shoot(int idPlayer);
 	void slice(int idPlayer);
 	void playerMoving(bool moving);
 
-	 std::vector<std::pair<float, float>> trajectoireBalle(int idPlayer);
-	 void moveBall(std::vector<std::pair<float, float>> vec);
-	 inline const  sf::RectangleShape & getlifebarre() const ;
-	 inline bool isBrainLocked()const;
-	 inline void setBrainLock(bool lock);
+	std::vector<std::pair<float, float>> trajectoireBalle(int idPlayer);
+	void moveBall(std::vector<std::pair<float, float>> vec);
+	inline const  sf::RectangleShape & getlifebarre() const;
+	inline bool isBrainLocked()const;
+	inline void setBrainLock(bool lock);
 
-	 /////// Interaction Joueur Ennemi
-	 void removePvOfPlayer(unsigned i);
-	 void setLifeBarOfPlayer(unsigned i, sf::RectangleShape rce);
-	
+	/////// Interaction Joueur Ennemi
+	void removePvOfPlayer(unsigned i);
+	void setLifeBarOfPlayer(unsigned i, sf::RectangleShape rce);
+
 };
 
 #endif // !Enemy_h
@@ -161,19 +165,19 @@ Arena Game::getArena() {
 	return arena_;
 }
 
- const sf::RectangleShape & Game::getlifebarre() const  {
-return	players_.at(0).getlifebar();
+const sf::RectangleShape & Game::getlifebarre() const {
+	return	players_.at(0).getlifebar();
 }
 
- void Game::removeEnemy(unsigned i) {
+void Game::removeEnemy(unsigned i) {
 	/* enemies_.at(i) = Enemy(enemies_.at(i).getPositionFirst(), 1, this);*/
 	 // TODO
-	
- }
+
+}
 
 bool Game::isBrainLocked()const {
 	return brainLock;
- }
+}
 void Game::setBrainLock(bool lock) {
 	brainLock = lock;
 }
@@ -182,3 +186,25 @@ void Game::setNbEnemies(unsigned nb) {
 	nbEnemies = nb;
 }
 
+void Game::nextWave() {
+	waveLevel++;
+	nbEnemies = fib(waveLevel);
+}
+
+int Game::getRemainingEnemies() const {
+	return nbEnemies;
+}
+
+int Game::fib(int x) const {
+	if (x == 0)
+		return 0;
+
+	if (x == 1)
+		return 1;
+
+	return fib(x - 1) + fib(x - 2);
+}
+
+int Game::getWave() const {
+	return waveLevel;
+}

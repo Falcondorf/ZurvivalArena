@@ -5,7 +5,7 @@
 #include "Menu.h"
 using namespace sf;
 int main()
-{	
+{
 	bool startgame = false;
 	pair<int, int> lastPosition;
 	const int width = 660;
@@ -13,22 +13,22 @@ int main()
 	bool afficher = false;
 	int nombreJoueur;
 	try {
-		Game game =Game(width, height);
+		Game game = Game(width, height, 1);
 		/*game.addPlayer(330, 30);
 		game.addPlayer(400, 330);*/
-		game.addEnemy(210, 240,1);
+		game.addEnemy(210, 240, 1);
 		//game.addEnemy(300, 410, 2);
 
-		
+
 		//game.addEnemy(180, 120, 4);
-		
+
 
 		lastPosition = make_pair(11, 2);
 		/*game.addEnemy(180, 120);*/
 	//	game.getArena().printTiles();
 		//game.brain(game.getEnemies()[0]);
 		VideoMode videoMode(width, height);
-		RenderWindow window(videoMode, "Rectangle Collision");
+		RenderWindow window(videoMode, "Zurvival Arena");
 		sf::Clock time;
 		float fpsCount = 0, switchFps = 0, fpsSpeed = 500;
 		//std::vector<Vector2f> p;
@@ -41,11 +41,11 @@ int main()
 		Menu menu2(600, 600);
 
 		window.setVisible(false);
-		
+
 		while (window3.isOpen())
 		{
 			sf::Event event;
-			
+
 			while (window3.pollEvent(event)) {
 				switch (event.type)
 				{
@@ -70,22 +70,22 @@ int main()
 
 							break;
 						case 1:
-							
+
 							window3.close();
 							window.close();
 							break;
 						case 2:
 							nombreJoueur = 1;
 							window.setVisible(true);
-							
+
 							window3.close();
 							cout << "1joueur" << endl;
-						
+
 							break;
 						case 3:
 							nombreJoueur = 2;
 							window.setVisible(true);
-							
+
 							window3.close();
 							cout << "2joueur" << endl;
 
@@ -108,19 +108,19 @@ int main()
 			window3.draw(background);
 			for (int i = 0; i < 5; i++)
 			{
-				if((i != 2&& i !=3)||afficher){
-					
+				if ((i != 2 && i != 3) || afficher) {
+
 					window3.draw(menu2.getMenu(i));
 				}
-				
+
 			}
 			window3.display();
 		}
-		
+
 		sf::Texture texture2;
 		texture2.loadFromFile("z.png");
 		sf::Sprite background3(texture2);
-		
+
 		if (nombreJoueur == 1) {
 			game.addPlayer(330, 30);
 			game.startMovingEnemies();
@@ -129,7 +129,7 @@ int main()
 			game.addPlayer(330, 30);
 			game.addPlayer(400, 330);
 			game.startMovingEnemies();
-			
+
 		}
 		while (window.isOpen())
 		{
@@ -137,28 +137,38 @@ int main()
 			window.clear();
 
 			window.draw(background3);
-			
-			for (unsigned i = 0;i<game.getEnemies().size();i++) {
+
+			//gestion wave
+			if (game.getEnemies().size() == 0 && game.getRemainingEnemies() == 0) { //En fin de vague plus d'enemis
+				game.nextWave();
+				if (game.getRemainingEnemies() > 4) {
+					for (int i = 0; i < 4; i++) {
+						game.addEnemy(220, 430, game.getWave()); //faire un switching de position par variable
+					}
+				}
+				else {
+					for (int i = 0; i < game.getRemainingEnemies(); i++) {
+						game.addEnemy(220, 430, game.getWave()); //faire un switching de position par variable
+					}
+				}
+			}
+
+			for (unsigned i = 0; i < game.getEnemies().size(); i++) {
 				if (game.getEnemies().at(i).getPv() > 0) {
 					window.draw(*(game.getEnemies().at(i).getSprite()));
 				}
-				
+
 			}
-			
+
 
 			// window.draw((game.getPlayers().at(0).getHitbox()));
 			//window.draw((game.getlifebarre()));
-			
+
 			game.stateInitializerCharacters();
 			for (int i = 0; i < nombreJoueur; i++) {
 				window.draw(*(game.getPlayers().at(i).getSprite()));
-				
+
 			}
-			
-			
-
-			
-
 
 			/*for (unsigned i = 0; i < game.getNbPlayers(); i++) {
 			}*/
@@ -224,78 +234,87 @@ int main()
 				}
 				if (nombreJoueur == 2) {
 
-				
-				if (Keyboard::isKeyPressed(Keyboard::F1)) {
-					game.setStateCharacter(1);
-					yMov2 -= 0.1;
-					game.setAnimYCharacter(1, Up);
-				}
-				if (Keyboard::isKeyPressed(Keyboard::F2)) {
-					game.setStateCharacter(1);
-					yMov2 += 0.1;
-					game.setAnimYCharacter(1, Down);
-				}
-				if (Keyboard::isKeyPressed(Keyboard::F3)) {
-					game.setStateCharacter(1);
-					xMov2 -= 0.1;
-					game.setAnimYCharacter(1, Left);
-				}
-				if (Keyboard::isKeyPressed(Keyboard::F4)) {
-					game.setStateCharacter(1);
-					xMov2 += 0.1;
-					game.setAnimYCharacter(1, Right);
-				}
-				if (Keyboard::isKeyPressed(Keyboard::F5)) {
-					
-					game.shoot(1);
-					std::vector<std::pair<float, float>> vec;
-					vec = game.trajectoireBalle(1);
-					CircleShape rs(5, 20);
-					rs.setPosition(sf::Vector2f((vec.at(0).first) * 30, (vec.at(0).second) * 30));
-					rs.setFillColor(sf::Color::Magenta);
-					for (int i = 0; i < vec.size(); i++) {
-						rs.setPosition(vec.at(i).first * 30, vec.at(i).second * 30);
-						window.draw(rs);
-						window.display();
+
+					if (Keyboard::isKeyPressed(Keyboard::F1)) {
+						game.setStateCharacter(1);
+						yMov2 -= 0.1;
+						game.setAnimYCharacter(1, Up);
+					}
+					if (Keyboard::isKeyPressed(Keyboard::F2)) {
+						game.setStateCharacter(1);
+						yMov2 += 0.1;
+						game.setAnimYCharacter(1, Down);
+					}
+					if (Keyboard::isKeyPressed(Keyboard::F3)) {
+						game.setStateCharacter(1);
+						xMov2 -= 0.1;
+						game.setAnimYCharacter(1, Left);
+					}
+					if (Keyboard::isKeyPressed(Keyboard::F4)) {
+						game.setStateCharacter(1);
+						xMov2 += 0.1;
+						game.setAnimYCharacter(1, Right);
+					}
+					if (Keyboard::isKeyPressed(Keyboard::F5)) {
+
+						game.shoot(1);
+						std::vector<std::pair<float, float>> vec;
+						vec = game.trajectoireBalle(1);
+						CircleShape rs(5, 20);
+						rs.setPosition(sf::Vector2f((vec.at(0).first) * 30, (vec.at(0).second) * 30));
+						rs.setFillColor(sf::Color::Magenta);
+						for (int i = 0; i < vec.size(); i++) {
+							rs.setPosition(vec.at(i).first * 30, vec.at(i).second * 30);
+							window.draw(rs);
+							window.display();
+						}
+
+						game.getEnemies().at(0).setHitTextureDepart();
+
+
 					}
 
-					game.getEnemies().at(0).setHitTextureDepart();
-
-
-				}
-
-				if (Keyboard::isKeyPressed(Keyboard::F6)) {
-					game.slice(1);
-				}
+					if (Keyboard::isKeyPressed(Keyboard::F6)) {
+						game.slice(1);
+					}
 				}
 
 				if (!game.hasCollision(0, xMov, yMov)) {
 					game.move(0, xMov, yMov);
 					game.setPositionCharacter(0);
-					
+
 					for (int i = 0; i < game.getEnemies().size(); i++) {
 						game.getEnemies().at(i).setPlayerMoving(true);
-				}
+					}
 					game.manageGame(0, fpsCount, fpsSpeed, switchFps, time);
 				}
-				if (nombreJoueur>1&&!game.hasCollision(1, xMov2, yMov2)) {
+				if (nombreJoueur > 1 && !game.hasCollision(1, xMov2, yMov2)) {
 					game.move(1, xMov2, yMov2);
 					game.setPositionCharacter(1);
 					//game.getEnemies().at(1).setPlayerMoving(true);
-					for (int i = 0; i < game.getEnemies().size(); i ++) {
+					for (int i = 0; i < game.getEnemies().size(); i++) {
 						game.getEnemies().at(i).setPlayerMoving(true);
 					}
 					game.manageGame(1, fpsCount, fpsSpeed, switchFps, time);
 				}
 
-				
-					
-				
 
-				
+
+
+
+
 			}
 			game.manageEnemi(fpsCount, fpsSpeed, switchFps, time);
 
+			/*---------------*/
+			for (int i = 0; i < game.getEnemies().size(); i++) {
+				if (game.getEnemies()[i].getPv() == 0) {  //bug
+					game.getEnemies().erase(game.getEnemies().begin() + i + 1);
+				}
+			}
+			while (game.getEnemies().size() < 4 && game.getRemainingEnemies() > 0) {
+				game.addEnemy(220, 430, game.getWave());
+			}
 		}
 	}
 	catch (std::exception const & e) {

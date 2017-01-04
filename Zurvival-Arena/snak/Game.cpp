@@ -9,14 +9,11 @@
 #include <map>
 using namespace sf;
 
-Game::Game(unsigned width, unsigned height) {
+Game::Game(unsigned width, unsigned height, int fiboNbEnemies) : nbEnemies(fiboNbEnemies){
 	arena_ = Arena(width, height);
 	/*pathToEnemy.reserve(enemies_.size());*/
-	nbEnemies = 0;
 	pathToEnemy.push_back(vector<pair<int, int>>((make_pair(9, 0), 2)));
 	pathToEnemy.push_back(vector<pair<int, int>>((make_pair(9, 0), 2)));
-
-
 }
 
 bool Game::hasCollision(int idPlayer, float movex, float movey) {
@@ -70,7 +67,8 @@ const RectangleShape & Game::getHitBoxChar(int i)const
 void Game::addEnemy(float posX, float posY, int pv) {
 	
 	enemies_.push_back(Enemy(Position(posX, posY),nbEnemies, pv, this));
-	setNbEnemies(nbEnemies + 1);
+	nbEnemies--;
+	//setNbEnemies(nbEnemies + 1);
 }
 
 

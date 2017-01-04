@@ -89,7 +89,7 @@ Character::Character(Position position, int pv):position_(position),pv_(pv){
 
 	//hitbox_.setTexture(&perso_);
 
-	pv_ = 100;
+	pv_ = 100; // Changer ça !!!
 
 }
 
