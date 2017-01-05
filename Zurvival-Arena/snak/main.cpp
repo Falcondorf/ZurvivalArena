@@ -145,14 +145,15 @@ int main()
 				game.nextWave();
 				if (game.getRemainingEnemies() > 4) {
 					for (int i = 0; i < 4; i++) {
-						game.addEnemy(220, 430, game.getWave()); //faire un switching de position par variable
+						game.addEnemy(210, 240, game.getWave()); //faire un switching de position par variable
 					}
 				}
 				else {
 					for (int i = 0; i < game.getRemainingEnemies(); i++) {
-						game.addEnemy(220, 430, game.getWave()); //faire un switching de position par variable
+						game.addEnemy(210, 240, game.getWave()); //faire un switching de position par variable
 					}
 				}
+				game.startMovingEnemies();
 			}
 			for (unsigned i = 0; i < game.getEnemies().size(); i++) {
 				
@@ -303,7 +304,7 @@ int main()
 
 			game.removeDeadEnemies();
 			while (game.getEnemies().size() < 4 && game.getRemainingEnemies() > 0) {
-				game.addEnemy(220, 430, game.getWave());
+				game.addEnemy(210, 240, game.getWave());
 			}
 		}
 	}

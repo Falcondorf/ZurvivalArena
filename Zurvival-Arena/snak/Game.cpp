@@ -281,6 +281,7 @@ void Game::slice(int idPlayer)
 	for (unsigned i = 0; i < enemies_.size(); i++) {
 		if (Game::intersects(hitZone, enemies_.at(i).getHitbox())) {
 			enemies_.at(i).removePv(1);
+			//cout << "pv " <<enemies_.at(i).getPv() << endl;
 		}
 	}
 }
