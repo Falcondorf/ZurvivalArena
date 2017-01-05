@@ -151,7 +151,7 @@ int main()
 				else {
 					int remainingEnemies = game.getRemainingEnemies();
 					for (int i = 0; i < remainingEnemies; i++) {
-						game.addEnemy(210 * (i + 1) / 30, 240 * (i + 1) / 30, game.getWave()); //faire un switching de position par variable
+						game.addEnemy(210+30*(i+1)  , 240 , game.getWave()); //faire un switching de position par variable
 					}
 				}
 				game.startMovingEnemies();
