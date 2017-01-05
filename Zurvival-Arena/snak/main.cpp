@@ -132,7 +132,7 @@ int main()
 			game.startMovingEnemies();
 
 		}
-		unsigned nbEnemyDead=0;
+		unsigned nbEnemyDead = 0;
 		while (window.isOpen())
 		{
 			//window.display();
@@ -149,18 +149,20 @@ int main()
 					}
 				}
 				else {
-					for (int i = 0; i < game.getRemainingEnemies(); i++) {
-						game.addEnemy(210, 240, game.getWave()); //faire un switching de position par variable
+					int remainingEnemies = game.getRemainingEnemies();
+					for (int i = 0; i < remainingEnemies; i++) {
+						game.addEnemy(210 * (i + 1) / 30, 240 * (i + 1) / 30, game.getWave()); //faire un switching de position par variable
 					}
 				}
 				game.startMovingEnemies();
 			}
+			cout << "Taille liste = " << game.getEnemies().size() << endl;
 			for (unsigned i = 0; i < game.getEnemies().size(); i++) {
-				
+
 				if (game.getEnemies().at(i).getPv() > 0) {
 					window.draw(*(game.getEnemies().at(i).getSprite()));
 				}
-				
+
 
 			}
 
@@ -303,9 +305,9 @@ int main()
 			game.manageEnemi(fpsCount, fpsSpeed, switchFps, time);
 
 			game.removeDeadEnemies();
-			while (game.getEnemies().size() < 4 && game.getRemainingEnemies() > 0) {
+			/*while (game.getEnemies().size() < 4 && game.getRemainingEnemies() > 0) {
 				game.addEnemy(210, 240, game.getWave());
-			}
+			}*/
 		}
 	}
 	catch (std::exception const & e) {

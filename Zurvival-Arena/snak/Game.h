@@ -217,9 +217,10 @@ void Game::removeDeadEnemies() {
 			enemies_.end(),
 			[](Enemy & enemy) {
 			//std::cout << "Inside lambda" << std::endl;
+			//std::cout << "EPV   " <<  enemy.getPv() << std::endl;
 			if (!enemy.isDead && enemy.getPv() == 0) {
 				enemy.isDead = true;
-				std::cout << "Inside lambda" << std::endl;
+				//std::cout << "Inside lambda" << std::endl;
 				//enemy.getthreads()->detach();
 				return true;
 			}
@@ -228,5 +229,6 @@ void Game::removeDeadEnemies() {
 			}
 		}), enemies_.end());
 	}
+	//std::cout << "After lambda" << std::endl;
 	
 }
