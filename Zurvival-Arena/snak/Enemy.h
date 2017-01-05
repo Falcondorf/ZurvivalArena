@@ -15,6 +15,8 @@ class Game;
 class Enemy : public Character {
 private:
 	unsigned start = 0;
+	unsigned idLevel=1;
+
 	Game * game=nullptr;
 	std::vector<std::pair<int, int>> pathToPlayer;
 	int indicePath;
@@ -58,6 +60,10 @@ public:
 	inline const Position &getPositionFirst() const;
 	inline unsigned getId()const;
 	bool isDead = false;
+	void spriteLevel();
+	void nextLevel();
+	void loadTextureStart();
+	void loadTexture();
 };
 
 

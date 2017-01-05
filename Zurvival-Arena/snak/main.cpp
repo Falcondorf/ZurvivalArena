@@ -18,10 +18,8 @@ int main()
 		/*game.addPlayer(330, 30);
 		game.addPlayer(400, 330);*/
 		game.addEnemy(210, 240, 1);
-		//game.addEnemy(300, 410, 2);
-
-
-		//game.addEnemy(180, 120, 4);
+		game.addEnemy(300, 410, 2);
+		game.addEnemy(180, 120, 3);
 
 
 		lastPosition = make_pair(11, 2);
@@ -139,24 +137,29 @@ int main()
 			window.clear();
 
 			window.draw(background3);
-
-			//gestion wave
-			if (game.getEnemies().size() == 0 && game.getRemainingEnemies() == 0) { //En fin de vague plus d'enemis
-				game.nextWave();
-				if (game.getRemainingEnemies() > 4) {
-					for (int i = 0; i < 4; i++) {
-						game.addEnemy(210, 240, game.getWave()); //faire un switching de position par variable
-					}
-				}
-				else {
-					int remainingEnemies = game.getRemainingEnemies();
-					for (int i = 0; i < remainingEnemies; i++) {
-						game.addEnemy(210+30*(i+1)  , 240 , game.getWave()); //faire un switching de position par variable
-					}
-				}
+			if (game.allEnemiesIsDead()) {
+				game.nextLevel();
 				game.startMovingEnemies();
 			}
-			cout << "Taille liste = " << game.getEnemies().size() << endl;
+			//gestion wave
+			//if (game.getEnemies().size() == 0 && game.getRemainingEnemies() == 0) { //En fin de vague plus d'enemis
+			//	game.nextWave();
+			//	if (game.getRemainingEnemies() > 4) {
+			//		for (int i = 0; i < 4; i++) {
+			//			game.addEnemy(210, 240, game.getWave()); //faire un switching de position par variable
+			//		}
+			//	}
+			//	else {
+			//		int remainingEnemies = game.getRemainingEnemies();
+			//		for (int i = 0; i < remainingEnemies; i++) {
+			//			game.addEnemy(210+30*(i+1)  , 240 , game.getWave()); //faire un switching de position par variable
+			//		}
+			//	}
+			//	game.startMovingEnemies();
+			//}
+			//cout << "Taille liste = " << game.getEnemies().size() << endl;
+			
+			
 			for (unsigned i = 0; i < game.getEnemies().size(); i++) {
 
 				if (game.getEnemies().at(i).getPv() > 0) {
@@ -198,23 +201,23 @@ int main()
 				float xMov = 0, yMov = 0, xMov2 = 0, yMov2 = 0;
 				if (Keyboard::isKeyPressed(Keyboard::Up)) {
 					game.setStateCharacter(0);
-					yMov -= 0.1;
+					yMov -= 0.4;
 					game.setAnimYCharacter(0, Up);
 
 				}
 				if (Keyboard::isKeyPressed(Keyboard::Down)) {
 					game.setStateCharacter(0);
-					yMov += 0.1;
+					yMov += 0.4;
 					game.setAnimYCharacter(0, Down);
 				}
 				if (Keyboard::isKeyPressed(Keyboard::Left)) {
 					game.setStateCharacter(0);
-					xMov -= 0.1;
+					xMov -= 0.4;
 					game.setAnimYCharacter(0, Left);
 				}
 				if (Keyboard::isKeyPressed(Keyboard::Right)) {
 					game.setStateCharacter(0);
-					xMov += 0.1;
+					xMov += 0.4;
 					game.setAnimYCharacter(0, Right);
 
 				}
@@ -304,7 +307,7 @@ int main()
 			}
 			game.manageEnemi(fpsCount, fpsSpeed, switchFps, time);
 
-			game.removeDeadEnemies();
+			//game.removeDeadEnemies();
 			/*while (game.getEnemies().size() < 4 && game.getRemainingEnemies() > 0) {
 				game.addEnemy(210, 240, game.getWave());
 			}*/

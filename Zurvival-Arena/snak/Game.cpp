@@ -11,9 +11,11 @@ using namespace sf;
 using namespace std;
 Game::Game(unsigned width, unsigned height, int fiboNbEnemies) : nbEnemies(fiboNbEnemies){
 	arena_ = Arena(width, height);
-	/*pathToEnemy.reserve(enemies_.size());*/
-	pathToEnemy.push_back(vector<pair<int, int>>((make_pair(9, 0), 2)));
-	pathToEnemy.push_back(vector<pair<int, int>>((make_pair(9, 0), 2)));
+	for (unsigned i = 0;i<7; i++) {
+		Level lvl;
+		lvl.nbPv = 100;// *pow(10, i);
+		levels.push_back(lvl);
+	}
 }
 
 bool Game::hasCollision(int idPlayer, float movex, float movey) {
@@ -297,6 +299,23 @@ bool Game::isFinishGame() {
 	return gameFinish;
 }
 
+void Game::nextLevel() {
+	idLevel++;
+	for (unsigned i=0;i < enemies_.size();i++) {
+		enemies_.at(i).nextLevel();
+		enemies_.at(i).setPv(levels.at(idLevel).nbPv);
+		enemies_.at(i).spriteLevel();
+	}
+}
+
+bool Game::allEnemiesIsDead() const {
+	for (auto & e : enemies_) {
+		if (e.getPv() > 0) {
+			return false;
+		}
+	}
+	return true;
+}
 // NE PAS TOUCHER CI_DESSOUS
 
 //

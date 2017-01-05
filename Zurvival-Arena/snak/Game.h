@@ -19,9 +19,15 @@ struct Node {
 	unsigned hValue;
 	unsigned fValue;
 };
+struct Level {
+	std::string pathPics;
+	unsigned nbPv;
+};
 
 class Game : nvs::Subject {
 private:
+	std::vector<Level> levels;
+	unsigned idLevel;
 	int waveLevel = 0; //increment when enemyList empty
 	bool brainLock = false;
 	unsigned nbEnemies;
@@ -41,6 +47,7 @@ private:
 	bool playerMove = false;
 	std::vector< std::vector<std::pair<int, int>> > pathToEnemy;
 	inline int fib(int x) const;
+
 
 public:
 	bool isFinishGame();
@@ -99,6 +106,9 @@ public:
 	inline const  sf::RectangleShape & getlifebarre() const;
 	inline bool isBrainLocked()const;
 	inline void setBrainLock(bool lock);
+
+	void nextLevel();
+	bool allEnemiesIsDead() const;
 
 	/////// Interaction Joueur Ennemi
 	void removePvOfPlayer(unsigned i);

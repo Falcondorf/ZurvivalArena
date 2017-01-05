@@ -48,19 +48,35 @@ void Enemy::resetIndicePath() {
 	indicePath = 0;
 }
 void Enemy::setHitTexture() {
-	sf::Texture* perso = new sf::Texture();
+	/*delete perso_;
+	perso_ = nullptr;
+	perso_ = new sf::Texture();*/
+
+	/*sf::Texture* perso = new sf::Texture();
 	if (!perso->loadFromFile("pics/jake33.png")) {
 		std::cout << "error loading image" << std::endl;
 	}
-	spritePerso_->setTexture(*perso);
+	spritePerso_->setTexture(*perso);*/
+	loadTexture();
+	/*spritePerso_->setPosition(getHitbox().getPosition());
+	spritePerso_->setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
+	spritePerso_->setScale(sf::Vector2f(0.9, 0.5));*/
 }
 
 void Enemy::setHitTextureDepart() {
-	sf::Texture* perso = new sf::Texture();
-	if (!perso->loadFromFile("pics/jake3.png")) {
-		std::cout << "error loading image" << std::endl;
-	}
-	spritePerso_->setTexture(*perso);
+	//delete perso_;
+	//perso_ = nullptr;
+	//perso_ = new sf::Texture();
+	//
+	////sf::Texture* perso = new sf::Texture();
+	//if (!perso_->loadFromFile("pics/jake3.png")) {
+	//	std::cout << "error loading image" << std::endl;
+	//}
+	//spritePerso_->setTexture(*perso_);
+	//spritePerso_->setPosition(getHitbox().getPosition());
+	//spritePerso_->setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
+	//spritePerso_->setScale(sf::Vector2f(0.9, 0.5));
+	loadTextureStart();
 }
 
 //void Enemy::setHitTextureHit() {
@@ -500,4 +516,74 @@ void Enemy::moveToPos( vector < pair<int, int> >v) {
 
 
 	//uptadeSpritePosition();
+}
+
+
+void Enemy::spriteLevel() {
+	loadTexture();
+	
+}
+
+void Enemy::nextLevel() {
+	idLevel++;
+}
+
+void Enemy::loadTextureStart() {
+	delete perso_;
+	perso_ = nullptr;
+	perso_ = new sf::Texture();
+	switch(idLevel) {
+	case 1:
+		perso_->loadFromFile("pics/0.png");
+		break;
+	case 2:
+		perso_->loadFromFile("pics/1.png");
+		break;
+	case 3:
+		perso_->loadFromFile("pics/2.png");
+		break;
+	case 4:
+		perso_->loadFromFile("pics/3.png");
+		break;
+	case 5:
+		perso_->loadFromFile("pics/4.png");
+		break;
+	case 6:
+		perso_->loadFromFile("pics/5.png");
+		break;
+	}
+	spritePerso_->setTexture(*perso_);
+	spritePerso_->setPosition(getHitbox().getPosition());
+	spritePerso_->setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
+	spritePerso_->setScale(sf::Vector2f(0.9, 0.5));
+}
+
+void Enemy::loadTexture() {
+	delete perso_;
+	perso_ = nullptr;
+	perso_ = new sf::Texture();
+	switch (idLevel) {
+	case 1:
+		perso_->loadFromFile("pics/jake33.png");
+		break;
+	case 2:
+		perso_->loadFromFile("pics/11.png");
+		break;
+	case 3:
+		perso_->loadFromFile("pics/22.png");
+		break;
+	case 4:
+		perso_->loadFromFile("pics/33.png");
+		break;
+	case 5:
+		perso_->loadFromFile("pics/44.png");
+		break;
+	case 6:
+		perso_->loadFromFile("pics/55.png");
+		break;
+	}
+	spritePerso_->setTexture(*perso_);
+	spritePerso_->setPosition(getHitbox().getPosition());
+	spritePerso_->setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
+	spritePerso_->setScale(sf::Vector2f(0.9, 0.5));
 }
