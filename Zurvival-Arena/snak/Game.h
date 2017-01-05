@@ -75,6 +75,8 @@ public:
 	inline void removeEnemy(unsigned);
 	void startMovingEnemies();
 
+	// DEBUT TOUCHER PAS AU COMMENTAIRE CI_DESSOUS
+	
 	//void brain(unsigned i);
 	//bool nodeExistInList(std::pair<int, int> n, map <std::pair<int, int>, Node>& l);
 	//void addAdjectentCell(std::pair <int, int>& n);
@@ -82,15 +84,12 @@ public:
 	//std::pair<int, int> bestNode(map <std::pair<int, int>, Node> l);
 	//void addToClosedList(std::pair<int, int>& p);
 	//vector<std::pair<int, int>> recoverPath(Node start, Node objectif);
+	
+	// FIN TOUCHER PAS AU COMMENTAIRE CI_DESSUS
 
 	inline Arena getArena();
 	//sf::Vector2f getNextPos(unsigned idEnemy, bool eraseFirst);
 
-
-	/*int findDirection(unsigned idEnemy, vector < std::pair<int, int> >v);*/
-
-
-	void moveToPos(unsigned idEnemy, std::vector < std::pair<int, int> >v);
 	void shoot(int idPlayer);
 	void slice(int idPlayer);
 	void playerMoving(bool moving);
@@ -212,20 +211,22 @@ void Game::setEnemyHitTextureDepart(int i)
 }
 #include <iostream>
 void Game::removeDeadEnemies() {
-	std::cout << "Before erase" << std::endl;
-	enemies_.erase(std::remove_if(enemies_.begin(),
-		enemies_.end(),
-		[](Enemy & enemy) {
-		std::cout << "Inside lambda" << std::endl;
-		if (!enemy.isDead && enemy.getPv() == 0) {
-			enemy.isDead = true;
-			enemy.getthreads()->detach();
-			return true;
-		}
-		else {
-			return false;
-		}
-	}), enemies_.end());
-
-	std::cout << "After erase" << std::endl;
+	//std::cout << "Before erase" << std::endl;
+	if (!enemies_.empty()) {
+		enemies_.erase(std::remove_if(enemies_.begin(),
+			enemies_.end(),
+			[](Enemy & enemy) {
+			//std::cout << "Inside lambda" << std::endl;
+			if (!enemy.isDead && enemy.getPv() == 0) {
+				enemy.isDead = true;
+				std::cout << "Inside lambda" << std::endl;
+				//enemy.getthreads()->detach();
+				return true;
+			}
+			else {
+				return false;
+			}
+		}), enemies_.end());
+	}
+	
 }

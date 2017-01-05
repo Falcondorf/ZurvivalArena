@@ -39,6 +39,7 @@ private:
 	void moveToPos(std::vector < std::pair<int, int> >v);
 
 public:
+
 	Enemy(Position position, int pv,unsigned id, Game * gam);
 	void uptadeSpritePosition();
 	inline void setPath(std::vector<std::pair<int, int>> p);

@@ -132,6 +132,7 @@ int main()
 			game.startMovingEnemies();
 
 		}
+		unsigned nbEnemyDead=0;
 		while (window.isOpen())
 		{
 			//window.display();
@@ -153,14 +154,14 @@ int main()
 					}
 				}
 			}
-
 			for (unsigned i = 0; i < game.getEnemies().size(); i++) {
+				
 				if (game.getEnemies().at(i).getPv() > 0) {
 					window.draw(*(game.getEnemies().at(i).getSprite()));
 				}
+				
 
 			}
-
 
 			// window.draw((game.getPlayers().at(0).getHitbox()));
 			//window.draw((game.getlifebarre()));
@@ -301,7 +302,6 @@ int main()
 			game.manageEnemi(fpsCount, fpsSpeed, switchFps, time);
 
 			game.removeDeadEnemies();
-			
 			while (game.getEnemies().size() < 4 && game.getRemainingEnemies() > 0) {
 				game.addEnemy(220, 430, game.getWave());
 			}

@@ -152,6 +152,7 @@ void Enemy::functionMovingEnemies() {
 			}
 
 	}
+
 	threadEnemies.detach();
 }
 
@@ -420,7 +421,7 @@ int Enemy::findDirection(vector < pair<int, int> >v) { // en fonction de sa posi
 
 void Enemy::moveToPos( vector < pair<int, int> >v) {
 	int i = 0;
-	while (i < 50000 && !game->isFinishGame()) {
+	while (i < 50000 && !game->isFinishGame() && pv_ > 0) {
 		switch (findDirection(v)) {
 		case 0:
 			move(0, -0.0006);   //mouvement graphique
@@ -498,5 +499,5 @@ void Enemy::moveToPos( vector < pair<int, int> >v) {
 	}
 
 
-	uptadeSpritePosition();
+	//uptadeSpritePosition();
 }
