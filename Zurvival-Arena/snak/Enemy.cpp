@@ -100,7 +100,7 @@ void Enemy::functionMovingEnemies() {
 
 	vector< vector<pair<int, int>> > pathToEn;
 
-	while ( !game->isFinishGame()  && pv_ > 0) {
+	while (!game->isFinishGame() && pv_ > 0) {
 
 		/*for (int i = 0; i < enemies_.size(); i++) {*/
 
@@ -108,7 +108,7 @@ void Enemy::functionMovingEnemies() {
 			/*v = pathToPlayer.at(i);*/
 		}
 
-		if (getPlayerMoving() == true && (start==0 || !game->isBrainLocked() ) ) {
+		if (getPlayerMoving() == true && (start == 0 || !game->isBrainLocked())) {
 			cout << "Brain" << endl;
 			start++;
 			pathToPlayer.clear();
@@ -121,8 +121,9 @@ void Enemy::functionMovingEnemies() {
 			cout << "yassine " << players_.at(0).getHitbox().getPosition().x / 30 << " " << players_.at(0).getHitbox().getPosition().y / 30 << endl;*/
 			setPlayerMoving(false);
 			resetIndicePath();
-			
 		}
+
+		if(pv_>0){
 
 		if (indicePath < pathToPlayer.size()) {
 			game->getPlayers().at(0).getSprite()->setRotation(0);
@@ -131,7 +132,7 @@ void Enemy::functionMovingEnemies() {
 				textChange = false;
 			}
 
-			moveToPos(v); 
+			moveToPos(v);
 			incrementIndicePath();
 		}
 		else {
@@ -153,22 +154,24 @@ void Enemy::functionMovingEnemies() {
 		/*cout << getHitbox().getPosition().x << "         " << getHitbox().getPosition().y << endl;
 		cout << players_.at(i).getHitbox().getPosition().x <<"       " <<  players_.at(i).getHitbox().getPosition().y << endl;*/
 		/*}*/
-			for (int l = 0; l < game->getPlayers().size(); l++) {
-				if (game->intersects(getHitbox(), game->getPlayers().at(l).getHitbox())) {
-					
-					//TODO .....
-					game->removePvOfPlayer(1);
-					cout << "player pv : " << game->getPlayers().at(l).getPv() << endl;
-					sf::RectangleShape rce = game->getPlayers().at(l).getlifebar();
-					if (rce.getSize().x > 0) {
-						rce.setSize(sf::Vector2f(rce.getSize().x - 0.005, rce.getSize().y));
-						game->setLifeBarOfPlayer(l,rce);
-					}
+		for (int l = 0; l < game->getPlayers().size(); l++) {
+			if (game->intersects(getHitbox(), game->getPlayers().at(l).getHitbox())) {
+
+				//TODO .....
+				game->removePvOfPlayer(1);
+				cout << "player pv : " << game->getPlayers().at(l).getPv() << endl;
+				sf::RectangleShape rce = game->getPlayers().at(l).getlifebar();
+				if (rce.getSize().x > 0) {
+					rce.setSize(sf::Vector2f(rce.getSize().x - 0.005, rce.getSize().y));
+					game->setLifeBarOfPlayer(l, rce);
 				}
 			}
+		}
 
+		//if
+	}	
+		
 	}
-
 	threadEnemies.detach();
 }
 
@@ -228,7 +231,7 @@ void Enemy::brain()
 		//	cout << "JJJPX2  " << arrivee.position.x << " JJJPY2  " << arrivee.position.y << endl;
 		while (!((courant.first <= arrivee.position.x && courant.first + 1 >arrivee.position.x) 
 			&& (courant.second <= arrivee.position.y && courant.second + 1 > arrivee.position.y))
-			&& (!openList.empty())&& !game->isFinishGame()) {
+			&& (!openList.empty())&& !game->isFinishGame() && pv_>0) {
 
 			//yassine !! dans le cas ou on déplace le joueur pendant que l ennemi bouge l'open list est vide 
 			courant = bestNode(openList);	// si l open list est vide brain ne donne plus de path à l'ennemi et du coup n'adapte pas sa trajectoire pour suivre le joueur
@@ -238,7 +241,7 @@ void Enemy::brain()
 		int x = arrivee.position.x;
 		int y = arrivee.position.y;
 		if ((courant.first <= arrivee.position.x && courant.first + 1 > arrivee.position.x) &&
-			(courant.second <= arrivee.position.y && courant.second + 1 > arrivee.position.y)) {
+			(courant.second <= arrivee.position.y && courant.second + 1 > arrivee.position.y) && pv_>0) {
 			pathToPlayer.clear();
 			pathToPlayer = recoverPath(depart, arrivee);
 			//add the best possibloe movement
@@ -283,7 +286,6 @@ void Enemy::addAdjectentCell(pair<int, int>& n)
 				/* obstace, terrain non franchissable, on oublie */
 				continue;
 			}
-
 
 			pair<int, int> it(i, j);
 			if (!nodeExistInList(it, closedList)) {
@@ -526,6 +528,7 @@ void Enemy::spriteLevel() {
 
 void Enemy::nextLevel() {
 	idLevel++;
+	//start = 0;
 }
 
 void Enemy::loadTextureStart() {

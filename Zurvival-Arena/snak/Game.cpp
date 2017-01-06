@@ -305,6 +305,7 @@ void Game::nextLevel() {
 		enemies_.at(i).nextLevel();
 		enemies_.at(i).setPv(levels.at(idLevel).nbPv);
 		enemies_.at(i).spriteLevel();
+		enemies_.at(i).reload();
 	}
 }
 

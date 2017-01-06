@@ -217,7 +217,10 @@ void Game::setEnemyPlayerMoving(int i, bool isMoving) {
 
 void Game::setEnemyHitTextureDepart(int i)
 {
-	enemies_.at(i).setHitTextureDepart();
+	if (!enemies_.empty()) {
+		enemies_.at(i).setHitTextureDepart();
+	}
+	
 }
 #include <iostream>
 void Game::removeDeadEnemies() {

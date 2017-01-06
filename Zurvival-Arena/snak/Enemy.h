@@ -55,6 +55,7 @@ public:
 	void Enemy::setHitTextureDepart();
 	void Enemy::setHitTextureHit();
 	void startMovingEnemies();
+	inline void reload();
 	void functionMovingEnemies();
 	inline std::thread * getthreads();
 	inline const Position &getPositionFirst() const;
@@ -65,6 +66,12 @@ public:
 	void loadTextureStart();
 	void loadTexture();
 };
+
+void Enemy::reload() {
+	//threadEnemies.detach();
+	//threadEnemies.~thread();
+	startMovingEnemies();
+}
 
 
 void Enemy::setPath(std::vector<std::pair<int, int>> p) {
