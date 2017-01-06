@@ -102,7 +102,7 @@ void Enemy::functionMovingEnemies() {
 
 	while (!game->isFinishGame() && pv_ > 0) {
 
-		/*for (int i = 0; i < enemies_.size(); i++) {*/
+		
 
 		if (!pathToPlayer.empty()) {
 			/*v = pathToPlayer.at(i);*/
@@ -136,9 +136,9 @@ void Enemy::functionMovingEnemies() {
 			incrementIndicePath();
 		}
 		else {
-			if (game->getPlayers().at(0).getPv() < 2) {
+			if (game->getPlayers().at(0).getPv() < 1) {
 
-
+				
 			}
 			else {
 				game->removePvOfPlayer(1);
@@ -584,6 +584,7 @@ void Enemy::loadTexture() {
 	case 6:
 		perso_->loadFromFile("pics/55.png");
 		break;
+
 	}
 	spritePerso_->setTexture(*perso_);
 	spritePerso_->setPosition(getHitbox().getPosition());

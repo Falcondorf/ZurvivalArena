@@ -78,6 +78,7 @@ int main()
 							window.setVisible(true);
 
 							window3.close();
+
 							cout << "1joueur" << endl;
 
 							break;
@@ -131,35 +132,66 @@ int main()
 
 		}
 		unsigned nbEnemyDead = 0;
+
+		bool jouer = true;
+
+		sf::RenderWindow window4(sf::VideoMode(800, 450), "Zurvival Arena");
+		window4.setVisible(false);
 		while (window.isOpen())
 		{
-			//window.display();
+
+			if (nombreJoueur == 1) {
+				if (game.getPlayers().at(0).getPv() == 0) {
+
+
+					game.finishGame();
+					window4.setVisible(true);
+
+
+					sf::Texture texture;
+					texture.loadFromFile("fin.jpg");
+					sf::Sprite background(texture);
+					window4.draw(background);
+
+					window4.display();
+
+				}
+			}
+			/*else if (nombreJoueur == 2) {
+				if (game.getPlayers().at(0).getPv() == 0 && game.getPlayers().at(1).getPv() == 0) {
+
+
+					game.finishGame();
+					window4.setVisible(true);
+
+
+					sf::Texture texture;
+					texture.loadFromFile("fin.jpg");
+					sf::Sprite background(texture);
+					window4.draw(background);
+
+					window4.display();
+
+				}*/
+
+			}
+			
+
+
+
+
+
 			window.clear();
 
 			window.draw(background3);
+
 			if (game.allEnemiesIsDead()) {
 				game.nextLevel();
-				//game.startMovingEnemies();
+
 			}
-			//gestion wave
-			//if (game.getEnemies().size() == 0 && game.getRemainingEnemies() == 0) { //En fin de vague plus d'enemis
-			//	game.nextWave();
-			//	if (game.getRemainingEnemies() > 4) {
-			//		for (int i = 0; i < 4; i++) {
-			//			game.addEnemy(210, 240, game.getWave()); //faire un switching de position par variable
-			//		}
-			//	}
-			//	else {
-			//		int remainingEnemies = game.getRemainingEnemies();
-			//		for (int i = 0; i < remainingEnemies; i++) {
-			//			game.addEnemy(210+30*(i+1)  , 240 , game.getWave()); //faire un switching de position par variable
-			//		}
-			//	}
-			//	game.startMovingEnemies();
-			//}
-			//cout << "Taille liste = " << game.getEnemies().size() << endl;
-			
-			
+
+
+
 			for (unsigned i = 0; i < game.getEnemies().size(); i++) {
 
 				if (game.getEnemies().at(i).getPv() > 0) {
@@ -311,11 +343,16 @@ int main()
 			/*while (game.getEnemies().size() < 4 && game.getRemainingEnemies() > 0) {
 				game.addEnemy(210, 240, game.getWave());
 			}*/
+
 		}
+
 	}
 	catch (std::exception const & e) {
 		std::cout << e.what();
 		return EXIT_FAILURE;
 	}
 	return EXIT_SUCCESS;
+
+
 }
+

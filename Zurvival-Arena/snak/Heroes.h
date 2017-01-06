@@ -10,7 +10,7 @@ class Heroes : public Character
 public:
 	inline Heroes(Position pos, int pv, unsigned num);
 	inline Heroes(std::string name);
-	inline std::vector<int,int> trajectoireBalle();
+	//inline std::vector<int,int> trajectoireBalle();
 	inline std::string getName() const;
 private:
 
