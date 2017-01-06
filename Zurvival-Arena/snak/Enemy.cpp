@@ -268,12 +268,12 @@ void Enemy::addAdjectentCell(pair<int, int>& n)
 		posPlayer = Position(game->getPlayers().at(1).getHitbox().getPosition().x, game->getPlayers().at(1).getHitbox().getPosition().y);
 	}
 	Node2 tmp;
-	for (int i = n.first - 1; i <= n.first + 1 && !game->isFinishGame(); i++) {
+	for (int i = n.first - 1; i <= n.first + 1 && !game->isFinishGame() && pv_>0 ; i++) {
 		if ((i < 0) || (i >= (game->getArena().getHeight() / 30))) {
 			/* en dehors de l'arène, on oublie */
 			continue;
 		}
-		for (int j = n.second - 1; j <= n.second + 1 && !game->isFinishGame(); j++) {
+		for (int j = n.second - 1; j <= n.second + 1 && !game->isFinishGame() && pv_>0; j++) {
 			if ((j < 0) || (j >= (game->getArena().getWidth() / 30))) {
 				/* en dehors de l'arène, on oublie */
 				continue;
@@ -333,7 +333,7 @@ pair<int, int> Enemy::bestNode(map <pair<int, int>, Node2> l) {
 			}
 	}
 	else {
-		for (map <pair<int, int>, Node2>::iterator i = l.begin(); i != l.end() && !game->isFinishGame(); i++)
+		for (map <pair<int, int>, Node2>::iterator i = l.begin(); i != l.end() && !game->isFinishGame() && pv_>0; i++)
 			if (i->second.fValue < m_coutf) {
 				m_coutf = i->second.fValue;
 				m_noeud = i->first;
@@ -383,7 +383,7 @@ vector<pair<int, int>> Enemy::recoverPath(Node2 start, Node2 objectif)
 	chemin.insert(chemin.begin(), n);
 
 
-	while (prec != pair<int, int>(start.parent.x, start.parent.y) && !game->isFinishGame()) {
+	while (prec != pair<int, int>(start.parent.x, start.parent.y) && !game->isFinishGame() && pv_>0) {
 
 		n.first = prec.first;
 		n.second = prec.second;

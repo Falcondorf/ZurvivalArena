@@ -18,8 +18,8 @@ int main()
 		/*game.addPlayer(330, 30);
 		game.addPlayer(400, 330);*/
 		game.addEnemy(210, 240, 1);
-		/*game.addEnemy(300, 410, 2);
-		game.addEnemy(180, 120, 3);*/
+		game.addEnemy(300, 410, 2);
+		game.addEnemy(180, 120, 3);
 
 
 		lastPosition = make_pair(11, 2);

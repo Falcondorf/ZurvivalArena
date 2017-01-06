@@ -68,6 +68,7 @@ public:
 };
 
 void Enemy::reload() {
+	start = 0;
 	//threadEnemies.detach();
 	//threadEnemies.~thread();
 	startMovingEnemies();

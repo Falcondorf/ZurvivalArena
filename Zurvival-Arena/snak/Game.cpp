@@ -13,6 +13,7 @@ Game::Game(unsigned width, unsigned height, int fiboNbEnemies) : nbEnemies(fiboN
 	arena_ = Arena(width, height);
 	for (unsigned i = 0;i<7; i++) {
 		Level lvl;
+		// Décommenter à la fin !!!!!!!!
 		lvl.nbPv = 100;// *pow(10, i);
 		levels.push_back(lvl);
 	}
@@ -306,6 +307,7 @@ void Game::nextLevel() {
 		enemies_.at(i).setPv(levels.at(idLevel).nbPv);
 		enemies_.at(i).spriteLevel();
 		enemies_.at(i).reload();
+		
 	}
 }
 
