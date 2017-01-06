@@ -568,7 +568,7 @@ void Enemy::loadTexture() {
 	switch (idLevel) {
 	case 1:
 		perso_->loadFromFile("pics/jake33.png");
-		break;
+		break;//ffffff
 	case 2:
 		perso_->loadFromFile("pics/11.png");
 		break;
