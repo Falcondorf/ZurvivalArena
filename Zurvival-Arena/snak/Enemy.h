@@ -39,6 +39,7 @@ private:
 	bool nodeExistInList(std::pair<int, int> n, std::map<std::pair<int, int>, Node2>& l);
 	int findDirection(std::vector < std::pair<int, int> >v);
 	void moveToPos(std::vector < std::pair<int, int> >v);
+	bool isAdjacent();
 
 public:
 

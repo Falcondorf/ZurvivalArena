@@ -1,4 +1,5 @@
 #include "Character.h"
+#include <iostream>
 
 using namespace sf;
 
@@ -30,7 +31,7 @@ void Character::setSize(float f1, float f2) {
 }
 
 void Character::removePv(unsigned damage) {
-
+	std::cout << " life player : " << getPv() << std::endl;
 	if (pv_ != 0) {
 		pv_ -= damage;
 	}

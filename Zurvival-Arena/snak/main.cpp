@@ -141,14 +141,12 @@ int main()
 		{
 
 			if (nombreJoueur == 1) {
-				cout << game.getPlayers().at(0).getNum() << endl;
-				if (game.getPlayers().at(0).getPv() < 1 && game.getPlayers().at(0).getNum() == 0) {
+				
+				if (game.getPlayers().at(0).getPv() < 1 ) {
 
 
 					game.finishGame();
 					window4.setVisible(true);
-
-
 					sf::Texture texture;
 					texture.loadFromFile("fin.jpg");
 					sf::Sprite background(texture);

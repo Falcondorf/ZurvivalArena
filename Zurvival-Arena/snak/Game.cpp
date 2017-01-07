@@ -32,12 +32,15 @@ bool Game::hasCollision(int idPlayer, float movex, float movey) {
 	}
 	for (int j = 0; j < getEnemies().size(); j++) {
 		if (intersects(getEnemies().at(j).getHitbox(), futurePosition)) {
-			players_.at(idPlayer).removePv(1);
-			sf::RectangleShape rce = players_.at(idPlayer).getlifebar();
-			if (rce.getSize().x > 0) {
-				rce.setSize(sf::Vector2f(rce.getSize().x - 0.005, rce.getSize().y));
+			if (getEnemies().at(j).getPv()!=0) {
+				players_.at(idPlayer).removePv(1);
+				sf::RectangleShape rce = players_.at(idPlayer).getlifebar();
+				if (rce.getSize().x > 0) {
+					rce.setSize(sf::Vector2f(rce.getSize().x - 0.005, rce.getSize().y));
+				}
+				players_.at(idPlayer).setlifebar(rce);
 			}
-			players_.at(idPlayer).setlifebar(rce);
+			
 			//players_.at(idPlayer).getlifebar().setSize(sf::Vector2f(players_.at(idPlayer).getlifebar().getSize().x-1, players_.at(idPlayer).getlifebar().getSize().y));
 
 
