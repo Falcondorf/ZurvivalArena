@@ -322,3 +322,4 @@ bool Game::allEnemiesIsDead() const {
 	}
 	return true;
 }
+

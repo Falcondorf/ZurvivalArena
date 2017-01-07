@@ -11,31 +11,30 @@ private:
 
 	unsigned width_;
 	unsigned height_;
-	std::vector<sf::RectangleShape> obstacles;
+	std::vector<sf::RectangleShape> obstacles_;
 	std::vector<std::vector<bool>> tiles_;
 
 public:
 	Arena()=default;
 	Arena(unsigned width,unsigned height);
+	bool isFree(float x, float y);
+	void setTiles();
 	inline unsigned getWidth()const;
 	inline unsigned getHeight() const;
-	void setTiles();
-	inline unsigned getNbObstacles();
-	inline sf::RectangleShape getObstacle(unsigned index);
-	inline std::vector<std::vector<bool>> getTiles();
-	bool isFree(float x, float y);
-	//void printTiles();
+	inline unsigned getNbObstacles() const;
+	inline const  sf::RectangleShape & getObstacle(unsigned index) const;
+	inline const  std::vector<std::vector<bool>> & getTiles() const;
 };
 
 
-unsigned Arena::getNbObstacles()
+unsigned Arena::getNbObstacles()const 
 {
-	return obstacles.size();
+	return obstacles_.size();
 }
 
-sf::RectangleShape Arena::getObstacle(unsigned index)
+const sf::RectangleShape  & Arena::getObstacle(unsigned index) const
 {
-	return obstacles[index];
+	return obstacles_[index];
 }
 
 unsigned Arena::getWidth() const {
@@ -45,6 +44,6 @@ unsigned Arena::getWidth() const {
 unsigned Arena::getHeight() const {
 	return height_;
 }
-std::vector<std::vector<bool>> Arena::getTiles() {
+const std::vector<std::vector<bool>> & Arena::getTiles()const {
 	return tiles_;
 }

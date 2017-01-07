@@ -64,16 +64,16 @@ Arena::Arena(unsigned width, unsigned height) : width_(width), height_(height) {
 		bottom.setOutlineColor(sf::Color::Blue);
 		bottom.setOutlineThickness(3);
 
-		obstacles.push_back(top);
-		obstacles.push_back(bottom);
-		obstacles.push_back(left);
-		obstacles.push_back(right);
-		obstacles.push_back(forest);
-		obstacles.push_back(bush);
-		obstacles.push_back(barn);
-		obstacles.push_back(barrier);
-		obstacles.push_back(puit);
-		obstacles.push_back(maisonette);
+		obstacles_.push_back(top);
+		obstacles_.push_back(bottom);
+		obstacles_.push_back(left);
+		obstacles_.push_back(right);
+		obstacles_.push_back(forest);
+		obstacles_.push_back(bush);
+		obstacles_.push_back(barn);
+		obstacles_.push_back(barrier);
+		obstacles_.push_back(puit);
+		obstacles_.push_back(maisonette);
 		setTiles();
 	}
 
@@ -89,7 +89,7 @@ void Arena::setTiles()
 
 	while (searchTile.getPosition().y < height_) {
 		while (searchTile.getPosition().x < width_) {
-			for (sf::RectangleShape rs : obstacles){
+			for (sf::RectangleShape rs : obstacles_){
 				if (Game::intersects(rs,searchTile)){
 					tiles_[column][line] = true;
 				}

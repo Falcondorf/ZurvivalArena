@@ -48,7 +48,7 @@ private:
 	std::vector< std::vector<std::pair<int, int>> > pathToEnemy;
 	inline int fib(int x) const;
 
-
+	void removePvInGame(unsigned damage); 
 public:
 	bool isFinishGame();
 	inline void nextWave();

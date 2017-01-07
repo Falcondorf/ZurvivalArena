@@ -12,7 +12,7 @@ int main()
 	const int width = 660;
 	const int height = 660;
 	bool afficher = false;
-	int nombreJoueur;
+	int nombreJoueur =0;
 	try {
 		Game game = Game(width, height, 1);
 		/*game.addPlayer(330, 30);

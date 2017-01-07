@@ -39,7 +39,7 @@ void Character::removePv(unsigned damage) {
 }
 
 void Character::manageSprite(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time) {
-	if (updateFps) {
+	if (updateFps_) {
 		fpsCount += fpsSpeed *time.restart().asSeconds();
 	}
 	else {
