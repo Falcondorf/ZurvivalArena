@@ -52,6 +52,7 @@ public:
 	void manageSprite(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
 	inline sf::Vector2i getAnim();
 	inline void setPv(unsigned pv);
+	inline unsigned getNum() const;
 };
 
 unsigned Character::getPv() const {
@@ -131,4 +132,8 @@ sf::Vector2i Character::getAnim() {
  void Character::setlifebar(sf::RectangleShape rce) {
 	 lifebar_ = rce;
 
+ }
+
+ unsigned Character::getNum() const {
+	 return num_;
  }
