@@ -110,12 +110,4 @@ bool Arena::isFree(float x, float y) {
 	return tiles_[p.getX()][p.getY()] == false;
 }
 
-//void Arena::printTiles()
-//{
-//	for (int i = 0; i < height_ / 30; i++) {
-//		for (int j = 0; j < width_ / 30; j++) {
-//			std::cout << tiles_[j][i];
-//		}
-//		std::cout << std::endl;
-//	}
-//}
+

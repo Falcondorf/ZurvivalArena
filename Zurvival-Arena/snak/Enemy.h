@@ -38,7 +38,7 @@ class Game;
 class Enemy : public Character {
 private:
 	/*!
-	* \brief Attribut privé permettant à un ennemi de se déplacer.
+	* \brief Attribut privé permettant à l'ennemi de calculer le chemin lors de son initialisation.
 	*/
 	unsigned start = 0;
 	/*!
@@ -179,7 +179,7 @@ public:
 	/*!
 	* \brief Méthode public faisant appel à la méthode privé loadTexture()
 	*/
-	void Enemy::setHitTextureDepart();
+	void setHitTextureDepart();
 	/*!
 	* \brief Méthode public permettant de lancer le thread.
 	*/

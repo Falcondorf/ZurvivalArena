@@ -1,8 +1,6 @@
 
 #include "Game.h"
-
 #include <vector>
-#include <iostream>
 #include <utility>
 #include <iterator>
 #include <algorithm>
@@ -18,7 +16,7 @@ Game::Game(unsigned width, unsigned height) {
 
 bool Game::hasCollision(int idPlayer, float movex, float movey) {
 	if (idPlayer < 0 || idPlayer>1) {
-		//throw invalid_argument();
+		throw ZurvivalException("nombre de player invalide");
 	}
 	RectangleShape futurePosition = players_.at(idPlayer).getHitbox();
 	futurePosition.move(movex, movey);
@@ -37,10 +35,6 @@ bool Game::hasCollision(int idPlayer, float movex, float movey) {
 				}
 				players_.at(idPlayer).setlifebar(rce);
 			}
-
-			//players_.at(idPlayer).getlifebar().setSize(sf::Vector2f(players_.at(idPlayer).getlifebar().getSize().x-1, players_.at(idPlayer).getlifebar().getSize().y));
-
-
 		}
 	}
 	return false;
@@ -62,13 +56,7 @@ unsigned Game::getNbPlayers() const
 	return players_.size();
 }
 
-//const RectangleShape & Game::getHitBoxChar(int i)const
-//{
-//	return players_.at(i).getHitbox();
-//}
-
 void Game::addEnemy(float posX, float posY, int pv) {
-	//nbEnemies++;
 	enemies_.push_back(Enemy(Position(posX, posY), nbEnemies, pv, this));
 }
 
@@ -116,7 +104,6 @@ void Game::shoot(int idPlayer) {
 				}
 				if (!isObstacle) {
 					enemies_.at(i).removePv(10);
-					cout << enemies_.at(i).getPv() << endl;
 				}
 			}
 
@@ -137,7 +124,6 @@ void Game::shoot(int idPlayer) {
 				}
 				if (!isObstacle) {
 					enemies_.at(i).removePv(10);
-					cout << enemies_.at(i).getPv() << endl;
 				}
 			}
 
@@ -153,7 +139,6 @@ void Game::shoot(int idPlayer) {
 				}
 				if (!isObstacle) {
 					enemies_.at(i).removePv(10);
-					cout << enemies_.at(i).getPv() << endl;
 				}
 			}
 
@@ -169,7 +154,6 @@ void Game::shoot(int idPlayer) {
 				}
 				if (!isObstacle) {
 					enemies_.at(i).removePv(10);
-					cout << enemies_.at(i).getPv() << endl;
 				}
 			}
 
@@ -193,7 +177,6 @@ std::vector<pair<float, float>> Game::trajectoireBalle(int idPlayer) const {
 			vectorpos.push_back(std::make_pair(playerpos.x / 30, i / 30)); // la liste de position de balle est établie
 		}
 		break;
-
 	case Left:
 		for (float i = playerpos.x - 30; i >= min; i -= 30) {
 			vectorpos.push_back(std::make_pair(i / 30, playerpos.y / 30));

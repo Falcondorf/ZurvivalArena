@@ -13,13 +13,13 @@ protected:
 	sf::Vector2i anim{ 1, Up };
 	sf::Texture* perso_;
 	sf::Sprite* spritePerso_;
-	unsigned pv_;
+	int pv_;
 	void setPositionHitbox(float f1, float f2);
 	void setPosition(unsigned x, unsigned y);
 	
 
 private:
-	unsigned num_;
+	int num_;
 	State state_;
 	Position position_;
 	sf::RectangleShape hitbox_;
@@ -39,7 +39,7 @@ public:
 
 	inline Character();
 	inline Character(Position position, int pv);
-	inline unsigned getPv() const;
+	inline int getPv() const;
 	inline const sf::RectangleShape &getHitbox() const;
 	inline const Position &getPosition() const;
 	inline  sf::Sprite* getSprite() const;
@@ -55,7 +55,7 @@ public:
 	inline void setlifebar(sf::RectangleShape rce);
 };
 
-unsigned Character::getPv() const {
+int Character::getPv() const {
 	return pv_;
 }
 

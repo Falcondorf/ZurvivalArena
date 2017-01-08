@@ -1,16 +1,11 @@
 #pragma once
 
 #include "Arena.h"
-#include <vector>
 #include "Heroes.h"
 #include "Enemy.h"
-#include <thread>
-#include <mutex>
-#include <chrono>
-#include <map>
+#include <vector>
 #include <utility>
 #include <SFML\Graphics.hpp>
-#include <iostream>
 
 /*!
 *\brief Class qui gère le déroulement de la partie, les interactions entre joueurs et ennemis.
@@ -35,9 +30,10 @@ private:
 	*\brief le nombre d'ennemi pour le niveau courant.
 	*/
 	unsigned nbEnemies = 0; // à suppr
-							/*!
-							*\brief La carte dans laquelle se déroule la partie. Elle contient des obstacles.
-							*/
+	
+	/*!
+	*\brief La carte dans laquelle se déroule la partie. Elle contient des obstacles.
+	*/
 	Arena arena_;
 	/*!
 	*\brief La liste des ou du player.

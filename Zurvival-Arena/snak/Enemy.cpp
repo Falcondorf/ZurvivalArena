@@ -1,6 +1,5 @@
 #include "Enemy.h"
 #include "Game.h"
-#include <iostream>
 
 using namespace std;
 using namespace sf;
@@ -9,11 +8,10 @@ Enemy::Enemy(Position position, int pv, unsigned idEnemy, Game * gam) : Characte
 {
 	game = gam;
 	id = idEnemy;
-	std::cout << "id ennemy " << id << std::endl;
 	positionFirst = position;
 	perso_ = new sf::Texture();
 	if (!perso_->loadFromFile("pics/jake3.png")) {
-		std::cout << "error loading image" << std::endl;
+		throw ZurvivalException("image jake3.png");
 	}
 	playerMove = true;
 	indicePath = 0;
@@ -49,15 +47,7 @@ void Enemy::functionMovingEnemies() {
 	vector< vector<pair<int, int>> > pathToEn;
 
 	while (!game->isFinishGame() && pv_ > 0) {
-
-
-
-		if (!pathToPlayer.empty()) {
-			/*v = pathToPlayer.at(i);*/
-		}
-
 		if (playerMove == true && (start == 0 || !game->isBrainLocked())) {
-			cout << "Brain" << endl;
 			start++;
 			pathToPlayer.clear();
 			Vector2f c = game->getPlayers().at(0).getHitbox().getPosition();
@@ -79,21 +69,19 @@ void Enemy::functionMovingEnemies() {
 
 				moveToPos(v);
 				indicePath++;
-			}else {
+			}
+			else {
 				if (game->getPlayers().at(0).getPv() > 1) {   //joueur vivant
-					game->removePvOfPlayer(1);
 					if (!textChange) {
 						loadTexture();
 						textChange = true;
 					}
-
 				}
 			}
-			
+
 			for (int l = 0; l < game->getPlayers().size(); l++) {
-				if (game->intersects(getHitbox(), game->getPlayers().at(l).getHitbox()) ) {
+				if (game->intersects(getHitbox(), game->getPlayers().at(l).getHitbox())) {
 					game->removePvOfPlayer(1);
-					cout << "player pv : " << game->getPlayers().at(l).getPv() << endl;
 					sf::RectangleShape rce = game->getPlayers().at(l).getlifebar();
 					if (rce.getSize().x > 0) {
 						rce.setSize(sf::Vector2f(rce.getSize().x - 0.005, rce.getSize().y));
@@ -121,41 +109,34 @@ void Enemy::brain()
 	Node2 arrivee;
 	if (id % 2 == 0 || game->getPlayers().size() == 1) {
 		arrivee.position.x = game->getPlayers().at(0).getHitbox().getPosition().x / 30;
-
 		arrivee.position.y = game->getPlayers().at(0).getHitbox().getPosition().y / 30;
-		cout << "1" << endl;
 	}
 	else {
 		arrivee.position.x = game->getPlayers().at(1).getHitbox().getPosition().x / 30;
-
 		arrivee.position.y = game->getPlayers().at(1).getHitbox().getPosition().y / 30;
-		cout << "2" << endl;
 	}
 
 	Node2 depart;
 	depart.parent.x = pos.getX() / 30;
 	depart.parent.y = pos.getY() / 30;
 	depart.position = Vector2f(pos.getX() / 30, pos.getY() / 30);
-
 	depart.gValue = 1;
 	pair<int, int> courant;
 	courant.first = depart.position.x;
 	courant.second = depart.position.y;
 	if (arrivee.position.x < depart.position.x) {
 		inversion = true;
-
 	}
 	else {
 		inversion = false;
 	}
-
 	openList[courant] = depart;
 	addToClosedList(courant);
 	addAdjectentCell(courant);
 	while (!((courant.first <= arrivee.position.x && courant.first + 1 > arrivee.position.x)
 		&& (courant.second <= arrivee.position.y && courant.second + 1 > arrivee.position.y))
 		&& (!openList.empty()) && !game->isFinishGame() && pv_ > 0) {
-		courant = bestNode(openList);	
+		courant = bestNode(openList);
 		addToClosedList(courant);
 		addAdjectentCell(courant);
 	}
@@ -165,9 +146,8 @@ void Enemy::brain()
 		(courant.second <= arrivee.position.y && courant.second + 1 > arrivee.position.y) && pv_ > 0) {
 		pathToPlayer.clear();
 		pathToPlayer = recoverPath(depart, arrivee);
-	}
-	else {
-		//Pas de solution
+	}else {
+		//Pas de chemin trouvé
 	}
 }
 
@@ -176,11 +156,10 @@ void Enemy::addAdjectentCell(pair<int, int>& n)
 {
 	Position posPlayer;
 	if (id % 2 == 0 || game->getPlayers().size() == 1) {
-		posPlayer = Position(game->getPlayers().at(0).getHitbox().getPosition().x, 
+		posPlayer = Position(game->getPlayers().at(0).getHitbox().getPosition().x,
 			game->getPlayers().at(0).getHitbox().getPosition().y);
-	}
-	else {
-		posPlayer = Position(game->getPlayers().at(1).getHitbox().getPosition().x, 
+	}else {
+		posPlayer = Position(game->getPlayers().at(1).getHitbox().getPosition().x,
 			game->getPlayers().at(1).getHitbox().getPosition().y);
 	}
 	Node2 tmp;
@@ -266,7 +245,7 @@ void Enemy::addToClosedList(pair<int, int>& p) {
 
 	/* il faut le supprimer de la liste ouverte, ce n'est plus une solution explorable */
 	if (openList.erase(p) == 0)
-		cerr << "Erreur, le noeud n'apparait pas dans la liste ouverte, impossible à supprimer" << endl;
+		throw ZurvivalException("Erreur, le noeud n'apparait pas dans la liste ouverte, impossible à supprimer");
 	return;
 }
 
@@ -284,7 +263,6 @@ vector<pair<int, int>> Enemy::recoverPath(Node2 start, Node2 objectif)
 		map <pair<int, int>, Node2>::reverse_iterator it = closedList.rbegin();
 		tmp = it->second;
 	}
-
 	pair<int, int>n;
 	pair<int, int> prec;
 	n.first = tmp.position.x;
@@ -292,7 +270,6 @@ vector<pair<int, int>> Enemy::recoverPath(Node2 start, Node2 objectif)
 	prec.first = tmp.parent.x;
 	prec.second = tmp.parent.y;
 	chemin.insert(chemin.begin(), n);
-
 	while (prec != pair<int, int>(start.parent.x, start.parent.y) && !game->isFinishGame() && pv_ > 0) {
 		n.first = prec.first;
 		n.second = prec.second;
@@ -313,7 +290,7 @@ bool Enemy::nodeExistInList(pair<int, int> n, std::map<pair<int, int>, Node2>& l
 		return true;
 }
 
-int Enemy::findDirection(vector < pair<int, int> >v) { 
+int Enemy::findDirection(vector < pair<int, int> >v) {
 	// en fonction de sa position et de la prochaine l'enemi saura dans quelle direction avancer logiquement
 	float x = getPosition().getX();
 	float nextX = v.at(indicePath).first * 30;
@@ -387,7 +364,7 @@ void Enemy::moveToPos(vector < pair<int, int> >v) {
 		uptadeSpritePosition();
 		i++;
 	}
-	//}
+
 	switch (findDirection(v)) {
 	case 0:
 		//de la position de l ennemi et non sa hitbox aparemment)
@@ -424,9 +401,6 @@ void Enemy::moveToPos(vector < pair<int, int> >v) {
 		break;
 
 	}
-
-
-	//uptadeSpritePosition();
 }
 
 
@@ -437,7 +411,7 @@ void Enemy::spriteLevel() {
 
 void Enemy::nextLevel() {
 	idLevel++;
-	//start = 0;
+	start = 0;
 }
 
 void Enemy::loadTextureStart() {
@@ -477,7 +451,7 @@ void Enemy::loadTexture() {
 	switch (idLevel) {
 	case 1:
 		perso_->loadFromFile("pics/jake33.png");
-		break;//ffffff
+		break;
 	case 2:
 		perso_->loadFromFile("pics/11.png");
 		break;
@@ -502,7 +476,7 @@ void Enemy::loadTexture() {
 }
 
 bool Enemy::isAdjacent() {
-	sf::RectangleShape verticalNear(sf::Vector2f((float)game->getPlayers().at(0).getPosition().getX()*30,
+	sf::RectangleShape verticalNear(sf::Vector2f((float)game->getPlayers().at(0).getPosition().getX() * 30,
 		(float)game->getPlayers().at(0).getPosition().getY() * 30));
 
 	verticalNear.setSize(sf::Vector2f(30, 90));
@@ -510,7 +484,7 @@ bool Enemy::isAdjacent() {
 		(float)game->getPlayers().at(0).getPosition().getY() * 30));
 
 	horizontalNear.setSize(sf::Vector2f(90, 30));
-	if (game->intersects(getHitbox(),verticalNear)|| game->intersects(getHitbox(), horizontalNear)) {
+	if (game->intersects(getHitbox(), verticalNear) || game->intersects(getHitbox(), horizontalNear)) {
 		return true;
 	}
 	return false;

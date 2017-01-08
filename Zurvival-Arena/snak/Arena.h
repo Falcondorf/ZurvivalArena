@@ -3,7 +3,6 @@
 #include "SFML/Graphics.hpp"
 #include <vector>
 #include <string>
-#include <mutex>
 
 /*!
 *\brief Class qui represente l'arene du jeu.
@@ -14,11 +13,24 @@
 class Arena
 {
 private:
+	/*!
+	* \brief width La longueur de l'arene.  
+	*/
+	unsigned width_;
+	/*!
+	* \brief height La longueur de l'arene.
+	*/
+	unsigned height_;
 
-	unsigned width_;/*!< La longueur de l'arene.  */
-	unsigned height_;/*!< La largeur de l'arene  */
-	std::vector<sf::RectangleShape> obstacles_; /*!< Les obstacles presents dans l'arene tels que les maisons,puits...  */
-	std::vector<std::vector<bool>> tiles_;/*!< Matrice boolean qui represente les obstacles.  */
+	/*!
+	* \brief obstacles_ Les obstacles presents dans l'arene tels que les maisons,puits... 
+	*/
+	std::vector<sf::RectangleShape> obstacles_;
+
+	/*!
+	 * \brief Matrice boolean qui represente les obstacles.
+	 */
+	std::vector<std::vector<bool>> tiles_;
 
 public:
 	/*!
