@@ -97,22 +97,8 @@ void Game::manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Cloc
 
 }
 
-void Game::moveBall(std::vector<pair<float, float>> vec) {
-
-	RectangleShape rs(sf::Vector2f(vec.at(0).first, vec.at(0).second));
-	rs.setFillColor(sf::Color::Red);
-	rs.setSize(sf::Vector2f(10, 10));
-
-	for (int i = 0; i < vec.size(); i++) {
-		rs.move(vec.at(i).first, vec.at(i).second);
-
-
-	}
-
-}
 
 void Game::shoot(int idPlayer) {
-
 
 	std::vector<pair<float, float>> vec;
 	sf::Vector2f playerpos = players_.at(idPlayer).getHitbox().getPosition();
@@ -131,7 +117,6 @@ void Game::shoot(int idPlayer) {
 				if (!isObstacle) {
 					enemies_.at(i).removePv(10);
 					cout << enemies_.at(i).getPv() << endl;
-					//enemies_.at(i).setHitTextureHit();
 				}
 			}
 
@@ -145,7 +130,6 @@ void Game::shoot(int idPlayer) {
 			unsigned playY = (unsigned)playerpos.y / 30;
 
 			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 == (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 >(unsigned)playerpos.y / 30) {
-				//cout << "touché d'en haut" << endl;
 				for (unsigned k = (playerpos.y / 30); (k < enemies_.at(i).getHitbox().getPosition().y / 30 && !isObstacle); k++) {
 					if (arena_.getTiles()[playerpos.x / 30][k]) {
 						isObstacle = true;
@@ -154,7 +138,6 @@ void Game::shoot(int idPlayer) {
 				if (!isObstacle) {
 					enemies_.at(i).removePv(10);
 					cout << enemies_.at(i).getPv() << endl;
-					//enemies_.at(i).setHitTextureHit();
 				}
 			}
 
@@ -171,7 +154,6 @@ void Game::shoot(int idPlayer) {
 				if (!isObstacle) {
 					enemies_.at(i).removePv(10);
 					cout << enemies_.at(i).getPv() << endl;
-					//	enemies_.at(i).setHitTextureHit();
 				}
 			}
 
@@ -188,7 +170,6 @@ void Game::shoot(int idPlayer) {
 				if (!isObstacle) {
 					enemies_.at(i).removePv(10);
 					cout << enemies_.at(i).getPv() << endl;
-					//	enemies_.at(i).setHitTextureHit();
 				}
 			}
 
@@ -202,51 +183,34 @@ void Game::shoot(int idPlayer) {
 
 std::vector<pair<float, float>> Game::trajectoireBalle(int idPlayer) const {
 	sf::Vector2f playerpos = players_.at(idPlayer).getHitbox().getPosition();
-
 	int min = 0;
 	int max = 660;
 	std::vector<pair<float, float>> vectorpos;
 	vectorpos.clear();
-	switch (players_.at(idPlayer).getAnim().y) {
-
+	switch (players_.at(idPlayer).getAnim().y) { // selon la direction dans laquelle le joueur se tourne
 	case Down:
-
 		for (float i = playerpos.y + 30; i <= max; i += 30) {
-			vectorpos.push_back(std::make_pair(playerpos.x / 30, i / 30));
-
+			vectorpos.push_back(std::make_pair(playerpos.x / 30, i / 30)); // la liste de position de balle est établie
 		}
-
-
-
 		break;
 
 	case Left:
 		for (float i = playerpos.x - 30; i >= min; i -= 30) {
 			vectorpos.push_back(std::make_pair(i / 30, playerpos.y / 30));
-
 		}
-
-
 		break;
 
 	case Up:
 		for (float i = playerpos.y - 30; i >= min; i -= 30) {
 			vectorpos.push_back(std::make_pair(playerpos.x / 30, i / 30));
-
 		}
-
-
 		break;
-
 	case Right:
 		for (float i = playerpos.x + 30; i <= max; i += 30) {
 			vectorpos.push_back(std::make_pair(i / 30, playerpos.y / 30));
-
 		}
 		break;
-
 	}
-
 	return vectorpos;
 }
 
@@ -296,7 +260,6 @@ void Game::nextLevel() {
 			enemies_.at(i).setPv(pvForLevel.at(idLevel));
 			enemies_.at(i).spriteLevel();
 			enemies_.at(i).reload();
-
 		}
 	}
 	else {

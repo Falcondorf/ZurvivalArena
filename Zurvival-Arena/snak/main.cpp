@@ -29,7 +29,7 @@ int main()
 		VideoMode videoMode(width, height);
 		RenderWindow window(videoMode, "Zurvival Arena");
 		sf::Clock time;
-		float fpsCount = 0, switchFps = 0, fpsSpeed = 500;
+		float fpsCount = 0, switchFps = 0, fpsSpeed = 0;
 		//std::vector<Vector2f> p;
 		////p=game.brain(1);
 		//for (Vector2f b : p) {
@@ -251,7 +251,7 @@ int main()
 					std::vector<pair<float, float>> vec;
 					vec = game.trajectoireBalle(0);
 					CircleShape rs(5, 20);
-					rs.setPosition(sf::Vector2f((vec.at(0).first) * 30, (vec.at(0).second) * 30));
+					rs.setPosition(sf::Vector2f((vec.at(0).first) * 30, (vec.at(0).second) * 30)); // suit les positions de la trajectoire
 					rs.setFillColor(sf::Color::Magenta);
 					for (int i = 0; i < vec.size(); i++) {
 						rs.setPosition(vec.at(i).first * 30, vec.at(i).second * 30);
@@ -318,7 +318,7 @@ int main()
 					for (int i = 0; i < game.getEnemies().size(); i++) {
 						game.setEnemyPlayerMoving(i, true);
 					}
-					game.manageGame(0, fpsCount, fpsSpeed, switchFps, time);
+					game.managePlayer(0, fpsCount, fpsSpeed, switchFps, time);
 				}
 				if (nombreJoueur > 1 && !game.hasCollision(1, xMov2, yMov2)) {
 					game.move(1, xMov2, yMov2);
@@ -327,7 +327,7 @@ int main()
 					for (int i = 0; i < game.getEnemies().size(); i++) {
 						game.setEnemyPlayerMoving(i, true);
 					}
-					game.manageGame(1, fpsCount, fpsSpeed, switchFps, time);
+					game.managePlayer(1, fpsCount, fpsSpeed, switchFps, time);
 				}
 			}
 			game.manageEnemi(fpsCount, fpsSpeed, switchFps, time);

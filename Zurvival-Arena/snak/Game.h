@@ -121,44 +121,154 @@ public:
 	const std::vector<Enemy> & getEnemies() const;
 
 	/*!
-	* \brief  met à jour le sprite et gere l'animation
-	* \param fpsCount
-	* \param fpsSpeed l'ordonnée de la position a vendre
-	* \param switchFps l'ordonnée de la position a vendre
-	* \param time l'ordonnée de la position a vendre
-	* \return vrai si la case est accessible.
+	* \brief  met à jour le sprite de l'ennemi et gere l'animation accelere ou ralenti les fps
+	* \param fpsCount fps à incrémenter
+	* \param fpsSpeed la vitesse des fps
+	* \param switchFps valeur deintervenat dans la condition pour le changement d'image
+	* \param time timer en secondee.
 	*/
 	void manageEnemi(float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
+
+	/*!
+	* \brief lance le thread pour chaque ennemi du jeu
+	*/
 	void startMovingEnemies();
+
+
+	/*!
+	* \brief  permet au joueur de tirer en ligne droite dans la direction vers laquelle il se tourne
+	* le tir ne traverse pas les obstacles
+	* \param idPlayer l'identifiant du joueur qui tire.
+	*/
 	void shoot(int idPlayer);
+
+	/*!
+	* \brief  permet au joueur de taper une case devant lui
+	* \param idPlayer l'identifiant du joueur qui tape.
+	*/
 	void slice(int idPlayer);
+
+	/*!
+	* \brief établi une liste de position qu'auront les balles qui sont tirées 
+	* (à savoir, une par case dans la direction dans laquelle on regarde)
+	* \param idPlayer l'identifiant du joueur qui tire.
+	* \return  la liste de position des balles qui constitue la trajectoire du tir.
+	*/
 	std::vector<std::pair<float, float>> trajectoireBalle(int idPlayer) const;
-	void moveBall(std::vector<std::pair<float, float>> vec);
+
+	/*!
+	* \brief gère l'enchainement du niveau prochain, recharger les ennemis auguementer leurs pv, etc...
+	*/
 	void nextLevel();
+
+	/*!
+	* \brief vérifie si tout les ennemis du niveau sont morts
+	* \return vrai si tout les ennemis sont morts
+	*/
 	bool allEnemiesIsDead() const;
+
+	/*!
+	* \brief  enlève des pv au joueur
+	* \param i l'identifiant du joueur qui perd des pv.
+	*/
 	void removePvOfPlayer(unsigned i);
+
+	/*!
+	* \brief  met à jour la barre de vie graphique du joueur (pour une eventuelle implémentation future)
+	* \param i l'identifiant du joueur qui a sa barre de vie mise à jour.
+	* \param rce le rectangle shape représentant la barre de vie du joueur.
+	*/
 	void setLifeBarOfPlayer(unsigned i, sf::RectangleShape rce);
 
 
 	/*!
-	* \brief la liste d'ennemis présent dans le niveau
-	* \return  la liste d'ennemis
+	* \brief donne le nombre obstacles présent dans le niveau
+	* \return  le nombre obstacles présent dans le niveau
 	*/
 	inline unsigned getNbObstacles() const;
+
+	/*!
+	* \brief donne l'obstacles correspondant à l'identifiant donné
+	* \param i l'identifiant de l'obstacle que l'on veut retourner
+	* \return  l'obstacles identifié par i
+	*/
 	inline sf::RectangleShape getObstacle(unsigned i) const;
+
+	/*!
+	* \brief met à jour la position du sprite du player
+	* \param i l'identifiant du joueur dont on veut mettre le sprite à jour
+	*/
 	inline void setPositionCharacter(unsigned i);
-	inline void setAnimXCharacter(unsigned i, Direction direction);
+
+	/*!
+	* \brief met à jour la position du sprite du player
+	* \param i l'identifiant du joueur dont on veut mettre le sprite à jour suivant sa direction
+	* \param direction la direction vers laquelle le joueur regarde.
+	*/
 	inline void setAnimYCharacter(unsigned i, Direction direction);
+
+	/*!
+	* \brief met l'état du joueur en mouvement
+	* \param i l'identifiant du joueur qui se met en mouvement
+	*/
 	inline void setStateCharacter(unsigned i);
+
+	/*!
+	* \brief indique à l'ennemi i que l'état du joueur est en mouvement ou pas
+	* \param i l'identifiant de l'ennemi à avertir
+	* \param isMoving l'état du joueur
+	*/
 	inline void setEnemyPlayerMoving(int i, bool isMoving);
+
+	/*!
+	* \brief met à jour la texture de l'ennemi en la mettant à sa texture initiale
+	* \param i l'identifiant de l'ennemi dont il faut mettre la texture à jour
+	*/
 	inline void setEnemyHitTextureDepart(int i);
+
+	/*!
+	* \brief met tout les joueurs dans l'état "static"
+	*/
 	inline void stateInitializerCharacters();
+
+	/*!
+	* \brief termine le jeu.
+	*/
 	inline void finishGame();
-	inline void manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
+
+	/*!
+	* \brief  met à jour le sprite du joueur et gere l'animation accelere ou ralenti les fps
+	* \param fpsCount fps à incrémenter
+	* \param fpsSpeed la vitesse des fps
+	* \param switchFps valeur deintervenat dans la condition pour le changement d'image
+	* \param time timer en seconde.
+	*/
+	inline void managePlayer(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time);
+
+	/*!
+	* \brief retourne la map de jeu
+	* \return  la map dans laquelle se déroule le jeu
+	*/
 	inline Arena getArena() const;
+
+	/*!
+	* \brief retourne la barre de vie du joueur
+	* \return  la barre de vie du joueur
+	*/
 	inline const  sf::RectangleShape & getlifebarre() const;
+
+	/*!
+	* \brief indique si un ennemi peut exécuter son brain ou pas (si un autre ennemi est déja occupé à le faire)
+	* \return  vrai si l'ennemi peut exécuter son brain
+	*/
 	inline bool isBrainLocked()const;
+
+	/*!
+	* \brief autorise un ennemi à exécuter son brain ou pas selon la valeur de lock
+	* \param lock est à vrai si l'ennemi peut exécuter son brain.
+	*/
 	inline void setBrainLock(bool lock);
+
 	/*!
 	* \brief ajoute un joueur dans le jeu
 	* \param posX l'abcisse de la position du joueur
@@ -198,9 +308,7 @@ void Game::setPositionCharacter(unsigned i) {
 	players_.at(i).setPositionSprite((players_.at(i).getHitbox().getPosition()));
 }
 
-void Game::setAnimXCharacter(unsigned i, Direction direction) {
-	players_.at(i).setAnimX(direction);
-}
+
 void Game::setAnimYCharacter(unsigned i, Direction direction) {
 	players_.at(i).setAnimY(direction);
 }
@@ -214,7 +322,7 @@ void Game::stateInitializerCharacters() {
 	}
 }
 
-void Game::manageGame(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time) {
+void Game::managePlayer(unsigned i, float fpsCount, float fpsSpeed, float switchFps, sf::Clock time) {
 	players_.at(i).manageSprite(fpsCount, fpsSpeed, switchFps, time);
 }
 
