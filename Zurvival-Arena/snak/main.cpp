@@ -14,7 +14,7 @@ int main()
 	bool afficher = false;
 	int nombreJoueur =0;
 	try {
-		Game game = Game(width, height, 1);
+		Game game = Game(width, height);
 		/*game.addPlayer(330, 30);
 		game.addPlayer(400, 330);*/
 		game.addEnemy(210, 240, 1);

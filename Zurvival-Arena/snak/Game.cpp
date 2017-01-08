@@ -9,13 +9,10 @@
 #include <map>
 using namespace sf;
 using namespace std;
-Game::Game(unsigned width, unsigned height, int fiboNbEnemies) : nbEnemies(fiboNbEnemies) {
+Game::Game(unsigned width, unsigned height) {
 	arena_ = Arena(width, height);
-	for (unsigned i = 0;i < 7; i++) {
-		Level lvl;
-		// Décommenter à la fin !!!!!!!!
-		lvl.nbPv = 100;// *pow(10, i);
-		levels.push_back(lvl);
+	for (unsigned i = 0; i < 7; i++) {
+		pvForLevel.push_back(100 * pow(10, i));
 	}
 }
 
@@ -65,13 +62,13 @@ unsigned Game::getNbPlayers() const
 	return players_.size();
 }
 
-const RectangleShape & Game::getHitBoxChar(int i)const
-{
-	return players_.at(i).getHitbox();
-}
+//const RectangleShape & Game::getHitBoxChar(int i)const
+//{
+//	return players_.at(i).getHitbox();
+//}
 
 void Game::addEnemy(float posX, float posY, int pv) {
-
+	//nbEnemies++;
 	enemies_.push_back(Enemy(Position(posX, posY), nbEnemies, pv, this));
 }
 
@@ -83,7 +80,7 @@ const std::vector<Enemy> & Game::getEnemies() const {
 
 
 void Game::startMovingEnemies() {
-	for (unsigned i = 0;i < enemies_.size();i++) {
+	for (unsigned i = 0; i < enemies_.size(); i++) {
 		enemies_.at(i).startMovingEnemies();
 	}
 
@@ -147,7 +144,7 @@ void Game::shoot(int idPlayer) {
 			unsigned playX = (unsigned)playerpos.x / 30;
 			unsigned playY = (unsigned)playerpos.y / 30;
 
-			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 == (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 > (unsigned)playerpos.y / 30) {
+			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 == (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 >(unsigned)playerpos.y / 30) {
 				//cout << "touché d'en haut" << endl;
 				for (unsigned k = (playerpos.y / 30); (k < enemies_.at(i).getHitbox().getPosition().y / 30 && !isObstacle); k++) {
 					if (arena_.getTiles()[playerpos.x / 30][k]) {
@@ -165,7 +162,7 @@ void Game::shoot(int idPlayer) {
 		break;
 	case Right:
 		for (int i = 0; i < enemies_.size(); i++) {
-			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 > (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 == (unsigned)playerpos.y / 30) {
+			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 >(unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 == (unsigned)playerpos.y / 30) {
 				for (unsigned k = (playerpos.x / 30); (k < enemies_.at(i).getHitbox().getPosition().x / 30 && !isObstacle); k++) {
 					if (arena_.getTiles()[k][playerpos.x / 30]) {
 						isObstacle = true;
@@ -287,16 +284,16 @@ void Game::setLifeBarOfPlayer(unsigned i, sf::RectangleShape rce) {
 	players_.at(i).setlifebar(rce);
 }
 
-bool Game::isFinishGame() const{
+bool Game::isFinishGame() const {
 	return gameFinish;
 }
 
 void Game::nextLevel() {
 	if (idLevel < 5) {
 		idLevel++;
-		for (unsigned i = 0;i < enemies_.size();i++) {
+		for (unsigned i = 0; i < enemies_.size(); i++) {
 			enemies_.at(i).nextLevel();
-			enemies_.at(i).setPv(levels.at(idLevel).nbPv);
+			enemies_.at(i).setPv(pvForLevel.at(idLevel));
 			enemies_.at(i).spriteLevel();
 			enemies_.at(i).reload();
 
@@ -305,7 +302,7 @@ void Game::nextLevel() {
 	else {
 		gameFinish = true;
 	}
-	
+
 }
 
 bool Game::allEnemiesIsDead() const {
