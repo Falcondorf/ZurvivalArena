@@ -36,7 +36,7 @@ private:
 	// always make a limit of 4 enemies when an ennemy dies, replace with a new one decrement from nbEnemies
 	bool gameFinish = false;
 public:
-	bool isFinishGame();
+	bool isFinishGame() const;
 	inline const std::vector<Character> &  getPlayers() const;
 	Game(unsigned width, unsigned height, int fiboNbEnemies);
 	bool hasCollision(int idPlayer, float movex, float movey);

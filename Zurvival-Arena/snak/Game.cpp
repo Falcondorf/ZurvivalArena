@@ -287,7 +287,7 @@ void Game::setLifeBarOfPlayer(unsigned i, sf::RectangleShape rce) {
 	players_.at(i).setlifebar(rce);
 }
 
-bool Game::isFinishGame() {
+bool Game::isFinishGame() const{
 	return gameFinish;
 }
 
