@@ -9,12 +9,12 @@
 #include <map>
 using namespace sf;
 using namespace std;
-Game::Game(unsigned width, unsigned height, int fiboNbEnemies) : nbEnemies(fiboNbEnemies){
+Game::Game(unsigned width, unsigned height, int fiboNbEnemies) : nbEnemies(fiboNbEnemies) {
 	arena_ = Arena(width, height);
-	for (unsigned i = 0;i<7; i++) {
+	for (unsigned i = 0;i < 7; i++) {
 		Level lvl;
 		// Décommenter à la fin !!!!!!!!
-		lvl.nbPv = 100;// *pow(10, i);
+		lvl.nbPv = 10;// *pow(10, i);
 		levels.push_back(lvl);
 	}
 }
@@ -32,7 +32,7 @@ bool Game::hasCollision(int idPlayer, float movex, float movey) {
 	}
 	for (int j = 0; j < getEnemies().size(); j++) {
 		if (intersects(getEnemies().at(j).getHitbox(), futurePosition)) {
-			if (getEnemies().at(j).getPv()!=0) {
+			if (getEnemies().at(j).getPv() != 0) {
 				players_.at(idPlayer).removePv(1);
 				sf::RectangleShape rce = players_.at(idPlayer).getlifebar();
 				if (rce.getSize().x > 0) {
@@ -40,7 +40,7 @@ bool Game::hasCollision(int idPlayer, float movex, float movey) {
 				}
 				players_.at(idPlayer).setlifebar(rce);
 			}
-			
+
 			//players_.at(idPlayer).getlifebar().setSize(sf::Vector2f(players_.at(idPlayer).getlifebar().getSize().x-1, players_.at(idPlayer).getlifebar().getSize().y));
 
 
@@ -71,26 +71,19 @@ const RectangleShape & Game::getHitBoxChar(int i)const
 }
 
 void Game::addEnemy(float posX, float posY, int pv) {
-	
-	enemies_.push_back(Enemy(Position(posX, posY),nbEnemies, pv, this));
-	nbEnemies--;
-	//setNbEnemies(nbEnemies + 1);
+
+	enemies_.push_back(Enemy(Position(posX, posY), nbEnemies, pv, this));
 }
 
 
 
-const std::vector<Enemy> & Game::getEnemies() const{
+const std::vector<Enemy> & Game::getEnemies() const {
 	return enemies_;
-}
-
-void Game::playerMoving(bool moving) {
-	playerMove = moving;
 }
 
 
 void Game::startMovingEnemies() {
-	/*threadEnemies = std::unique_ptr < std::thread >(new std::thread(&Game::functionMovingEnemies, this));*/
-	for (unsigned i = 0;i<enemies_.size();i++) {
+	for (unsigned i = 0;i < enemies_.size();i++) {
 		enemies_.at(i).startMovingEnemies();
 	}
 
@@ -125,8 +118,6 @@ void Game::shoot(int idPlayer) {
 
 
 	std::vector<pair<float, float>> vec;
-	/*vec = trajectoireBalle(idPlayer);
-	moveBall(vec);*/
 	sf::Vector2f playerpos = players_.at(idPlayer).getHitbox().getPosition();
 	RectangleShape rs(sf::Vector2f(playerpos.x, playerpos.y));
 	bool isObstacle = false;
@@ -175,7 +166,6 @@ void Game::shoot(int idPlayer) {
 	case Right:
 		for (int i = 0; i < enemies_.size(); i++) {
 			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 > (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 == (unsigned)playerpos.y / 30) {
-				//cout << "touché depuis la gauche" << endl;
 				for (unsigned k = (playerpos.x / 30); (k < enemies_.at(i).getHitbox().getPosition().x / 30 && !isObstacle); k++) {
 					if (arena_.getTiles()[k][playerpos.x / 30]) {
 						isObstacle = true;
@@ -184,7 +174,7 @@ void Game::shoot(int idPlayer) {
 				if (!isObstacle) {
 					enemies_.at(i).removePv(10);
 					cout << enemies_.at(i).getPv() << endl;
-				//	enemies_.at(i).setHitTextureHit();
+					//	enemies_.at(i).setHitTextureHit();
 				}
 			}
 
@@ -193,7 +183,6 @@ void Game::shoot(int idPlayer) {
 	case Left:
 		for (int i = 0; i < enemies_.size(); i++) {
 			if ((unsigned)enemies_.at(i).getHitbox().getPosition().x / 30 < (unsigned)playerpos.x / 30 && (unsigned)enemies_.at(i).getHitbox().getPosition().y / 30 == (unsigned)playerpos.y / 30) {
-				//cout << "touché depuis la droite" << endl;
 				for (unsigned k = (playerpos.x / 30); (k > enemies_.at(i).getHitbox().getPosition().x / 30 && !isObstacle); k--) {
 					if (arena_.getTiles()[k][playerpos.x / 30]) {
 						isObstacle = true;
@@ -202,7 +191,7 @@ void Game::shoot(int idPlayer) {
 				if (!isObstacle) {
 					enemies_.at(i).removePv(10);
 					cout << enemies_.at(i).getPv() << endl;
-				//	enemies_.at(i).setHitTextureHit();
+					//	enemies_.at(i).setHitTextureHit();
 				}
 			}
 
@@ -214,7 +203,7 @@ void Game::shoot(int idPlayer) {
 
 }
 
-std::vector<pair<float, float>> Game::trajectoireBalle(int idPlayer) {
+std::vector<pair<float, float>> Game::trajectoireBalle(int idPlayer) const {
 	sf::Vector2f playerpos = players_.at(idPlayer).getHitbox().getPosition();
 
 	int min = 0;
@@ -287,7 +276,6 @@ void Game::slice(int idPlayer)
 	for (unsigned i = 0; i < enemies_.size(); i++) {
 		if (Game::intersects(hitZone, enemies_.at(i).getHitbox())) {
 			enemies_.at(i).removePv(1);
-			//cout << "pv " <<enemies_.at(i).getPv() << endl;
 		}
 	}
 }
@@ -304,14 +292,20 @@ bool Game::isFinishGame() {
 }
 
 void Game::nextLevel() {
-	idLevel++;
-	for (unsigned i=0;i < enemies_.size();i++) {
-		enemies_.at(i).nextLevel();
-		enemies_.at(i).setPv(levels.at(idLevel).nbPv);
-		enemies_.at(i).spriteLevel();
-		enemies_.at(i).reload();
-		
+	if (idLevel < 5) {
+		idLevel++;
+		for (unsigned i = 0;i < enemies_.size();i++) {
+			enemies_.at(i).nextLevel();
+			enemies_.at(i).setPv(levels.at(idLevel).nbPv);
+			enemies_.at(i).spriteLevel();
+			enemies_.at(i).reload();
+
+		}
 	}
+	else {
+		gameFinish = true;
+	}
+	
 }
 
 bool Game::allEnemiesIsDead() const {

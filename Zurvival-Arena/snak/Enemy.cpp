@@ -48,19 +48,8 @@ void Enemy::resetIndicePath() {
 	indicePath = 0;
 }
 void Enemy::setHitTexture() {
-	/*delete perso_;
-	perso_ = nullptr;
-	perso_ = new sf::Texture();*/
 
-	/*sf::Texture* perso = new sf::Texture();
-	if (!perso->loadFromFile("pics/jake33.png")) {
-		std::cout << "error loading image" << std::endl;
-	}
-	spritePerso_->setTexture(*perso);*/
 	loadTexture();
-	/*spritePerso_->setPosition(getHitbox().getPosition());
-	spritePerso_->setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
-	spritePerso_->setScale(sf::Vector2f(0.9, 0.5));*/
 }
 
 void Enemy::setHitTextureDepart() {

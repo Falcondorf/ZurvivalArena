@@ -4,21 +4,30 @@
 #include <string>
 #include "ZurvivalException.h"
 
+/*!
+*\brief Class qui represente le joueur.
+*\file Heroes.h
+*\author Aynaou Dupont Fakir Bauwens
+*/
 class Heroes : public Character
 {
+	/*!
+	* \brief identifiant du joueur
+	*/
 	unsigned num_;
 public:
-	inline Heroes(Position pos, int pv, unsigned num);
-	inline Heroes(std::string name);
-	//inline std::vector<int,int> trajectoireBalle();
-	inline std::string getName() const;
-private:
 
-	std::string name_;
+	/*!
+	* \brief Constructeur de Heroes avec parametres.
+	* \param pos la position de départ du joueur
+	* \param pv le nombre de point de vie
+	* \param num l identifiant du joueur
+	*/
+	inline Heroes(Position pos, int pv, unsigned num);
 
 };
 
-Heroes::Heroes(Position pos, int pv, unsigned num) :Character(pos, pv), num_(num){
+Heroes::Heroes(Position pos, int pv, unsigned num) :Character(pos, pv), num_(num) {
 	setPv(10000);
 	perso_ = new sf::Texture();
 	switch (num) {
@@ -39,14 +48,4 @@ Heroes::Heroes(Position pos, int pv, unsigned num) :Character(pos, pv), num_(num
 	spritePerso_->setTextureRect(sf::IntRect(anim.x * 56, anim.y * 85, 56, 85));
 	spritePerso_->setScale(sf::Vector2f(0.9, 0.5));
 	setPositionSprite(getHitbox().getPosition());
-}
-
-inline Heroes::Heroes(std::string name)
-{
-
-}
-
-std::string Heroes::getName() const {
-
-	return name_;
 }
