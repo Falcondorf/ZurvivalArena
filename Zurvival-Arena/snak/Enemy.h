@@ -16,20 +16,18 @@ class Enemy : public Character {
 private:
 	unsigned start = 0;
 	unsigned idLevel=1;
-
 	Game * game=nullptr;
 	std::vector<std::pair<int, int>> pathToPlayer;
 	int indicePath;
 	bool textChange = false;
 	unsigned id;
 	std::thread threadEnemies;
-
 	Position positionFirst;
 	std::map <std::pair<int, int>, Node2> openList;
 	std::map <std::pair<int, int>, Node2> closedList;
 	bool playerMove;
-	
 	bool inversion = false;
+
 	void brain();
 	void addAdjectentCell(std::pair<int, int>& n);
 	float distance(int x1, int y1, int x2, int y2);
@@ -40,58 +38,32 @@ private:
 	int findDirection(std::vector < std::pair<int, int> >v);
 	void moveToPos(std::vector < std::pair<int, int> >v);
 	bool isAdjacent();
-
-public:
-
-	Enemy(Position position, int pv,unsigned id, Game * gam);
-	void uptadeSpritePosition();
-	inline void setPath(std::vector<std::pair<int, int>> p);
-	inline std::vector<std::pair<int, int>> getPath() const;
-    void setHitTexture();
-	bool getPlayerMoving();
-	void setPlayerMoving(bool b);
-	int getIndicePath() const;
-	void incrementIndicePath();
-	void resetIndicePath();
-	void Enemy::setHitTextureDepart();
-	void Enemy::setHitTextureHit();
-	void startMovingEnemies();
-	inline void reload();
-	void functionMovingEnemies();
-	inline std::thread * getthreads();
-	inline const Position &getPositionFirst() const;
-	inline unsigned getId()const;
-	bool isDead = false;
-	void spriteLevel();
-	void nextLevel();
 	void loadTextureStart();
 	void loadTexture();
+	void uptadeSpritePosition();
+	void functionMovingEnemies();
+public:
+	Enemy(Position position, int pv,unsigned id, Game * gam);
+	void setPlayerMoving(bool b);
+	void Enemy::setHitTextureDepart();
+	void startMovingEnemies();
+	void spriteLevel();
+	void nextLevel();
+	inline void reload();
+	inline const Position &getPositionFirst() const;
 };
 
 void Enemy::reload() {
 	start = 0;
-	//threadEnemies.detach();
-	//threadEnemies.~thread();
+	setPosition(positionFirst.getX(), positionFirst.getY());
+	setPositionHitbox(positionFirst.getX(), positionFirst.getY());
+	setPositionSprite(sf::Vector2f(positionFirst.getX(), positionFirst.getY()));
 	startMovingEnemies();
 }
 
-
-void Enemy::setPath(std::vector<std::pair<int, int>> p) {
-	pathToPlayer = p;
-}
-std::vector <std::pair<int, int>> Enemy::getPath() const {
-	return pathToPlayer;
-}
-
-std::thread* Enemy::getthreads() {
-	return &threadEnemies;
-}
 const Position & Enemy::getPositionFirst() const {
 	return positionFirst;
 }
 
-unsigned Enemy::getId()const {
-	return id;
-}
 
 

@@ -14,7 +14,7 @@ Game::Game(unsigned width, unsigned height, int fiboNbEnemies) : nbEnemies(fiboN
 	for (unsigned i = 0;i < 7; i++) {
 		Level lvl;
 		// Décommenter à la fin !!!!!!!!
-		lvl.nbPv = 10;// *pow(10, i);
+		lvl.nbPv = 100;// *pow(10, i);
 		levels.push_back(lvl);
 	}
 }
