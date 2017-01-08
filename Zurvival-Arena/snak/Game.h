@@ -12,14 +12,6 @@
 #include <SFML\Graphics.hpp>
 #include <iostream>
 
-struct Node {
-	sf::Vector2f parent;
-	sf::Vector2f position;
-	unsigned gValue;
-	unsigned hValue;
-	unsigned fValue;
-};
-
 /*!
 *\brief Class qui gère le déroulement de la partie, les interactions entre joueurs et ennemis.
 *\file Game.h
