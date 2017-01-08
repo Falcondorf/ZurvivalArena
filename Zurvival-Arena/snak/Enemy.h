@@ -29,12 +29,13 @@ struct Node2 {
 	*/
 	unsigned fValue;
 };
+
+class Game;
 /*!
 *\brief Class qui represente un ennemi dans le jeu.
 *\file enemy.h
 *\author Aynaou Dupont Fakir Bauwens Temsamani
 */
-class Game;
 class Enemy : public Character {
 private:
 	/*!

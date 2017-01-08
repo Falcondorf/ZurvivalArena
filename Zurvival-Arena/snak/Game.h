@@ -269,7 +269,7 @@ public:
 	* \return la liste des joueurs.
 	*/
 	inline const std::vector<Character> &  getPlayers() const;
-
+	inline void destructPtr();
 
 };
 
@@ -344,4 +344,8 @@ void Game::setEnemyHitTextureDepart(int i)
 	}
 
 }
-
+void Game::destructPtr() {
+	for (Character &c : players_) {
+		c.destructPointer();
+	}
+}

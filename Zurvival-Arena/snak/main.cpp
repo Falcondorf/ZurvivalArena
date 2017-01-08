@@ -148,6 +148,7 @@ int main()
 				if ((event.type == Event::Closed) ||
 					((event.type == Event::KeyPressed) && (event.key.code == Keyboard::Escape))) {
 					game.finishGame();
+					game.destructPtr();
 					window.close();
 				}
 			}

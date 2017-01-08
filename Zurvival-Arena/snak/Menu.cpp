@@ -52,8 +52,6 @@ Menu::Menu(float width, float height)
 void Menu::draws(sf::RenderWindow &window)
 
 {
-	
-	
 	texture.loadFromFile("a.jpg");
 	sf::Sprite background(texture);
 	window.draw(background);

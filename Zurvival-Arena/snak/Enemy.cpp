@@ -91,6 +91,7 @@ void Enemy::functionMovingEnemies() {
 			}
 		}
 	}
+
 	threadEnemies.detach();
 }
 
