@@ -33,7 +33,7 @@ protected:
 	/*!
 	*\brief represente les pv d'un personnage.
 	*/
-	unsigned pv_;
+	int pv_;
 	/*!
 	* \brief Seteur de la position de la hitbox du personnage.
 	* \param f1 l'absicce de la position
@@ -101,7 +101,7 @@ public:
 	*\brief Méthode public permettant de retirer de la vie au joueur.
 	* \param damage Le nombre de point de vie à retirer.
 	*/
-	void removePv(unsigned damage);
+	void removePv(int damage);
 	/*!
 	*\brief Méthode public permettant de déplacer le joueur.
 	*/
@@ -174,7 +174,7 @@ public:
 	*\brief Setter permettant de mettre à jour l'attribut pv
 	*\param pv Le nouveau nombre de point de vie du character.
 	*/
-	inline void setPv(unsigned pv);
+	inline void setPv(int pv);
 	/*!
 	*\brief Accesseur de l'attribut privé num_
 	*\return L'identifiant du character.
@@ -256,7 +256,7 @@ const sf::Vector2i & Character::getAnim() const {
 	return anim;
 }
 
-void Character::setPv(unsigned pv) {
+void Character::setPv(int pv) {
 	pv_ = pv;
 }
 
