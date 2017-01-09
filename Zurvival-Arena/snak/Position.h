@@ -44,7 +44,7 @@ public:
 	inline void setX(unsigned x);
 	/*!
 	* \brief Seter ordonnée de la position du joueur.
-	* \param x le nouvelle ordonnée de la position du joueur
+	* \param y le nouvelle ordonnée de la position du joueur
 	*/
 	inline void setY(unsigned y);
 };

@@ -158,6 +158,7 @@ public:
 	/*!
 	* \brief  enlève des pv au joueur
 	* \param i l'identifiant du joueur qui perd des pv.
+	*\param idPlayer identifiant du joueur.
 	*/
 	void removePvOfPlayer(unsigned i,unsigned idPlayer);
 
@@ -226,6 +227,7 @@ public:
 
 	/*!
 	* \brief  met à jour le sprite du joueur et gere l'animation accelere ou ralenti les fps
+	*\param i indice
 	* \param fpsCount fps à incrémenter
 	* \param fpsSpeed la vitesse des fps
 	* \param switchFps valeur deintervenat dans la condition pour le changement d'image
@@ -269,6 +271,9 @@ public:
 	* \return la liste des joueurs.
 	*/
 	inline const std::vector<Character> &  getPlayers() const;
+	/*!
+	* \brief Méthode permettant de détruire les pointeurs.
+	*/
 	inline void destructPtr();
 
 };

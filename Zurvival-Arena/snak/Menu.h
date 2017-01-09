@@ -19,8 +19,7 @@ public:
 	Menu(float width, float height);
 	/*!
 	* \brief Dessine dans la fentre du jeu.
-	* \param width la fenetre du jeu.
-	*\param height la fenetre du jeu.
+	*\param window La fenêtre principal.
 	*/
 	void draws(sf::RenderWindow &window);
 	/*!
@@ -38,7 +37,7 @@ public:
 	int getPressedItem() { return selectedItemIndex; }
 	/*!
 	* \brief Permet de changer le nom d'element à parcourir dans le menu.
-	* \param nbMenu le nombre d'element dans le menu.
+	* \param nbmenu le nombre d'element dans le menu.
 	*/
 	inline void changernbMenu(int nbmenu);
 

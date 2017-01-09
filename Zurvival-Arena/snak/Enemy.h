@@ -110,12 +110,12 @@ private:
 	float distance(int x1, int y1, int x2, int y2);
 	/*!
 	* \brief Méthode privé consiste à repérer le meilleur noeud dans la liste ouverte.
-	* \param n détermine la position du noeud courant.
+	* \param l détermine la position du noeud courant.
 	*/
 	std::pair<int, int> bestNode(std::map <std::pair<int, int>, Node2> l);
 	/*!
 	* \brief Méthode privé consiste à ajouter un noeud dans la liste fermée
-	* \param p L'identifiant du noeud qui sera rajouté dans la liste.
+	* \param p L identifiant du noeud qui sera rajouté dans la liste.
 	*/
 	void addToClosedList(std::pair<int, int>& p);
 	/*!
