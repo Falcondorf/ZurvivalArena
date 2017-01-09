@@ -190,6 +190,9 @@ public:
 	*\param rce La nouvelle barre de vie du Character.
 	*/
 	inline void setlifebar(sf::RectangleShape rce);
+	/*!
+	* \brief Méthode permettant de détruire les pointeurs
+	*/
 	inline void destructPointer();
 };
 

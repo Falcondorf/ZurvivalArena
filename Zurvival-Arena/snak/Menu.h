@@ -6,7 +6,7 @@
 /*!
 * \brief Classe représentant le menu de demarage du jeu.
 *\file menu.h
-*\author Aynaou Dupont Fakir Bauwens
+*\author Aynaou Dupont Fakir Bauwens Temsamani
 */
 class Menu {
 public:
@@ -19,7 +19,8 @@ public:
 	Menu(float width, float height);
 	/*!
 	* \brief Dessine dans la fentre du jeu.
-	* \param la fenetre du jeu.
+	* \param width la fenetre du jeu.
+	*\param height la fenetre du jeu.
 	*/
 	void draws(sf::RenderWindow &window);
 	/*!
@@ -44,7 +45,7 @@ public:
 	sf::RenderWindow window;
 	/*!
 	* \brief Geteur d'un element du menu.
-	* \param nbMenu le nombre d'element dans le menu.
+	* \param id le nombre d'element dans le menu.
 	*/
 	inline sf::Text getMenu(int id) const;
 private:
