@@ -32,7 +32,7 @@ void Character::setSize(float f1, float f2) {
 }
 
 void Character::removePv(int damage) {
-	if (pv_ != 0) {
+	if (pv_ > 0) {
 		std::cout <<"pv : " << pv_ << std::endl;
 		pv_ -= damage;
 	}

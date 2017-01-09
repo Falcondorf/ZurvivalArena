@@ -81,7 +81,7 @@ void Enemy::functionMovingEnemies() {
 
 			for (int l = 0; l < game->getPlayers().size(); l++) {
 				if (game->intersects(getHitbox(), game->getPlayers().at(l).getHitbox())) {
-					game->removePvOfPlayer(1);
+					game->removePvOfPlayer(1,l);
 					sf::RectangleShape rce = game->getPlayers().at(l).getlifebar();
 					if (rce.getSize().x > 0) {
 						rce.setSize(sf::Vector2f(rce.getSize().x - 0.005, rce.getSize().y));

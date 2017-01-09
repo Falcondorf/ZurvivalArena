@@ -159,7 +159,7 @@ public:
 	* \brief  enlève des pv au joueur
 	* \param i l'identifiant du joueur qui perd des pv.
 	*/
-	void removePvOfPlayer(unsigned i);
+	void removePvOfPlayer(unsigned i,unsigned idPlayer);
 
 	/*!
 	* \brief  met à jour la barre de vie graphique du joueur (pour une eventuelle implémentation future)

@@ -224,8 +224,9 @@ void Game::slice(int idPlayer)
 	}
 }
 
-void Game::removePvOfPlayer(unsigned i) {
-	players_.at(0).removePv(i);
+void Game::removePvOfPlayer(unsigned i,unsigned idPlayer) {
+	players_.at(idPlayer).removePv(i);
+
 }
 void Game::setLifeBarOfPlayer(unsigned i, sf::RectangleShape rce) {
 	players_.at(i).setlifebar(rce);

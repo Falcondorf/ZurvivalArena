@@ -123,6 +123,17 @@ int main()
 					window4.display();
 				}
 			}
+			else {
+				if (game.getPlayers().at(0).getPv() < 1 && game.getPlayers().at(1).getPv() < 1) {
+					game.finishGame();
+					window4.setVisible(true);
+					sf::Texture texture;
+					texture.loadFromFile("fin.jpg");
+					sf::Sprite background(texture);
+					window4.draw(background);
+					window4.display();
+				}
+			}
 			window.clear();
 			window.draw(background3);
 			if (game.allEnemiesIsDead()) {
