@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.12"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>My Project:  Fichier source de Heroes.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">My Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- GÃ©nÃ©rÃ© par Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Heroes.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_heroes_8h.html">Aller Ã  la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_character_8h.html">character.h</a>&quot;</span></div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_zurvival_exception_8h.html">ZurvivalException.h</a>&quot;</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div><div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_heroes.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_heroes.html">Heroes</a> : <span class="keyword">public</span> <a class="code" href="class_character.html">Character</a></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div><div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_heroes.html#ae15a48bbe81c9ae2736d36b54c0727fc">   17</a></span>&#160;    <span class="keywordtype">unsigned</span> <a class="code" href="class_heroes.html#ae15a48bbe81c9ae2736d36b54c0727fc">num_</a>;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">inline</span> <a class="code" href="class_heroes.html#a92c0b6f9a3b4ae3e0c99b4c901b9924b">Heroes</a>(<a class="code" href="class_position.html">Position</a> pos, <span class="keywordtype">int</span> pv, <span class="keywordtype">unsigned</span> num);</div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div><div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_heroes.html#a92c0b6f9a3b4ae3e0c99b4c901b9924b">   30</a></span>&#160;<a class="code" href="class_heroes.html#a92c0b6f9a3b4ae3e0c99b4c901b9924b">Heroes::Heroes</a>(<a class="code" href="class_position.html">Position</a> pos, <span class="keywordtype">int</span> pv, <span class="keywordtype">unsigned</span> num) :<a class="code" href="class_character.html">Character</a>(pos, pv), <a class="code" href="class_heroes.html#ae15a48bbe81c9ae2736d36b54c0727fc">num_</a>(num) {</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="class_character.html#a127e02a10121a42c821bb266fc51875f">setPv</a>(10000);</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="class_character.html#ac5bb808a1bc3cb8dbcf398d4edbdb482">perso_</a> = <span class="keyword">new</span> sf::Texture();</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">switch</span> (num) {</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">case</span> 0:</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="class_character.html#ac5bb808a1bc3cb8dbcf398d4edbdb482">perso_</a>-&gt;loadFromFile(<span class="stringliteral">&quot;pics/jake2.png&quot;</span>)) {</div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordflow">throw</span> <a class="code" href="class_zurvival_exception.html">ZurvivalException</a>(<span class="stringliteral">&quot;error loading image&quot;</span>);</div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        }</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">break</span>;</div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">case</span> 1:</div><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="class_character.html#ac5bb808a1bc3cb8dbcf398d4edbdb482">perso_</a>-&gt;loadFromFile(<span class="stringliteral">&quot;pics/jake2.png&quot;</span>)) {</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">throw</span> <a class="code" href="class_zurvival_exception.html">ZurvivalException</a>(<span class="stringliteral">&quot;error loading image&quot;</span>);</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        }</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">break</span>;</div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="class_character.html#ab19aca204ea713cdd9cf84096b23fe6c">spritePerso_</a> = <span class="keyword">new</span> sf::Sprite();</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="class_character.html#ab19aca204ea713cdd9cf84096b23fe6c">spritePerso_</a>-&gt;setTexture(*<a class="code" href="class_character.html#ac5bb808a1bc3cb8dbcf398d4edbdb482">perso_</a>);</div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="class_character.html#ab19aca204ea713cdd9cf84096b23fe6c">spritePerso_</a>-&gt;setTextureRect(sf::IntRect(<a class="code" href="class_character.html#a0b12a6a9d9b6666642d18238533c2fa7">anim</a>.x * 56, <a class="code" href="class_character.html#a0b12a6a9d9b6666642d18238533c2fa7">anim</a>.y * 85, 56, 85));</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="class_character.html#ab19aca204ea713cdd9cf84096b23fe6c">spritePerso_</a>-&gt;setScale(sf::Vector2f(0.9, 0.5));</div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="class_character.html#a043a761cf76bb49fb5b2ef68101a7123">setPositionSprite</a>(<a class="code" href="class_character.html#a2fed976b8898b1ecb66ac83a37189ec9">getHitbox</a>().<a class="code" href="class_character.html#a8eae17ee51cc959284a9473b33081e3a">getPosition</a>());</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div><div class="ttc" id="class_character_html_a2fed976b8898b1ecb66ac83a37189ec9"><div class="ttname"><a href="class_character.html#a2fed976b8898b1ecb66ac83a37189ec9">Character::getHitbox</a></div><div class="ttdeci">const sf::RectangleShape &amp; getHitbox() const</div><div class="ttdoc">Accesseur de l&amp;#39;attribut privé hitbox_. </div><div class="ttdef"><b>Definition:</b> Character.h:203</div></div>
+<div class="ttc" id="_character_8h_html"><div class="ttname"><a href="_character_8h.html">Character.h</a></div><div class="ttdoc">Class qui un personnage qui bouge dans le jeu. </div></div>
+<div class="ttc" id="class_character_html_ac5bb808a1bc3cb8dbcf398d4edbdb482"><div class="ttname"><a href="class_character.html#ac5bb808a1bc3cb8dbcf398d4edbdb482">Character::perso_</a></div><div class="ttdeci">sf::Texture * perso_</div><div class="ttdoc">represente la texture d&amp;#39;un personnage. </div><div class="ttdef"><b>Definition:</b> Character.h:28</div></div>
+<div class="ttc" id="class_heroes_html_ae15a48bbe81c9ae2736d36b54c0727fc"><div class="ttname"><a href="class_heroes.html#ae15a48bbe81c9ae2736d36b54c0727fc">Heroes::num_</a></div><div class="ttdeci">unsigned num_</div><div class="ttdoc">identifiant du joueur </div><div class="ttdef"><b>Definition:</b> Heroes.h:17</div></div>
+<div class="ttc" id="class_zurvival_exception_html"><div class="ttname"><a href="class_zurvival_exception.html">ZurvivalException</a></div><div class="ttdef"><b>Definition:</b> ZurvivalException.h:11</div></div>
+<div class="ttc" id="class_character_html_a043a761cf76bb49fb5b2ef68101a7123"><div class="ttname"><a href="class_character.html#a043a761cf76bb49fb5b2ef68101a7123">Character::setPositionSprite</a></div><div class="ttdeci">void setPositionSprite(sf::Vector2f p)</div><div class="ttdoc">Setteur de l&amp;#39;attribut privé sprite_. </div><div class="ttdef"><b>Definition:</b> Character.h:235</div></div>
+<div class="ttc" id="class_character_html_ab19aca204ea713cdd9cf84096b23fe6c"><div class="ttname"><a href="class_character.html#ab19aca204ea713cdd9cf84096b23fe6c">Character::spritePerso_</a></div><div class="ttdeci">sf::Sprite * spritePerso_</div><div class="ttdoc">represente le sprite d&amp;#39;un personnage. </div><div class="ttdef"><b>Definition:</b> Character.h:32</div></div>
+<div class="ttc" id="class_heroes_html_a92c0b6f9a3b4ae3e0c99b4c901b9924b"><div class="ttname"><a href="class_heroes.html#a92c0b6f9a3b4ae3e0c99b4c901b9924b">Heroes::Heroes</a></div><div class="ttdeci">Heroes(Position pos, int pv, unsigned num)</div><div class="ttdoc">Constructeur de Heroes avec parametres. </div><div class="ttdef"><b>Definition:</b> Heroes.h:30</div></div>
+<div class="ttc" id="_zurvival_exception_8h_html"><div class="ttname"><a href="_zurvival_exception_8h.html">ZurvivalException.h</a></div><div class="ttdoc">Class qui contient les exception liée au jeu zurvival arena. </div></div>
+<div class="ttc" id="class_heroes_html"><div class="ttname"><a href="class_heroes.html">Heroes</a></div><div class="ttdef"><b>Definition:</b> Heroes.h:12</div></div>
+<div class="ttc" id="class_position_html"><div class="ttname"><a href="class_position.html">Position</a></div><div class="ttdef"><b>Definition:</b> Position.h:7</div></div>
+<div class="ttc" id="class_character_html_a8eae17ee51cc959284a9473b33081e3a"><div class="ttname"><a href="class_character.html#a8eae17ee51cc959284a9473b33081e3a">Character::getPosition</a></div><div class="ttdeci">const Position &amp; getPosition() const</div><div class="ttdoc">Accesseur de l&amp;#39;attribut privé position_. </div><div class="ttdef"><b>Definition:</b> Character.h:208</div></div>
+<div class="ttc" id="class_character_html_a0b12a6a9d9b6666642d18238533c2fa7"><div class="ttname"><a href="class_character.html#a0b12a6a9d9b6666642d18238533c2fa7">Character::anim</a></div><div class="ttdeci">sf::Vector2i anim</div><div class="ttdoc">represente l&amp;#39;orientation du personnage. </div><div class="ttdef"><b>Definition:</b> Character.h:24</div></div>
+<div class="ttc" id="class_character_html"><div class="ttname"><a href="class_character.html">Character</a></div><div class="ttdef"><b>Definition:</b> Character.h:18</div></div>
+<div class="ttc" id="class_character_html_a127e02a10121a42c821bb266fc51875f"><div class="ttname"><a href="class_character.html#a127e02a10121a42c821bb266fc51875f">Character::setPv</a></div><div class="ttdeci">void setPv(int pv)</div><div class="ttdoc">Setter permettant de mettre à jour l&amp;#39;attribut pv. </div><div class="ttdef"><b>Definition:</b> Character.h:262</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+GÃ©nÃ©rÃ© par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

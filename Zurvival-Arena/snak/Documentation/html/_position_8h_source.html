@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.12"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>My Project:  Fichier source de Position.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">My Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Position.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_position_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div><div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="class_position.html">    7</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_position.html">Position</a></div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">private</span>:</div><div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_position.html#ae4833d96ccddf339c68202e348c7829f">   13</a></span>&#160;    <span class="keywordtype">unsigned</span> <a class="code" href="class_position.html#ae4833d96ccddf339c68202e348c7829f">x_</a>;</div><div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_position.html#a530643ebb5602c6d63fff27de787864d">   17</a></span>&#160;    <span class="keywordtype">unsigned</span> <a class="code" href="class_position.html#a530643ebb5602c6d63fff27de787864d">y_</a>;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">inline</span> <a class="code" href="class_position.html#a369a577425f8ba02e8750d04b6a088db">Position</a>();</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">inline</span> <a class="code" href="class_position.html#a369a577425f8ba02e8750d04b6a088db">Position</a>(<span class="keywordtype">unsigned</span> x, <span class="keywordtype">unsigned</span> y);</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">unsigned</span> <a class="code" href="class_position.html#a98538b78e3f6f5c57a21f1c06a2d0af8">getX</a>() <span class="keyword">const</span>;</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">unsigned</span> <a class="code" href="class_position.html#a003c6c5902e926fe42d1fc86e108f809">getY</a>() <span class="keyword">const</span>;</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="class_position.html#a9e03059e740ab48c696cdb2f253021c7">setX</a>(<span class="keywordtype">unsigned</span> x);</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="class_position.html#a5eea5ddb8a178bacd0aba54b1024fd50">setY</a>(<span class="keywordtype">unsigned</span> y);</div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div><div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="class_position.html#a369a577425f8ba02e8750d04b6a088db">   52</a></span>&#160;<a class="code" href="class_position.html#a369a577425f8ba02e8750d04b6a088db">Position::Position</a>() :<a class="code" href="class_position.html#ae4833d96ccddf339c68202e348c7829f">x_</a>(0), <a class="code" href="class_position.html#a530643ebb5602c6d63fff27de787864d">y_</a>(0) {}</div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div><div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="class_position.html#a0044984d39c391777b14b5edcfa044ae">   54</a></span>&#160;<a class="code" href="class_position.html#a369a577425f8ba02e8750d04b6a088db">Position::Position</a>(<span class="keywordtype">unsigned</span> x, <span class="keywordtype">unsigned</span> y) : <a class="code" href="class_position.html#ae4833d96ccddf339c68202e348c7829f">x_</a>(x), <a class="code" href="class_position.html#a530643ebb5602c6d63fff27de787864d">y_</a>(y) {}</div><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div><div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="class_position.html#a98538b78e3f6f5c57a21f1c06a2d0af8">   56</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="class_position.html#a98538b78e3f6f5c57a21f1c06a2d0af8">Position::getX</a>()<span class="keyword"> const </span>{</div><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">return</span> this-&gt;<a class="code" href="class_position.html#ae4833d96ccddf339c68202e348c7829f">x_</a>;</div><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div><div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="class_position.html#a003c6c5902e926fe42d1fc86e108f809">   60</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="class_position.html#a003c6c5902e926fe42d1fc86e108f809">Position::getY</a>()<span class="keyword"> const </span>{</div><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">return</span> this-&gt;<a class="code" href="class_position.html#a530643ebb5602c6d63fff27de787864d">y_</a>;</div><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div><div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_position.html#a9e03059e740ab48c696cdb2f253021c7">   64</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_position.html#a9e03059e740ab48c696cdb2f253021c7">Position::setX</a>(<span class="keywordtype">unsigned</span> x) {</div><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    this-&gt;<a class="code" href="class_position.html#ae4833d96ccddf339c68202e348c7829f">x_</a> = x;</div><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div><div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="class_position.html#a5eea5ddb8a178bacd0aba54b1024fd50">   67</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_position.html#a5eea5ddb8a178bacd0aba54b1024fd50">Position::setY</a>(<span class="keywordtype">unsigned</span> y) {</div><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    this-&gt;<a class="code" href="class_position.html#a530643ebb5602c6d63fff27de787864d">y_</a> = y;</div><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div><div class="ttc" id="class_position_html_a5eea5ddb8a178bacd0aba54b1024fd50"><div class="ttname"><a href="class_position.html#a5eea5ddb8a178bacd0aba54b1024fd50">Position::setY</a></div><div class="ttdeci">void setY(unsigned y)</div><div class="ttdoc">Seter ordonn�e de la position du joueur. </div><div class="ttdef"><b>Definition:</b> Position.h:67</div></div>
+<div class="ttc" id="class_position_html_a98538b78e3f6f5c57a21f1c06a2d0af8"><div class="ttname"><a href="class_position.html#a98538b78e3f6f5c57a21f1c06a2d0af8">Position::getX</a></div><div class="ttdeci">unsigned getX() const</div><div class="ttdoc">Geteur de l abscisse de la position du joueur. </div><div class="ttdef"><b>Definition:</b> Position.h:56</div></div>
+<div class="ttc" id="class_position_html_a003c6c5902e926fe42d1fc86e108f809"><div class="ttname"><a href="class_position.html#a003c6c5902e926fe42d1fc86e108f809">Position::getY</a></div><div class="ttdeci">unsigned getY() const</div><div class="ttdoc">Geteur ordonn�e de la position du joueur. </div><div class="ttdef"><b>Definition:</b> Position.h:60</div></div>
+<div class="ttc" id="class_position_html_a9e03059e740ab48c696cdb2f253021c7"><div class="ttname"><a href="class_position.html#a9e03059e740ab48c696cdb2f253021c7">Position::setX</a></div><div class="ttdeci">void setX(unsigned x)</div><div class="ttdoc">Seter de l abscisse de la position du joueur. </div><div class="ttdef"><b>Definition:</b> Position.h:64</div></div>
+<div class="ttc" id="class_position_html"><div class="ttname"><a href="class_position.html">Position</a></div><div class="ttdef"><b>Definition:</b> Position.h:7</div></div>
+<div class="ttc" id="class_position_html_ae4833d96ccddf339c68202e348c7829f"><div class="ttname"><a href="class_position.html#ae4833d96ccddf339c68202e348c7829f">Position::x_</a></div><div class="ttdeci">unsigned x_</div><div class="ttdoc">L abscisse de la position. </div><div class="ttdef"><b>Definition:</b> Position.h:13</div></div>
+<div class="ttc" id="class_position_html_a369a577425f8ba02e8750d04b6a088db"><div class="ttname"><a href="class_position.html#a369a577425f8ba02e8750d04b6a088db">Position::Position</a></div><div class="ttdeci">Position()</div><div class="ttdoc">Constructeur de la classe position. </div><div class="ttdef"><b>Definition:</b> Position.h:52</div></div>
+<div class="ttc" id="class_position_html_a530643ebb5602c6d63fff27de787864d"><div class="ttname"><a href="class_position.html#a530643ebb5602c6d63fff27de787864d">Position::y_</a></div><div class="ttdeci">unsigned y_</div><div class="ttdoc">L ordonn�e de la position. </div><div class="ttdef"><b>Definition:</b> Position.h:17</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

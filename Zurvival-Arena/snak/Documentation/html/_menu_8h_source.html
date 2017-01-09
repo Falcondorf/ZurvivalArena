@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.12"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>My Project:  Fichier source de Menu.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">My Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Menu.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_menu_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;SFML\Graphics.hpp&gt;</span></div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div><div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="class_menu.html">   11</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_menu.html">Menu</a> {</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">public</span>:</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="class_menu.html#a8caa6100506d4b8e0d782e550dbc470e">Menu</a>(<span class="keywordtype">float</span> width, <span class="keywordtype">float</span> height);</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu.html#a8e04fe00415979069682e0a29b72ee5e">draws</a>(sf::RenderWindow &amp;window);</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu.html#acfb038bbd1050d6c55c86eec1f35dbdb">MoveUp</a>();</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_menu.html#a804da9a381bb6c633d5d2bc4f839ec62">MoveDown</a>();</div><div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="class_menu.html#a6cb35aed2a232dcc0859c3b4e419454c">   37</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_menu.html#a6cb35aed2a232dcc0859c3b4e419454c">getPressedItem</a>() { <span class="keywordflow">return</span> <a class="code" href="class_menu.html#a464ef16fd28c0df35ee1d9f78c0ef895">selectedItemIndex</a>; }</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="class_menu.html#a85c9f8ed3d29c36fe237da98f766372f">changernbMenu</a>(<span class="keywordtype">int</span> nbmenu);</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    sf::RenderWindow window;</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">inline</span> sf::Text <a class="code" href="class_menu.html#abb33a40abfd197de35320705ed12f5d8">getMenu</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">private</span>:</div><div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="class_menu.html#a464ef16fd28c0df35ee1d9f78c0ef895">   51</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_menu.html#a464ef16fd28c0df35ee1d9f78c0ef895">selectedItemIndex</a>;</div><div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="class_menu.html#a9446727ebf60c6063218b5d4bcae170a">   52</a></span>&#160;    sf::Font <a class="code" href="class_menu.html#a9446727ebf60c6063218b5d4bcae170a">font</a>;</div><div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="class_menu.html#a65cc02090e8210dc611bf3e8a0ecaff7">   53</a></span>&#160;    sf::Text <a class="code" href="class_menu.html#a65cc02090e8210dc611bf3e8a0ecaff7">menu</a>[5];</div><div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="class_menu.html#a9be54103b9d80fc96cdc15d29da244b8">   54</a></span>&#160;    sf::Texture <a class="code" href="class_menu.html#a9be54103b9d80fc96cdc15d29da244b8">texture</a>;</div><div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="class_menu.html#a64da78e44b2404149a391d7ac27dc9e8">   55</a></span>&#160;    sf::Sprite <a class="code" href="class_menu.html#a64da78e44b2404149a391d7ac27dc9e8">background</a>;</div><div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="class_menu.html#a3bd4382e60b2ad024966d16c04599469">   56</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_menu.html#a3bd4382e60b2ad024966d16c04599469">nbMenu</a>;</div><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;};</div><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div><div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="class_menu.html#abb33a40abfd197de35320705ed12f5d8">   59</a></span>&#160;sf::Text <a class="code" href="class_menu.html#abb33a40abfd197de35320705ed12f5d8">Menu::getMenu</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>)<span class="keyword"> const </span>{</div><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_menu.html#a65cc02090e8210dc611bf3e8a0ecaff7">menu</a>[id];</div><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div><div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="class_menu.html#a85c9f8ed3d29c36fe237da98f766372f">   63</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="class_menu.html#a85c9f8ed3d29c36fe237da98f766372f">Menu::changernbMenu</a>(<span class="keywordtype">int</span> nbmenu) {</div><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="class_menu.html#a3bd4382e60b2ad024966d16c04599469">nbMenu</a> = nbmenu;</div><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div><div class="ttc" id="class_menu_html_a8e04fe00415979069682e0a29b72ee5e"><div class="ttname"><a href="class_menu.html#a8e04fe00415979069682e0a29b72ee5e">Menu::draws</a></div><div class="ttdeci">void draws(sf::RenderWindow &amp;window)</div><div class="ttdoc">Dessine dans la fentre du jeu. </div><div class="ttdef"><b>Definition:</b> Menu.cpp:52</div></div>
+<div class="ttc" id="class_menu_html_a464ef16fd28c0df35ee1d9f78c0ef895"><div class="ttname"><a href="class_menu.html#a464ef16fd28c0df35ee1d9f78c0ef895">Menu::selectedItemIndex</a></div><div class="ttdeci">int selectedItemIndex</div><div class="ttdef"><b>Definition:</b> Menu.h:51</div></div>
+<div class="ttc" id="class_menu_html"><div class="ttname"><a href="class_menu.html">Menu</a></div><div class="ttdef"><b>Definition:</b> Menu.h:11</div></div>
+<div class="ttc" id="class_menu_html_a804da9a381bb6c633d5d2bc4f839ec62"><div class="ttname"><a href="class_menu.html#a804da9a381bb6c633d5d2bc4f839ec62">Menu::MoveDown</a></div><div class="ttdeci">void MoveDown()</div><div class="ttdoc">Permet de parcourir le menu vers le bas. </div><div class="ttdef"><b>Definition:</b> Menu.cpp:80</div></div>
+<div class="ttc" id="class_menu_html_a9be54103b9d80fc96cdc15d29da244b8"><div class="ttname"><a href="class_menu.html#a9be54103b9d80fc96cdc15d29da244b8">Menu::texture</a></div><div class="ttdeci">sf::Texture texture</div><div class="ttdef"><b>Definition:</b> Menu.h:54</div></div>
+<div class="ttc" id="class_menu_html_a85c9f8ed3d29c36fe237da98f766372f"><div class="ttname"><a href="class_menu.html#a85c9f8ed3d29c36fe237da98f766372f">Menu::changernbMenu</a></div><div class="ttdeci">void changernbMenu(int nbmenu)</div><div class="ttdoc">Permet de changer le nom d&amp;#39;element � parcourir dans le menu. </div><div class="ttdef"><b>Definition:</b> Menu.h:63</div></div>
+<div class="ttc" id="class_menu_html_a8caa6100506d4b8e0d782e550dbc470e"><div class="ttname"><a href="class_menu.html#a8caa6100506d4b8e0d782e550dbc470e">Menu::Menu</a></div><div class="ttdeci">Menu(float width, float height)</div><div class="ttdoc">Constructeur du Menu du jeu. </div><div class="ttdef"><b>Definition:</b> Menu.cpp:4</div></div>
+<div class="ttc" id="class_menu_html_a3bd4382e60b2ad024966d16c04599469"><div class="ttname"><a href="class_menu.html#a3bd4382e60b2ad024966d16c04599469">Menu::nbMenu</a></div><div class="ttdeci">int nbMenu</div><div class="ttdef"><b>Definition:</b> Menu.h:56</div></div>
+<div class="ttc" id="class_menu_html_a65cc02090e8210dc611bf3e8a0ecaff7"><div class="ttname"><a href="class_menu.html#a65cc02090e8210dc611bf3e8a0ecaff7">Menu::menu</a></div><div class="ttdeci">sf::Text menu[5]</div><div class="ttdef"><b>Definition:</b> Menu.h:53</div></div>
+<div class="ttc" id="class_menu_html_a9446727ebf60c6063218b5d4bcae170a"><div class="ttname"><a href="class_menu.html#a9446727ebf60c6063218b5d4bcae170a">Menu::font</a></div><div class="ttdeci">sf::Font font</div><div class="ttdef"><b>Definition:</b> Menu.h:52</div></div>
+<div class="ttc" id="class_menu_html_abb33a40abfd197de35320705ed12f5d8"><div class="ttname"><a href="class_menu.html#abb33a40abfd197de35320705ed12f5d8">Menu::getMenu</a></div><div class="ttdeci">sf::Text getMenu(int id) const</div><div class="ttdoc">Geteur d&amp;#39;un element du menu. </div><div class="ttdef"><b>Definition:</b> Menu.h:59</div></div>
+<div class="ttc" id="class_menu_html_a64da78e44b2404149a391d7ac27dc9e8"><div class="ttname"><a href="class_menu.html#a64da78e44b2404149a391d7ac27dc9e8">Menu::background</a></div><div class="ttdeci">sf::Sprite background</div><div class="ttdef"><b>Definition:</b> Menu.h:55</div></div>
+<div class="ttc" id="class_menu_html_acfb038bbd1050d6c55c86eec1f35dbdb"><div class="ttname"><a href="class_menu.html#acfb038bbd1050d6c55c86eec1f35dbdb">Menu::MoveUp</a></div><div class="ttdeci">void MoveUp()</div><div class="ttdoc">Permet de parcourir le menu vers le haut. </div><div class="ttdef"><b>Definition:</b> Menu.cpp:66</div></div>
+<div class="ttc" id="class_menu_html_a6cb35aed2a232dcc0859c3b4e419454c"><div class="ttname"><a href="class_menu.html#a6cb35aed2a232dcc0859c3b4e419454c">Menu::getPressedItem</a></div><div class="ttdeci">int getPressedItem()</div><div class="ttdoc">Permet de parcourir le menu vers le haut. </div><div class="ttdef"><b>Definition:</b> Menu.h:37</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

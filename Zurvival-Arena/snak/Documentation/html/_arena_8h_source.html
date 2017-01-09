@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.12"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>My Project:  Fichier source de Arena.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">My Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Arena.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_arena_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;SFML/Graphics.hpp&quot;</span></div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div><div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_arena.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_arena.html">Arena</a></div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">private</span>:</div><div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_arena.html#a4c4eb258853fcc534bfaaa8451f91642">   19</a></span>&#160;    <span class="keywordtype">unsigned</span> <a class="code" href="class_arena.html#a4c4eb258853fcc534bfaaa8451f91642">width_</a>;</div><div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_arena.html#a3c9c50a1453f35df855a3cd6f785ad70">   23</a></span>&#160;    <span class="keywordtype">unsigned</span> <a class="code" href="class_arena.html#a3c9c50a1453f35df855a3cd6f785ad70">height_</a>;</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div><div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_arena.html#a3594c8489d4aa8c899c74ab2bb9f14fc">   28</a></span>&#160;    std::vector&lt;sf::RectangleShape&gt; <a class="code" href="class_arena.html#a3594c8489d4aa8c899c74ab2bb9f14fc">obstacles_</a>;</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div><div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_arena.html#ab25b350d70a85e0b1275e8fa99d1638d">   33</a></span>&#160;    std::vector&lt;std::vector&lt;bool&gt;&gt; <a class="code" href="class_arena.html#ab25b350d70a85e0b1275e8fa99d1638d">tiles_</a>;</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">public</span>:</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="class_arena.html#a0cd404726701d8d6e3522e5fd420f83c">Arena</a>() = <span class="keywordflow">default</span>;</div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="class_arena.html#a0cd404726701d8d6e3522e5fd420f83c">Arena</a>(<span class="keywordtype">unsigned</span> width, <span class="keywordtype">unsigned</span> height);</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_arena.html#a6d3ec5f66ad498f07ecf8fe55facb2e8">isFree</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y);</div><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_arena.html#a4529ce9c48e9c5d510db954112bab955">setTiles</a>();</div><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">unsigned</span> <a class="code" href="class_arena.html#ad03dd7495ee4613729622f175f6e474e">getWidth</a>()<span class="keyword">const</span>;</div><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">unsigned</span> <a class="code" href="class_arena.html#aba7f9348303bbc26818223f1d72d2c7a">getHeight</a>() <span class="keyword">const</span>;</div><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">unsigned</span> <a class="code" href="class_arena.html#a7515940d9595273404f1ce38d388f7bc">getNbObstacles</a>() <span class="keyword">const</span>;</div><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span>  sf::RectangleShape &amp; <a class="code" href="class_arena.html#a13968170f942686fbc88b69bbf71b50e">getObstacle</a>(<span class="keywordtype">unsigned</span> index) <span class="keyword">const</span>;</div><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span>  std::vector&lt;std::vector&lt;bool&gt;&gt; &amp; <a class="code" href="class_arena.html#aaa2b30c813585ca8bbbfb246fb3f5056">getTiles</a>() <span class="keyword">const</span>;</div><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div><div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div><div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div><div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="class_arena.html#a7515940d9595273404f1ce38d388f7bc">   86</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="class_arena.html#a7515940d9595273404f1ce38d388f7bc">Arena::getNbObstacles</a>()<span class="keyword">const</span></div><div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keyword"></span>{</div><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_arena.html#a3594c8489d4aa8c899c74ab2bb9f14fc">obstacles_</a>.size();</div><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div><div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div><div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="class_arena.html#a13968170f942686fbc88b69bbf71b50e">   91</a></span>&#160;<span class="keyword">const</span> sf::RectangleShape  &amp; <a class="code" href="class_arena.html#a13968170f942686fbc88b69bbf71b50e">Arena::getObstacle</a>(<span class="keywordtype">unsigned</span> index)<span class="keyword"> const</span></div><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword"></span>{</div><div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_arena.html#a3594c8489d4aa8c899c74ab2bb9f14fc">obstacles_</a>[index];</div><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;}</div><div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div><div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="class_arena.html#ad03dd7495ee4613729622f175f6e474e">   96</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="class_arena.html#ad03dd7495ee4613729622f175f6e474e">Arena::getWidth</a>()<span class="keyword"> const </span>{</div><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_arena.html#a4c4eb258853fcc534bfaaa8451f91642">width_</a>;</div><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}</div><div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div><div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="class_arena.html#aba7f9348303bbc26818223f1d72d2c7a">  100</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="class_arena.html#aba7f9348303bbc26818223f1d72d2c7a">Arena::getHeight</a>()<span class="keyword"> const </span>{</div><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_arena.html#a3c9c50a1453f35df855a3cd6f785ad70">height_</a>;</div><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div><div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="class_arena.html#aaa2b30c813585ca8bbbfb246fb3f5056">  103</a></span>&#160;<span class="keyword">const</span> std::vector&lt;std::vector&lt;bool&gt;&gt; &amp; <a class="code" href="class_arena.html#aaa2b30c813585ca8bbbfb246fb3f5056">Arena::getTiles</a>()<span class="keyword">const </span>{</div><div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_arena.html#ab25b350d70a85e0b1275e8fa99d1638d">tiles_</a>;</div><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div><div class="ttc" id="class_arena_html_a4529ce9c48e9c5d510db954112bab955"><div class="ttname"><a href="class_arena.html#a4529ce9c48e9c5d510db954112bab955">Arena::setTiles</a></div><div class="ttdeci">void setTiles()</div><div class="ttdoc">permet d&amp;#39;initialiser la matrice d&amp;#39;accessiblit�. </div><div class="ttdef"><b>Definition:</b> Arena.cpp:83</div></div>
+<div class="ttc" id="class_arena_html_a13968170f942686fbc88b69bbf71b50e"><div class="ttname"><a href="class_arena.html#a13968170f942686fbc88b69bbf71b50e">Arena::getObstacle</a></div><div class="ttdeci">const sf::RectangleShape &amp; getObstacle(unsigned index) const</div><div class="ttdoc">Geteur d&amp;#39;un obstacle dans l&amp;#39;arene. </div><div class="ttdef"><b>Definition:</b> Arena.h:91</div></div>
+<div class="ttc" id="class_arena_html_a0cd404726701d8d6e3522e5fd420f83c"><div class="ttname"><a href="class_arena.html#a0cd404726701d8d6e3522e5fd420f83c">Arena::Arena</a></div><div class="ttdeci">Arena()=default</div><div class="ttdoc">Constructeur de Arena par defaut. </div></div>
+<div class="ttc" id="class_arena_html_ad03dd7495ee4613729622f175f6e474e"><div class="ttname"><a href="class_arena.html#ad03dd7495ee4613729622f175f6e474e">Arena::getWidth</a></div><div class="ttdeci">unsigned getWidth() const</div><div class="ttdoc">Geteur de la longueur de l&amp;#39;arene. </div><div class="ttdef"><b>Definition:</b> Arena.h:96</div></div>
+<div class="ttc" id="class_arena_html_a7515940d9595273404f1ce38d388f7bc"><div class="ttname"><a href="class_arena.html#a7515940d9595273404f1ce38d388f7bc">Arena::getNbObstacles</a></div><div class="ttdeci">unsigned getNbObstacles() const</div><div class="ttdoc">Geteur le nombre d&amp;#39;obstacle dans l&amp;#39;arene. </div><div class="ttdef"><b>Definition:</b> Arena.h:86</div></div>
+<div class="ttc" id="class_arena_html_ab25b350d70a85e0b1275e8fa99d1638d"><div class="ttname"><a href="class_arena.html#ab25b350d70a85e0b1275e8fa99d1638d">Arena::tiles_</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; bool &gt; &gt; tiles_</div><div class="ttdoc">Matrice boolean qui represente les obstacles. </div><div class="ttdef"><b>Definition:</b> Arena.h:33</div></div>
+<div class="ttc" id="class_arena_html_a3594c8489d4aa8c899c74ab2bb9f14fc"><div class="ttname"><a href="class_arena.html#a3594c8489d4aa8c899c74ab2bb9f14fc">Arena::obstacles_</a></div><div class="ttdeci">std::vector&lt; sf::RectangleShape &gt; obstacles_</div><div class="ttdoc">obstacles_ Les obstacles presents dans l&amp;#39;arene tels que les maisons,puits... </div><div class="ttdef"><b>Definition:</b> Arena.h:28</div></div>
+<div class="ttc" id="class_arena_html_a3c9c50a1453f35df855a3cd6f785ad70"><div class="ttname"><a href="class_arena.html#a3c9c50a1453f35df855a3cd6f785ad70">Arena::height_</a></div><div class="ttdeci">unsigned height_</div><div class="ttdoc">height La longueur de l&amp;#39;arene. </div><div class="ttdef"><b>Definition:</b> Arena.h:23</div></div>
+<div class="ttc" id="class_arena_html_a4c4eb258853fcc534bfaaa8451f91642"><div class="ttname"><a href="class_arena.html#a4c4eb258853fcc534bfaaa8451f91642">Arena::width_</a></div><div class="ttdeci">unsigned width_</div><div class="ttdoc">width La longueur de l&amp;#39;arene. </div><div class="ttdef"><b>Definition:</b> Arena.h:19</div></div>
+<div class="ttc" id="class_arena_html"><div class="ttname"><a href="class_arena.html">Arena</a></div><div class="ttdef"><b>Definition:</b> Arena.h:13</div></div>
+<div class="ttc" id="class_arena_html_a6d3ec5f66ad498f07ecf8fe55facb2e8"><div class="ttname"><a href="class_arena.html#a6d3ec5f66ad498f07ecf8fe55facb2e8">Arena::isFree</a></div><div class="ttdeci">bool isFree(float x, float y)</div><div class="ttdoc">Permet de savoir si une case est accessible. </div><div class="ttdef"><b>Definition:</b> Arena.cpp:108</div></div>
+<div class="ttc" id="class_arena_html_aba7f9348303bbc26818223f1d72d2c7a"><div class="ttname"><a href="class_arena.html#aba7f9348303bbc26818223f1d72d2c7a">Arena::getHeight</a></div><div class="ttdeci">unsigned getHeight() const</div><div class="ttdoc">Geteur de la hauteur de l&amp;#39;arene. </div><div class="ttdef"><b>Definition:</b> Arena.h:100</div></div>
+<div class="ttc" id="class_arena_html_aaa2b30c813585ca8bbbfb246fb3f5056"><div class="ttname"><a href="class_arena.html#aaa2b30c813585ca8bbbfb246fb3f5056">Arena::getTiles</a></div><div class="ttdeci">const std::vector&lt; std::vector&lt; bool &gt; &gt; &amp; getTiles() const</div><div class="ttdoc">Geteur de la matrice d&amp;#39;accessibilit� de l&amp;#39;arene. </div><div class="ttdef"><b>Definition:</b> Arena.h:103</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>
